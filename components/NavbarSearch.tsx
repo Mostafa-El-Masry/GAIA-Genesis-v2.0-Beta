@@ -29,12 +29,16 @@ export default function NavbarSearch({
   };
 
   return (
-    <form onSubmit={handleSearch} className="relative w-64">
-      <div className="relative flex items-center group">
-        <div className="absolute left-3 text-white group-hover:text-white transition-colors">
+    <form onSubmit={handleSearch} className="relative w-64 group">
+      <div className="relative flex items-center">
+        <div
+          className="absolute left-3 text-white/80 transition-all duration-300 
+                      group-focus-within:text-white group-focus-within:scale-110
+                      group-hover:text-white"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
+            className="h-5 w-5 transition-transform duration-300 group-focus-within:rotate-12"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -56,17 +60,22 @@ export default function NavbarSearch({
           className="w-full pl-10 pr-12 py-2 rounded-full
                    bg-white/10 border-2 border-white/50
                    text-sm text-white outline-none
-                   transition-all duration-200
+                   transition-all duration-300 ease-out
                    shadow-[0_0_10px_rgba(255,255,255,0.1)]
                    hover:border-white/70 hover:bg-white/15
                    focus:border-white/90 focus:bg-white/20 
-                   focus:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                   focus:shadow-[0_0_25px_rgba(255,255,255,0.25)]
+                   focus:scale-[1.02]
+                   group-focus-within:shadow-[0_0_30px_rgba(255,255,255,0.3)]"
         />
         <button
           type="submit"
-          className="absolute right-2 p-2 text-white 
-                     hover:text-white transition-colors
-                     rounded-full hover:bg-white/10"
+          className="absolute right-2 p-2 text-white/80 
+                     transition-all duration-300
+                     rounded-full hover:bg-white/10
+                     hover:text-white
+                     group-focus-within:text-white
+                     group-focus-within:scale-110"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
