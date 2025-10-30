@@ -1,4 +1,4 @@
-# Dashboard — tracker
+# ELEUTHIA — tracker
 
 - [ ] Folder created
 - [ ] Routes/pages listed

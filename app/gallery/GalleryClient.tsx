@@ -2,6 +2,7 @@
 
 import "./gallery.css";
 import { useEffect, useMemo, useRef, useState } from "react";
+import AppBar from "@/components/AppBar";
 import Featured from "@/components/gallery/Featured";
 import Grid from "@/components/gallery/Grid";
 import Lightbox from "@/components/gallery/Lightbox";
@@ -12,7 +13,7 @@ import {
 } from "@/components/gallery/prefs";
 import type { GalleryItem } from "@/components/gallery/types";
 import type { Mode } from "@/components/gallery/prefs";
-import { SearchGlyph, ClockGlyph } from "@/components/gallery/icons";
+import { ClockGlyph } from "@/components/gallery/icons";
 
 type ScanResp = { items: GalleryItem[] };
 
@@ -31,14 +32,13 @@ async function fetchManifest(): Promise<GalleryItem[]> {
 }
 
 export default function GalleryClient() {
-  const { mode, setMode, sort, setSort, query, setQuery } = usePrefs();
+  const { mode, setMode, sort, setSort, query } = usePrefs();
   const [items, setItems] = useState<GalleryItem[]>([]);
   const [openId, setOpenId] = useState<string | null>(null);
   const [viewsVersion, setViewsVersion] = useState(0);
   const [pendingFeaturedId, setPendingFeaturedId] = useState<string | null>(
     null
   );
-  const searchRef = useRef<HTMLInputElement>(null);
   const sortBtnRef = useRef<HTMLButtonElement>(null);
   const sortMenuRef = useRef<HTMLDivElement>(null);
   const [sortMenuOpen, setSortMenuOpen] = useState(false);
@@ -59,10 +59,7 @@ export default function GalleryClient() {
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (e.key === "/") {
-        e.preventDefault();
-        searchRef.current?.focus();
-      } else if (e.key.toLowerCase() === "g" && e.ctrlKey) {
+      if (e.key.toLowerCase() === "g" && e.ctrlKey) {
         e.preventDefault();
         window.location.href = "/";
       } else if (e.key.toLowerCase() === "s") {
@@ -208,88 +205,7 @@ export default function GalleryClient() {
       <div className="gallery-shell">
         <section className="gallery-hero">
           <div className="gallery-hero__copy">
-            <div className="gallery-search">
-              <button type="button" className="gallery-search__type">
-                <span className="gallery-search__type-icon">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path
-                      d="M17.5 15.8333H2.5C2.04167 15.8333 1.66667 15.4583 1.66667 15V5C1.66667 4.54167 2.04167 4.16667 2.5 4.16667H17.5C17.9583 4.16667 18.3333 4.54167 18.3333 5V15C18.3333 15.4583 17.9583 15.8333 17.5 15.8333ZM3.33333 14.1667H16.6667V5.83333H3.33333V14.1667ZM6.66667 12.5H4.16667V10.8333H6.66667V12.5ZM10 12.5H7.5V10.8333H10V12.5ZM13.3333 12.5H10.8333V10.8333H13.3333V12.5ZM15.8333 9.16667H4.16667V7.5H15.8333V9.16667Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </span>
-                Photos
-                <span className="gallery-search__type-caret">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path
-                      d="M4 6L8 10L12 6"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
-              </button>
-
-              <input
-                ref={searchRef}
-                type="search"
-                placeholder="Search for free photos"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onInput={(e) => setQuery(e.currentTarget.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") e.preventDefault();
-                }}
-                className="gallery-search__input"
-              />
-
-              <button
-                type="button"
-                className="gallery-search__submit"
-                onClick={() => searchRef.current?.focus()}
-                aria-label="Search gallery"
-              >
-                <SearchGlyph className="gallery-icon" />
-              </button>
-
-              <div className="gallery-search__panel">
-                <div className="gallery-search__section">
-                  <h3 className="gallery-search__section-title">
-                    Recent searches
-                  </h3>
-                  <div className="gallery-search__recents">
-                    <button
-                      type="button"
-                      className="gallery-search__recent-item"
-                    >
-                      <span className="gallery-search__recent-icon">
-                        <ClockGlyph />
-                      </span>
-                      Hi
-                    </button>
-                  </div>
-                </div>
-
-                <div className="gallery-search__section">
-                  <h3 className="gallery-search__section-title">Collections</h3>
-                  <div className="gallery-search__collections">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className="gallery-search__collection">
-                        <div className="gallery-search__collection-images"></div>
-                        <h4 className="gallery-search__collection-title">
-                          Nature
-                        </h4>
-                        <p className="gallery-search__collection-subtitle">
-                          1.2K photos
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+            <h2 className="text-2xl font-semibold">Gallery</h2>
           </div>
 
           <div className="gallery-featured">
@@ -361,7 +277,9 @@ export default function GalleryClient() {
                       }}
                     >
                       <span>{opt.label}</span>
-                      {active && <span className="sort-option__check">âœ“</span>}
+                      {active && (
+                        <span className="sort-option__check">âœ“</span>
+                      )}
                     </button>
                   );
                 })}
@@ -387,6 +305,3 @@ export default function GalleryClient() {
     </main>
   );
 }
-
-
-

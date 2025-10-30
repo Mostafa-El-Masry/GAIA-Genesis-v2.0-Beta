@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import AskPanel from "./components/AskPanel";
 import ArchiveSidebar from "./components/ArchiveSidebar";
-import SearchBox from "./components/SearchBox";
+import NavbarSearch from "@/components/NavbarSearch";
 import SectionEditor from "./components/SectionEditor";
 import SectionViewer from "./components/SectionViewer";
 import Toolbar from "./components/Toolbar";
@@ -115,7 +115,7 @@ export default function ApolloPage() {
               </h1>
             </div>
             <div className="w-full sm:max-w-sm">
-              <SearchBox
+              <NavbarSearch
                 value={query}
                 onChange={(value) => {
                   setQuery(value);

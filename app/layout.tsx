@@ -3,7 +3,8 @@
 import "../styles/global.css";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
-
+import AppBar from "@/components/AppBar";
+import { usePathname } from "next/navigation";
 
 function fromB64(s: string): ArrayBuffer {
   const binary = atob(s);
@@ -101,6 +102,9 @@ async function loadBackupFromPublic() {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
+  const pathname = usePathname();
+  const isIntroPage = pathname === "/";
+
   useEffect(() => {
     let alive = true;
   }, []);
@@ -120,16 +124,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="bg-white text-black font-sans">
-        {!ready ? (
-          <div className="grid min-h-[100svh] place-items-center">
-            <div className="text-center">
-              <div className="text-2xl font-extrabold tracking-wide">GAIA</div>
-              <div className="mt-2 text-sm opacity-60">Loading data…</div>
-            </div>
-          </div>
-        ) : (
-          children
-        )}
+        {ready ? (
+          <>
+            {!isIntroPage && <AppBar />}
+            {children}
+          </>
+        ) : null}
       </body>
     </html>
   );

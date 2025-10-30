@@ -13,8 +13,7 @@ import Link from "next/link";
  */
 export default function Intro() {
   const router = useRouter();
-  const [open, setOpen] = useState(false);
-  const [q, setQ] = useState("");
+  // search removed: no open state or query state
 
   const left = [
     { href: "/gallery", label: "Gallery" },
@@ -26,13 +25,9 @@ export default function Intro() {
     { href: "/wealth", label: "Wealth" },
     { href: "/labs", label: "Labs" },
     { href: "/dashboard", label: "Dashboard" },
-    { href: "/search", label: "Search" },
   ];
 
-  function submit() {
-    const query = q.trim();
-    router.push(query ? `/search?q=${encodeURIComponent(query)}` : "/search");
-  }
+  // search removed: submit no-op
 
   return (
     <main className="grid min-h-[100svh] place-items-center bg-white text-black p-6">
@@ -67,49 +62,9 @@ export default function Intro() {
               />
             </div>
 
-            {/* Glass chip search */}
-            <div
-              className="group relative flex w-full items-center gap-2 rounded-full border border-black/10 bg-white/10 p-3 backdrop-blur-lg transition-all duration-300 hover:border-black/20"
-              onMouseEnter={() => setOpen(true)}
-              onMouseLeave={() => {
-                if (!q) setOpen(false);
-              }}
-              onClick={() => setOpen(true)}
-            >
-              {/* Glass circle */}
-              <div className="grid h-12 w-12 place-items-center rounded-full border border-black/10 bg-white/20 backdrop-blur">
-                <span className="text-lg font-black tracking-tight">G</span>
-              </div>
-
-              {/* Expanding input */}
-              <div
-                className={
-                  "overflow-hidden transition-all duration-300 " +
-                  (open ? "w-full" : "w-0")
-                }
-              >
-                <input
-                  autoFocus={open}
-                  value={q}
-                  onChange={(e) => setQ(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") submit();
-                  }}
-                  placeholder="Search GAIA…"
-                  className="w-full rounded-full border border-black/10 bg-white/70 px-5 py-3 text-lg outline-none placeholder:text-black/50 focus:border-black/30"
-                />
-              </div>
-
-              {/* Submit */}
-              {open && (
-                <button
-                  onClick={submit}
-                  className="shrink-0 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm font-semibold hover:border-black/30"
-                  aria-label="Search"
-                >
-                  Go
-                </button>
-              )}
+            {/* Symbol only (search removed) */}
+            <div className="grid h-12 w-12 place-items-center rounded-full border border-black/10 bg-white/20 backdrop-blur">
+              <span className="text-lg font-black tracking-tight">G</span>
             </div>
           </div>
 
@@ -141,43 +96,9 @@ export default function Intro() {
             />
           </div>
 
-          <div
-            className="group relative flex w-full max-w-xl items-center gap-2 rounded-full border border-black/10 bg-white/10 p-3 backdrop-blur-lg transition-all duration-300 hover:border-black/20"
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => {
-              if (!q) setOpen(false);
-            }}
-            onClick={() => setOpen(true)}
-          >
-            <div className="grid h-12 w-12 place-items-center rounded-full border border-black/10 bg-white/20 backdrop-blur">
-              <span className="text-lg font-black tracking-tight">G</span>
-            </div>
-            <div
-              className={
-                "overflow-hidden transition-all duration-300 " +
-                (open ? "w-full" : "w-0")
-              }
-            >
-              <input
-                autoFocus={open}
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") submit();
-                }}
-                placeholder="Search GAIA…"
-                className="w-full rounded-full border border-black/10 bg-white/70 px-5 py-3 text-lg outline-none placeholder:text-black/50 focus:border-black/30"
-              />
-            </div>
-            {open && (
-              <button
-                onClick={submit}
-                className="shrink-0 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm font-semibold hover:border-black/30"
-                aria-label="Search"
-              >
-                Go
-              </button>
-            )}
+          {/* Search removed for mobile — symbol-only */}
+          <div className="grid h-12 w-12 place-items-center rounded-full border border-black/10 bg-white/20 backdrop-blur">
+            <span className="text-lg font-black tracking-tight">G</span>
           </div>
 
           <div className="grid w-full max-w-2xl grid-cols-2 gap-3">

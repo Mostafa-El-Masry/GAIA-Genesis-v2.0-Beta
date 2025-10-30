@@ -1,4 +1,4 @@
-# Dashboard — tracker
+# Gallery — tracker
 
 - [ ] Folder created
 - [ ] Routes/pages listed
