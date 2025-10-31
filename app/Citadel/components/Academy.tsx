@@ -7,14 +7,8 @@ import { concepts } from "../data/academy";
 import { readBuildNote, writeBuildNote, writeResult } from "../lib/academy";
 
 /**
- * Academy v1 (Week 5):
- * 1) choose concept (Tier 1 only for now)
- * 2) learn (short lesson)
- * 3) quiz (MCQ) — pass threshold to proceed
- * 4) build (notes link; persists locally)
- * 5) complete — unlocks corresponding Tower node
- *
- * Tailwind-first (no CSS files).
+ * Academy v1 (Week 5 + Week 6 niceties):
+ * - After finishing, a quick link to /Labs.
  */
 type Step = "choose" | "learn" | "quiz" | "build" | "done";
 
@@ -37,48 +31,45 @@ export default function Academy() {
   function startSelected(id: string) {
     setSelectedId(id);
     setStep("learn");
-          <div className="mt-6 flex items-center gap-3">
-            {step !== "choose" && step !== "done" && (
-              <Button
-                onClick={() => {
-                  if (step === "learn") setStep("choose");
-                  else if (step === "quiz") setStep("learn");
-                  else if (step === "build") setStep("quiz");
-                }}
-                className="opacity-75"
-              >
-                Back
-              </Button>
-            )}
+    setAnswers({});
+    setScore(null);
+  }
 
-            {step !== "done" && (
-              <Button
-                onClick={() => {
-                  if (!sel) return;
-                  if (step === "learn") setStep("quiz");
-                  else if (step === "quiz") {
-                    if (score === null) return;
-                    if (score >= passNeeded) setStep("build");
-                  }
-                  else if (step === "build") {
-                    writeResult({
-                      conceptId: sel.id,
-                      score: score || 0,
-                      total: sel.quiz.length,
-                      notes: note,
-                      completedAt: Date.now()
-                    });
-                    if (!isUnlocked(sel.nodeId)) {
-                      toggleNode(sel.nodeId, true);
-                    }
-                    setStep("done");
-                  }
-                }}
-                disabled={!canContinue}
-              >
-                {step === "learn" ? "Next" : step === "quiz" ? "Continue" : step === "build" ? "Finish" : "Continue"}
-              </Button>
-            )}
+  function grade() {
+    if (!sel) return;
+    let s = 0;
+    sel.quiz.forEach((q, i) => {
+      if (answers[i] === q.answer) s += 1;
+    });
+    setScore(s);
+    return s;
+  }
+
+  const passNeeded = sel ? Math.ceil(sel.quiz.length * 0.7) : 0;
+  const canContinue = step === "choose"
+    ? !!selectedId
+    : step === "learn"
+      ? true
+      : step === "quiz"
+        ? score !== null && sel && score >= passNeeded
+        : step === "build"
+          ? true
+          : true;
+
+  return (
+    <section className="space-y-6">
+      <header>
+        <h2 className="text-lg font-medium">Academy</h2>
+        <p className="mt-1 text-sm text-gray-600">Learn → quiz → build. Passing unlocks the matching node in the Tower.</p>
+      </header>
+
+      {step === "choose" && (
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {t1Concepts.map((c) => (
+            <button
+              key={c.id}
+              onClick={() => startSelected(c.id)}
+              className="rounded-md border border-gray-200 p-3 text-left transition hover:border-gray-300"
             >
               <div className="text-xs text-gray-500">{c.trackTitle} · Tier 1</div>
               <div className="mt-1 font-medium">{c.title}</div>
@@ -120,7 +111,9 @@ export default function Academy() {
                         <button
                           key={idx}
                           onClick={() => setAnswers(a => ({ ...a, [i]: idx }))}
-                          className={`rounded border px-3 py-2 text-left text-sm transition ${selected ? "border-gray-900 shadow-sm" : "border-gray-200 hover:border-gray-300"}`}
+                          className={`rounded border px-3 py-2 text-left text-sm transition ${
+                            selected ? "border-gray-900 shadow-sm" : "border-gray-200 hover:border-gray-300"
+                          }`}
                         >
                           {choice}
                         </button>
@@ -146,8 +139,7 @@ export default function Academy() {
           {step === "build" && (
             <div className="mt-4 space-y-3">
               <p className="text-sm text-gray-700">
-                Jot a tiny build plan or notes (e.g., “replace non-semantic wrappers with proper tags in Intro page”).
-                This is a placeholder for Week 6 auto-embed into Labs.
+                Paste a link to your private build (e.g., local dev server, Vercel preview, CodePen) anywhere in your notes below to embed it in Labs.
               </p>
               <textarea
                 className="w-full rounded-md border border-gray-300 p-3 text-sm focus:outline-none focus:ring focus:ring-gray-300"
@@ -157,16 +149,16 @@ export default function Academy() {
                   setNote(e.target.value);
                   writeBuildNote(sel.id, e.target.value);
                 }}
-                placeholder="Your build notes / link (optional)…"
+                placeholder="Your build notes + link (optional)…"
               />
-              <div className="text-xs text-gray-500">Saved locally; private by default.</div>
+              <div className="text-xs text-gray-500">Saved locally; private by default. First URL will be embedded in Labs.</div>
             </div>
           )}
 
           {step === "done" && (
             <div className="mt-4 space-y-2">
               <div className="text-green-700">Nice — this node is unlocked in your Tower.</div>
-              <div className="text-xs text-gray-500">You can retake later to improve your score.</div>
+              <a className="text-sm underline hover:no-underline" href="/Labs">View in Labs →</a>
             </div>
           )}
 
@@ -174,7 +166,7 @@ export default function Academy() {
             {step !== "choose" && step !== "done" && (
               <Button
                 onClick={() => {
-                  if (step == "learn") setStep("choose");
+                  if (step === "learn") setStep("choose");
                   else if (step === "quiz") setStep("learn");
                   else if (step === "build") setStep("quiz");
                 }}
@@ -188,22 +180,23 @@ export default function Academy() {
               <Button
                 onClick={() => {
                   if (!sel) return;
-                  if (step == "learn") setStep("quiz");
+                  if (step === "learn") setStep("quiz");
                   else if (step === "quiz") {
                     if (score === null) return;
                     if (score >= passNeeded) setStep("build");
-                  else if (step === "build") {
+                  } else if (step === "build") {
                     writeResult({
                       conceptId: sel.id,
-                      score: score || 0,
+                      score: score ?? 0,
                       total: sel.quiz.length,
                       notes: note,
-                      completedAt: Date.now()
+                      completedAt: Date.now(),
                     });
                     if (!isUnlocked(sel.nodeId)) {
                       toggleNode(sel.nodeId, true);
                     }
                     setStep("done");
+                  }
                 }}
                 disabled={!canContinue}
               >

@@ -5,18 +5,16 @@ import { useCitadelProgress } from "../lib/progress";
 import MiniMap from "./TowerMiniMap";
 
 /**
- * Tower v1 (Week 4)
- * - Tier gating: T2 requires T1, T3 requires T2, etc. (per track)
- * - Reveal hint: the first locked-but-unlockable node pulses to guide the user
- * - Tailwind-only (no CSS files)
+ * Tower v1 (Week 4 + Week 6 anchors)
+ * - Tier gating
+ * - Reveal hint on next unlockable
+ * - Each track has an anchor id for mini-map navigation
  */
 export default function Tower() {
   const { isUnlocked, toggleNode, countUnlocked } = useCitadelProgress();
 
   function canUnlock(trackId: string, tier: 1 | 2 | 3 | 4 | 5) {
-    // T1 is always unlockable
     if (tier === 1) return true;
-    // require all previous tiers in the same track to be unlocked
     for (let t = 1 as 1 | 2 | 3 | 4 | 5; t < tier; t = ((t + 1) as any)) {
       const id = `${trackId}-t${t}`;
       if (!isUnlocked(id)) return false;
@@ -38,11 +36,10 @@ export default function Tower() {
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
         {tracks.map((track) => {
-          // Find the first locked-but-unlockable node for the pulse effect
           const nextId = track.nodes.find((n) => !isUnlocked(n.id) && canUnlock(track.id, n.tier))?.id;
 
           return (
-            <div key={track.id} className="rounded-lg border border-gray-200 p-4">
+            <div key={track.id} id={`track-${track.id}`} className="rounded-lg border border-gray-200 p-4 scroll-mt-20">
               <div className="mb-3 flex items-center justify-between">
                 <h3 className="font-semibold">{track.title}</h3>
                 <span className="text-xs text-gray-500">
@@ -73,7 +70,6 @@ export default function Tower() {
                       <button
                         onClick={() => {
                           if (unlocked) {
-                            // allow re-lock for flexibility during development
                             toggleNode(node.id, false);
                           } else if (allowed) {
                             toggleNode(node.id, true);

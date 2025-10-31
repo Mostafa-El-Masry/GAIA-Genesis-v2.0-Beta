@@ -1,16 +1,15 @@
-# Citadel — tracker (Week 5 update)
+# Citadel — tracker (Week 6 integration update)
 
-**Route:** `/Citadel`
+**Routes:** `/Citadel`, `/Labs`
 
-**Week 5 changes**
-- `app/Citadel/components/Academy.tsx` — **UPDATED** to Academy v1 loop (learn → quiz → build → complete), unlocks Tower node on pass.
-- `app/Citadel/data/academy.ts` — **NEW** Tier 1 micro-concepts with short lessons and quizzes.
-- `app/Citadel/lib/academy.ts` — **NEW** Local-first storage for Academy results and build notes.
+**Week 6 changes**
+- `app/Citadel/components/Tower.tsx` — **UPDATED**: adds `id="track-<id>"` to each track panel for mini‑map navigation.
+- `app/Citadel/components/TowerMiniMap.tsx` — **UPDATED**: mini‑map squares are clickable and scroll to the corresponding track panel.
+- `app/Citadel/components/Academy.tsx` — **UPDATED**: shows a quick link to `/Labs` after finishing.
 
-**Existing (unchanged)**
-- `app/Citadel/components/Tower.tsx` (Week 4 gating + reveal)
-- `app/Citadel/components/TowerMiniMap.tsx`
-- `app/Citadel/components/CitadelClient.tsx`
-- `app/Citadel/page.tsx`
-- `app/Citadel/lib/progress.ts`
-- `app/Citadel/data/tracks.ts`
+**New feature: Labs**
+- `app/Labs/page.tsx` — Labs shell
+- `app/Labs/components/LabsClient.tsx` — lists completed Academy builds from local storage
+- `app/Labs/components/BuildCard.tsx` — shows embedded URL or notes
+- `app/Labs/lib/labs.ts` — reads Academy results/notes; parses first URL for embed
+- `app/Labs/tracker.md` — this file

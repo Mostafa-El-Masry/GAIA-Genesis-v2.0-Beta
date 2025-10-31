@@ -1,8 +1,13 @@
-﻿import ClientPage from "./ClientPage";
-
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+import LabsClient from "./components/LabsClient";
 
 export default function LabsPage() {
-  return <ClientPage />;
+  return (
+    <main className="mx-auto max-w-6xl px-4 py-8 space-y-6">
+      <header className="flex items-baseline justify-between">
+        <h1 className="text-2xl font-semibold">Labs</h1>
+        <p className="text-xs text-gray-500">Private builds from Academy</p>
+      </header>
+      <LabsClient />
+    </main>
+  );
 }

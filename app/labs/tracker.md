@@ -1,17 +1,13 @@
-# GAIA v1.3 — Week 6: Labs
-Route: /labs
+# Labs — tracker (Week 6)
 
-Components:
-- Controls.tsx — search, category toggles, sort
-- Card.tsx — project card with cover/title/tags/date/views + actions
-- ViewerDrawer.tsx — right-side drawer with iframe preview
+**Route:** `/Labs`
 
-Lib:
-- types.ts — LabProject types
-- store.ts — LocalStorage (projects), IndexedDB (covers), helpers
+**Files**
+- `app/Labs/page.tsx` — Page shell
+- `app/Labs/components/LabsClient.tsx` — Lists private builds from Academy
+- `app/Labs/components/BuildCard.tsx` — Renders embed/notes for each build
+- `app/Labs/lib/labs.ts` — Reads Academy results + notes from localStorage, parses first URL for embed
 
-Notes:
-- All client files start with 'use client' at the top.
-- Tailwind inline only (no extra CSS files).
-- Deep links: /labs?open=<slug> and /labs?new=1
-- “HTML starter” downloads a single index.html (place into /public/labs/<slug>/index.html and set path accordingly).
+**Notes**
+- Private by default; reads from local storage only.
+- If a note contains a URL, an iframe preview appears. Otherwise, the note text is shown.
