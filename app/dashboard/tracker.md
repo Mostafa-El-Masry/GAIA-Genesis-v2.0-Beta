@@ -1,15 +1,16 @@
-# GAIA v1.3 — Week 10: Dashboard
-Route: /dashboard
+# Dashboard — tracker (Week 10 polish)
 
-Files
-- app/dashboard/page.tsx — page shell (GAIA back button, cards, widgets, actions)
-- app/dashboard/components/OverviewCards.tsx — prefix-based snapshots
-- app/dashboard/components/QuickActions.tsx — links to key places
-- app/dashboard/widgets/WeightSpark.tsx — SVG sparkline from local data
-- app/dashboard/widgets/WealthSpark.tsx — SVG sparkline from local data
-- app/dashboard/widgets/ActivityFeed.tsx — recent updates across features
+**Route:** `/dashboard`
 
-Notes
-- All files start with 'use client'; Tailwind inline only.
-- Reads LocalStorage safely; missing data shows friendly empty states.
-- No global navbar; GAIA/G button top-left returns to '/'.
+**Files**
+- `app/dashboard/page.tsx` — Page shell (client-only render for live stats)
+- `app/dashboard/components/DashboardClient.tsx` — Sections container
+- `app/dashboard/components/Active.tsx` — Live stats: Citadel unlocks, last Academy score, Labs builds, ELEUTHIA vault presence
+- `app/dashboard/components/Entry.tsx` — Action cards linking to Citadel, Labs, ELEUTHIA, Settings, Gallery, Intro
+
+**Notes**
+- Tailwind-only (no CSS). Reads local-first state keys:
+  - `gaia.citadel.progress`
+  - `gaia.citadel.academy.results`
+  - `eleu.meta` / `eleu.vault` via `hasVault()`
+- Depends on Labs utils for build counting.
