@@ -5,19 +5,30 @@ import Button from "@/app/DesignSystem/components/Button";
 import { useCitadelProgress } from "../lib/progress";
 import { concepts } from "../data/academy";
 import { readBuildNote, writeBuildNote, writeResult } from "../lib/academy";
+import { listCustomConcepts } from "../lib/customConcepts";
 
 /**
- * Academy v1 (Week 5 + Week 6 niceties):
- * - After finishing, a quick link to /Labs.
+ * Academy (Week 14 update):
+ * - Merges built-in Tier‑1 concepts with user-added custom concepts from Archives.
  */
 type Step = "choose" | "learn" | "quiz" | "build" | "done";
 
 export default function Academy() {
   const { isUnlocked, toggleNode } = useCitadelProgress();
-  const t1Concepts = useMemo(() => concepts, []);
+
+  const [extras, setExtras] = useState<any[]>([]);
+  useEffect(() => {
+    function load() { setExtras(listCustomConcepts()); }
+    load();
+    function onAny() { load(); }
+    window.addEventListener("storage", onAny);
+    return () => window.removeEventListener("storage", onAny);
+  }, []);
+
+  const allConcepts = useMemo(() => [...concepts, ...extras], [extras]);
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const sel = t1Concepts.find(c => c.id === selectedId) || null;
+  const sel = allConcepts.find(c => c.id === selectedId) || null;
 
   const [step, setStep] = useState<Step>("choose");
   const [answers, setAnswers] = useState<Record<number, number | null>>({});
@@ -38,7 +49,7 @@ export default function Academy() {
   function grade() {
     if (!sel) return;
     let s = 0;
-    sel.quiz.forEach((q, i) => {
+    sel.quiz.forEach((q: any, i: number) => {
       if (answers[i] === q.answer) s += 1;
     });
     setScore(s);
@@ -60,12 +71,14 @@ export default function Academy() {
     <section className="space-y-6">
       <header>
         <h2 className="text-lg font-medium">Academy</h2>
-        <p className="mt-1 text-sm text-gray-600">Learn → quiz → build. Passing unlocks the matching node in the Tower.</p>
+        <p className="mt-1 text-sm text-gray-600">
+          Learn → quiz → build. Passing unlocks the matching node in the Tower. Items you add from Archives appear here.
+        </p>
       </header>
 
       {step === "choose" && (
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {t1Concepts.map((c) => (
+          {allConcepts.map((c) => (
             <button
               key={c.id}
               onClick={() => startSelected(c.id)}
@@ -92,7 +105,7 @@ export default function Academy() {
           {step === "learn" && (
             <div className="mt-4 space-y-4">
               <p className="text-sm leading-relaxed">{sel.lesson}</p>
-              <div className="text-xs text-gray-500">Tip: keep it short and focused; you’ll reinforce by building.</div>
+              <div className="text-xs text-gray-500">Tip: keep it short && focused; you’ll reinforce by building.</div>
               <div className="mt-4">
                 <Button onClick={() => setStep("quiz")}>Start quiz</Button>
               </div>
@@ -101,11 +114,11 @@ export default function Academy() {
 
           {step === "quiz" && (
             <div className="mt-4 space-y-4">
-              {sel.quiz.map((q, i) => (
+              {sel.quiz.map((q: any, i: number) => (
                 <div key={i} className="rounded-md border border-gray-200 p-3">
                   <div className="text-sm font-medium">{i + 1}. {q.q}</div>
                   <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                    {q.choices.map((choice, idx) => {
+                    {q.choices.map((choice: string, idx: number) => {
                       const selected = answers[i] === idx;
                       return (
                         <button
@@ -144,14 +157,13 @@ export default function Academy() {
               <textarea
                 className="w-full rounded-md border border-gray-300 p-3 text-sm focus:outline-none focus:ring focus:ring-gray-300"
                 rows={5}
-                value={note}
+                value={/* @ts-ignore */ sel._note ?? ""}
                 onChange={(e) => {
-                  setNote(e.target.value);
-                  writeBuildNote(sel.id, e.target.value);
+                  /* @ts-ignore */ sel._note = e.target.value;
                 }}
                 placeholder="Your build notes + link (optional)…"
               />
-              <div className="text-xs text-gray-500">Saved locally; private by default. First URL will be embedded in Labs.</div>
+              <div className="text-xs text-gray-500">Saved locally in the next step; first URL gets embedded in Labs.</div>
             </div>
           )}
 
@@ -189,7 +201,7 @@ export default function Academy() {
                       conceptId: sel.id,
                       score: score ?? 0,
                       total: sel.quiz.length,
-                      notes: note,
+                      notes: /* @ts-ignore */ sel._note ?? "",
                       completedAt: Date.now(),
                     });
                     if (!isUnlocked(sel.nodeId)) {
