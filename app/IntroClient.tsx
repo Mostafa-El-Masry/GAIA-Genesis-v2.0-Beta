@@ -48,16 +48,16 @@ export default function Intro() {
           </div>
 
           {/* Center: symbol */}
-          <div className="order-1 flex min-w-[260px] flex-col items-center gap-5 sm:order-2">
+          <div className="order-1 flex min-w-[260px] flex-col items-center justify-center gap-5 sm:order-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/gaia-intro.svg"
+              src="/gaia-intro-1.png"
               onError={(e) => {
                 const el = e.currentTarget as HTMLImageElement;
-                el.src = "/gaia-intro.png";
+                el.src = "/gaia-intro3.png";
               }}
               alt="GAIA"
-              className="h-16 w-auto"
+              className="h-36 w-auto sm:h-48 md:h-56 lg:h-64"
             />
             <div className="text-sm opacity-60">
               Use the search bar at the top to find anything in GAIA.
