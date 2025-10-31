@@ -1,23 +1,11 @@
-# Timeline — tracker
+# Timeline — tracker (Week 11)
 
-**Route:** `/timeline`
+**Route:** `/Timeline`
 
-## Files
-- `page.tsx` — main page; imports `FilterBar`, `EventForm`, `ImportExport`, `TimelineCanvas`; base styles: `styles/layout.css`.
-- `components/FilterBar.tsx` — zoom + layer toggles + sort; styles: `styles/filter-bar.css`.
-- `components/EventForm.tsx` — add instant/range events; styles: `styles/event-form.css`.
-- `components/ImportExport.tsx` — JSON export/import; styles: `styles/import-export.css`.
-- `components/TimelineCanvas.tsx` — horizontal track with boxes; styles: `styles/timeline-canvas.css`.
+**Files**
+- `app/Timeline/page.tsx` — Page shell (client for smooth scrolling & key nav)
+- `app/Timeline/components/VerticalTimeline.tsx` — Vertical timeline (top → bottom), sticky "Jump" list, j/k navigation
+- `app/Timeline/data/events.ts` — Sample events (replace with real data later)
 
-## Lib
-- `lib/types.ts` — event and prefs types.
-- `lib/store.ts` — localStorage load/save, add/remove, import/export.
-- `lib/scale.ts` — year→percentage mapping + zoom domains.
-
-## Where referenced
-- Each component imports its own CSS file.
-- `page.tsx` imports `./styles/layout.css` (top of file).
-
-## Local storage keys
-- `gaia_timeline_v1_events`
-- `gaia_timeline_v1_prefs`
+**Notes**
+- Tailwind-only. The vertical line is a 1px absolute div; items indent with a dot per event.

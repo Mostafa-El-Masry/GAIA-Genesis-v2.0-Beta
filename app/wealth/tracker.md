@@ -1,6 +1,10 @@
-# GAIA v1.3 — Week 6: Wealth (Updated)
-- Centralized Sync/Backup -> **/sync**. Removed Wealth page Export/Import.
-- Keep: Simulator (Plans A/B, reinvest after 7y, min reinvest 1,000 EGP), WealthLevels.
+# Wealth — tracker (Week 11)
 
-Files affected:
-- app/wealth/page.tsx — removed <ExportImport /> and its import.
+**Route:** `/Wealth`
+
+**Files**
+- `app/Wealth/page.tsx` — Page shell with a demo series
+- `app/Wealth/components/WealthBars.tsx` — Bars with exponential height scaling (k=1.8 default)
+
+**Notes**
+- Tailwind-only. Replace demo data with your real savings/projections when ready.
