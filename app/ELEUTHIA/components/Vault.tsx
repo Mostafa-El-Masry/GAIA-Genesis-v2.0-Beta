@@ -6,6 +6,7 @@ import type { EleuEntry, EleuVault } from "../types";
 import { encryptJSON, decryptJSON } from "../lib/crypto";
 import { writeVaultCipher, readVaultCipher } from "../lib/storage";
 import { uid } from "../lib/uid";
+import ImportChrome from "./ImportChrome";
 
 function copy(text: string) {
   try { navigator.clipboard.writeText(text); } catch {}
@@ -17,25 +18,46 @@ type Props = {
   onLock: () => void;
 };
 
+function hostname(url?: string) {
+  try { return url ? new URL(url).hostname : ""; } catch { return ""; }
+}
+
 export default function Vault({ cryptoKey, initial, onLock }: Props) {
   const [vault, setVault] = useState<EleuVault>(initial);
   const [q, setQ] = useState("");
   const [editing, setEditing] = useState<EleuEntry | null>(null);
+  const [site, setSite] = useState<string>("all");
+  const [onlyPw, setOnlyPw] = useState<boolean>(false);
 
   async function persist(next: EleuVault) {
     const payload = await encryptJSON(cryptoKey, next);
     writeVaultCipher(payload);
   }
 
+  function allSites() {
+    const s = new Set<string>();
+    vault.entries.forEach(e => { const h = hostname(e.url); if (h) s.add(h); });
+    return ["all", ...Array.from(s).sort()];
+  }
+
   function filtered(entries: EleuEntry[]) {
-    if (!q.trim()) return entries;
-    const s = q.toLowerCase();
-    return entries.filter((e) =>
-      (e.title && e.title.toLowerCase().includes(s)) ||
-      (e.username && e.username.toLowerCase().includes(s)) ||
-      (e.url && e.url.toLowerCase().includes(s)) ||
-      (e.notes && e.notes.toLowerCase().includes(s))
-    );
+    let list = entries;
+    if (q.trim()) {
+      const s = q.toLowerCase();
+      list = list.filter((e) =>
+        (e.title && e.title.toLowerCase().includes(s)) ||
+        (e.username && e.username.toLowerCase().includes(s)) ||
+        (e.url && e.url.toLowerCase().includes(s)) ||
+        (e.notes && e.notes.toLowerCase().includes(s))
+      );
+    }
+    if (site !== "all") {
+      list = list.filter(e => hostname(e.url) === site);
+    }
+    if (onlyPw) {
+      list = list.filter(e => !!e.password);
+    }
+    return list;
   }
 
   async function saveEntry(e: EleuEntry) {
@@ -46,6 +68,14 @@ export default function Vault({ cryptoKey, initial, onLock }: Props) {
     setVault(next);
     await persist(next);
     setEditing(null);
+  }
+
+  async function importEntries(entries: EleuEntry[]) {
+    if (!entries.length) return;
+    const list = [...entries, ...vault.entries];
+    const next = { entries: list, updatedAt: Date.now() };
+    setVault(next);
+    await persist(next);
   }
 
   function onExport() {
@@ -59,60 +89,58 @@ export default function Vault({ cryptoKey, initial, onLock }: Props) {
     URL.revokeObjectURL(a.href);
   }
 
-  const fileRef = useRef<HTMLInputElement>(null);
-  function onImportClick() {
-    fileRef.current?.click();
-  }
-  async function onImportFile(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    try {
-      const text = await file.text();
-      const payload = JSON.parse(text);
-      // validate shape
-      if (!payload.iv || !payload.ct) throw new Error("Invalid file");
-      // quick decrypt test
-      const v = await decryptJSON<EleuVault>(cryptoKey, payload);
-      setVault(v);
-      writeVaultCipher(payload);
-    } catch (err) {
-      alert("Import failed (wrong file or passphrase).");
-    } finally {
-      e.target.value = "";
-    }
-  }
-
-  const entries = useMemo(() => filtered(vault.entries), [vault.entries, q]);
+  const entries = useMemo(() => filtered(vault.entries), [vault.entries, q, site, onlyPw]);
+  const sites = useMemo(() => allSites(), [vault.entries]);
 
   return (
     <div className="space-y-6">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-semibold">ELEUTHIA</h2>
-          <p className="text-xs text-gray-500">Zero-knowledge · local-first · AES‑GCM 256</p>
+          <p className="text-xs text-gray-500">Zero-knowledge · local-first · AES-GCM 256</p>
         </div>
-        <div className="flex items-center gap-2">
-          <Button onClick={onExport}>Export (encrypted)</Button>
-          <Button onClick={onImportClick} className="opacity-90">Import (encrypted)</Button>
-          <input ref={fileRef} type="file" accept="application/json" className="hidden" onChange={onImportFile} />
+        <div className="flex flex-wrap items-center gap-2">
+          <ImportChrome onImport={importEntries} />
+          <Button onClick={onExport} className="opacity-90">Export (encrypted)</Button>
+          <a href="/ELEUTHIA/Backups" className="text-sm underline hover:no-underline">Backups →</a>
           <Button onClick={onLock} className="opacity-75">Lock</Button>
         </div>
       </header>
 
-      <div className="flex items-center gap-2">
-        <input
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="Search…"
-          className="w-full max-w-sm rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
-        />
+      <div className="flex flex-wrap items-end gap-2">
+        <label className="text-sm">
+          Search
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="title, user, url…"
+            className="mt-1 block w-64 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
+          />
+        </label>
+        <label className="text-sm">
+          Site
+          <select
+            value={site}
+            onChange={(e) => setSite(e.target.value)}
+            className="mt-1 block w-56 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
+          >
+            {sites.map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+        </label>
+        <label className="inline-flex items-center gap-2 text-sm">
+          <input type="checkbox" checked={onlyPw} onChange={(e) => setOnlyPw(e.target.checked)} />
+          Has password
+        </label>
+        <Button onClick={() => { setQ(""); setSite("all"); setOnlyPw(false); }} className="opacity-75">Reset</Button>
         <Button onClick={() => setEditing({ id: uid("e"), title: "", username: "", password: "", url: "", notes: "", updatedAt: Date.now() })}>
           Add entry
         </Button>
       </div>
 
       {entries.length === 0 ? (
-        <div className="rounded border border-gray-200 p-6 text-center text-sm text-gray-600">No entries yet.</div>
+        <div className="rounded border border-gray-200 p-6 text-center text-sm text-gray-600">No entries match.</div>
       ) : (
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {entries.map((e) => (

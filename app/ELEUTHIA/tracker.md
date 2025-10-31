@@ -1,18 +1,16 @@
-# ELEUTHIA — tracker (Week 7 foundation)
+# ELEUTHIA — tracker (Week 8 features)
 
-**Route:** `/ELEUTHIA`
+**Routes:** `/ELEUTHIA`, `/ELEUTHIA/Backups`
 
-**Files**
-- `app/ELEUTHIA/page.tsx` — Page shell
-- `app/ELEUTHIA/components/EleuthiaClient.tsx` — Main controller (locked ↔ unlocked)
-- `app/ELEUTHIA/components/Unlock.tsx` — Create/Unlock UI (PBKDF2 + AES‑GCM setup)
-- `app/ELEUTHIA/components/Vault.tsx` — Encrypted entries list, add/edit, search, export/import (encrypted)
-- `app/ELEUTHIA/lib/crypto.ts` — WebCrypto helpers (deriveKey, encryptJSON, decryptJSON)
-- `app/ELEUTHIA/lib/storage.ts` — Local storage I/O (`eleu.meta`, `eleu.vault`)
-- `app/ELEUTHIA/lib/uid.ts` — Simple id helper
-- `app/ELEUTHIA/types.ts` — Entry & Vault types
+**New**
+- `app/ELEUTHIA/Backups/page.tsx` — Backups inside ELEUTHIA (encrypted export/import + local snapshots)
+- `app/ELEUTHIA/Backups/components/BackupsClient.tsx`
+- `app/ELEUTHIA/lib/snapshots.ts` — snapshot utilities
+- `app/ELEUTHIA/components/ImportChrome.tsx` — Chrome CSV import helper
+
+**Updated**
+- `app/ELEUTHIA/components/Vault.tsx` — search refinements (site filter, has-password), Import Chrome CSV button, link to Backups
 
 **Notes**
-- Zero-knowledge: only encrypted payload is stored.
-- Local-first: all data lives in the browser; plaintext exists only in memory.
-- Export/Import: encrypted JSON only (no plaintext exports). CSV/Chrome import lands in Week 8.
+- Import supports typical Chrome CSV headers; fields are mapped to title/url/username/password.
+- Backups are encrypted-only; plaintext export is intentionally not implemented.
