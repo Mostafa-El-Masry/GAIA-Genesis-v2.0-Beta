@@ -1,15 +1,11 @@
-# GAIA v1.3 — Week 11: Settings (with Backup)
-Route: /settings
+# Settings — tracker
 
-Structure
-- sections/ThemeCard.tsx — theme, accent, scale, density, glass
-- sections/SceneCard.tsx — landing page, intro style
-- sections/AccessibilityCard.tsx — reduce motion, contrast, underline links
-- sections/PrivacyCard.tsx — 4-digit lock PIN
-- sections/DefaultsCard.tsx — reset settings
-- sections/BackupPanel.tsx — integrates Export/Import
-- sync/lib/* and sync/components/* — backup internals (moved from /sync)
+Files in this feature:
 
-Notes
-- All TSX start with 'use client'; Tailwind inline only.
-- Legacy /sync route now redirects to /settings#backup.
+- `app/Settings/page.tsx` — Per-user Settings UI (Theme + primitives baseline)
+- `app/Settings/components/ThemePicker.tsx` — Theme selection (localStorage + data-theme)
+- `app/Settings/components/PrimitivesPicker.tsx` — Shows baseline Button/Search primitives
+
+References in other features:
+- `app/layout.tsx` — wraps the app with `ThemeRoot` (DesignSystem) for theme application
+- `app/components/AppBar.tsx` — uses `SearchInput` from DesignSystem
