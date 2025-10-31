@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 /**
@@ -11,6 +12,11 @@ import { useState } from "react";
  */
 export default function AppBar() {
   const [q, setQ] = useState("");
+  const pathname = usePathname();
+  const hideSearch = pathname === "/";
+
+  // Hide the entire AppBar on the Intro page
+  if (pathname === "/") return null;
 
   function submit() {
     const val = q.trim();
@@ -41,29 +47,33 @@ export default function AppBar() {
           <span className="sr-only">GAIA Home</span>
         </Link>
 
-        {/* Center: global Search (controlled, no dedicated page) */}
-        <div className="mx-2 flex-1">
-          <div className="relative">
-            <input
-              type="search"
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") submit();
-              }}
-              placeholder="Search GAIA…"
-              className="h-10 w-full rounded-full border border-black/10 bg-white/60 px-4 outline-none placeholder:text-black/50 focus:border-black/30"
-            />
-            {/* Optional: submit button visible to a11y only */}
-            <button
-              onClick={submit}
-              className="absolute right-1 top-1 hidden h-8 rounded-full px-3 text-sm"
-              aria-label="Search"
-            >
-              Go
-            </button>
+        {/* Center: global Search (controlled, no dedicated page) - hidden on Intro (/) */}
+        {!hideSearch ? (
+          <div className="mx-2 flex-1">
+            <div className="relative">
+              <input
+                type="search"
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") submit();
+                }}
+                placeholder="Search GAIA…"
+                className="h-10 w-full rounded-full border border-black/10 bg-white/60 px-4 outline-none placeholder:text-black/50 focus:border-black/30"
+              />
+              {/* Optional: submit button visible to a11y only */}
+              <button
+                onClick={submit}
+                className="absolute right-1 top-1 hidden h-8 rounded-full px-3 text-sm"
+                aria-label="Search"
+              >
+                Go
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="mx-2 flex-1" />
+        )}
       </div>
     </header>
   );

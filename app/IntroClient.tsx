@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 /**
  * Intro v3.0 (Phase 5 · Week 1)
@@ -30,77 +31,58 @@ export default function Intro() {
     { href: "/goodbye", label: "Goodbye" },
   ];
 
+  const [radius, setRadius] = useState<number>(180);
+
+  useEffect(() => {
+    function update() {
+      const w = window.innerWidth;
+      if (w < 640) setRadius(140);
+      else if (w < 1024) setRadius(200);
+      else setRadius(320);
+    }
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
   return (
-    <main className="grid min-h-[100svh] place-items-center px-4">
+    <main className="fixed inset-0 grid place-items-center px-4">
       <div className="w-full max-w-5xl">
-        <div className="grid items-center gap-6 sm:grid-cols-3">
-          {/* Left 4 links */}
-          <div className="order-3 grid gap-3 sm:order-1">
-            {left.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="block rounded-xl border border-black/10 bg-white/30 p-3 text-center backdrop-blur transition hover:shadow-md active:scale-[.99]"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Center: symbol */}
-          <div className="order-1 flex min-w-[260px] flex-col items-center justify-center gap-5 sm:order-2">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/gaia-intro-1.png"
-              onError={(e) => {
-                const el = e.currentTarget as HTMLImageElement;
-                el.src = "/gaia-intro3.png";
-              }}
-              alt="GAIA"
-              className="h-36 w-auto sm:h-48 md:h-56 lg:h-64"
-            />
-            <div className="text-sm opacity-60">
-              Use the search bar at the top to find anything in GAIA.
+        <div className="grid items-center">
+          {/* Circular layout: render the 8 main links around the central logo */}
+          <div className="relative mx-auto w-full max-w-3xl h-[380px] sm:h-[480px] lg:h-[min(720px,calc(100vh-80px))]">
+            {/* Center logo */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/gaia-intro-1.png"
+                onError={(e) => {
+                  const el = e.currentTarget as HTMLImageElement;
+                  el.src = "/gaia-intro3.png";
+                }}
+                alt="GAIA"
+                className="h-36 w-auto sm:h-48 md:h-56 lg:h-64"
+              />
             </div>
-          </div>
 
-          {/* Right 4 links */}
-          <div className="order-2 grid gap-3 sm:order-3">
-            {right.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="block rounded-xl border border-black/10 bg-white/30 p-3 text-center backdrop-blur transition hover:shadow-md active:scale-[.99]"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        {/* Footer mini-links */}
-        <div className="mt-6 text-center text-xs opacity-50">
-          <a className="underline" href="/settings#backup">
-            Settings + Backup
-          </a>
-          <br />
-          <a className="underline" href="/interlog">
-            Introduction
-          </a>
-        </div>
-        {/* More links (additional app sections not present in the main 8 links) */}
-        <div className="mt-6 text-center text-sm opacity-90">
-          <div className="mb-3 text-xs uppercase tracking-wide">More</div>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            {more.map((m) => (
-              <Link
-                key={m.href}
-                href={m.href}
-                className="block rounded-xl border border-black/10 bg-white/30 p-3 text-center backdrop-blur transition hover:shadow-md active:scale-[.99]"
-              >
-                {m.label}
-              </Link>
-            ))}
+            {/* Links positioned around the circle */}
+            {(() => {
+              const items = [...left, ...right, ...more];
+              return items.map((l, i) => {
+                const angle = (i / items.length) * 360;
+                const transform = `translate(-50%,-50%) rotate(${angle}deg) translate(0,-${radius}px) rotate(-${angle}deg)`;
+                return (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className="absolute left-1/2 top-1/2 block rounded-xl border border-black/10 bg-white/30 p-2 px-4 text-center backdrop-blur transition hover:shadow-md active:scale-[.99]"
+                    style={{ transform }}
+                  >
+                    {l.label}
+                  </Link>
+                );
+              });
+            })()}
           </div>
         </div>
       </div>
