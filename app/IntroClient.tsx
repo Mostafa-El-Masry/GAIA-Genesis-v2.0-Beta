@@ -21,6 +21,14 @@ export default function Intro() {
     { href: "/dashboard", label: "Dashboard" },
     { href: "/interlog", label: "Intro" },
   ];
+  const more = [
+    { href: "/Archives", label: "Archives" },
+    { href: "/Citadel", label: "Citadel" },
+    { href: "/media-tools", label: "Media Tools" },
+    { href: "/sync", label: "Sync" },
+    { href: "/settings", label: "Settings" },
+    { href: "/goodbye", label: "Goodbye" },
+  ];
 
   return (
     <main className="grid min-h-[100svh] place-items-center px-4">
@@ -79,6 +87,21 @@ export default function Intro() {
           <a className="underline" href="/interlog">
             Introduction
           </a>
+        </div>
+        {/* More links (additional app sections not present in the main 8 links) */}
+        <div className="mt-6 text-center text-sm opacity-90">
+          <div className="mb-3 text-xs uppercase tracking-wide">More</div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {more.map((m) => (
+              <Link
+                key={m.href}
+                href={m.href}
+                className="block rounded-xl border border-black/10 bg-white/30 p-3 text-center backdrop-blur transition hover:shadow-md active:scale-[.99]"
+              >
+                {m.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </main>
