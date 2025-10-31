@@ -1,14 +1,16 @@
-# Citadel — tracker (Week 3 foundation → Week 4 update)
+# Citadel — tracker (Week 5 update)
 
 **Route:** `/Citadel`
 
-**Week 4 changes**
-- `app/Citadel/components/Tower.tsx` — **UPDATED**: tier gating (T2→T5 require prior tiers within the same track) + reveal pulse on next unlockable node. Tailwind-only.
+**Week 5 changes**
+- `app/Citadel/components/Academy.tsx` — **UPDATED** to Academy v1 loop (learn → quiz → build → complete), unlocks Tower node on pass.
+- `app/Citadel/data/academy.ts` — **NEW** Tier 1 micro-concepts with short lessons and quizzes.
+- `app/Citadel/lib/academy.ts` — **NEW** Local-first storage for Academy results and build notes.
 
-**Week 3 files (unchanged)**
-- `app/Citadel/page.tsx`
-- `app/Citadel/components/CitadelClient.tsx`
+**Existing (unchanged)**
+- `app/Citadel/components/Tower.tsx` (Week 4 gating + reveal)
 - `app/Citadel/components/TowerMiniMap.tsx`
-- `app/Citadel/components/Academy.tsx`
-- `app/Citadel/lib/progress.ts` — local-first progress store
-- `app/Citadel/data/tracks.ts` — 8 tracks × 5 tiers data
+- `app/Citadel/components/CitadelClient.tsx`
+- `app/Citadel/page.tsx`
+- `app/Citadel/lib/progress.ts`
+- `app/Citadel/data/tracks.ts`
