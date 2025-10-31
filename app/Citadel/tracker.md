@@ -1,19 +1,14 @@
-# Citadel — tracker (Week 3 foundation)
+# Citadel — tracker (Week 3 foundation → Week 4 update)
 
 **Route:** `/Citadel`
 
-**Files**
-- `app/Citadel/page.tsx` — Page shell for Citadel
-- `app/Citadel/components/CitadelClient.tsx` — Client tabs (Tower/Academy)
-- `app/Citadel/components/Tower.tsx` — Visual tree by tracks (8 × 5)
-- `app/Citadel/components/TowerMiniMap.tsx` — 8×5 mini-map
-- `app/Citadel/components/Academy.tsx` — Session skeleton (Tier 1 picker, unlock placeholder)
-- `app/Citadel/lib/progress.ts` — Local-first progress store (`gaia.citadel.progress`)
-- `app/Citadel/data/tracks.ts` — 8 tracks × 5 tiers data
+**Week 4 changes**
+- `app/Citadel/components/Tower.tsx` — **UPDATED**: tier gating (T2→T5 require prior tiers within the same track) + reveal pulse on next unlockable node. Tailwind-only.
 
-**Integration**
-- Uses Design System `Button` and global `SearchInput` (already in AppBar)
-- No CSS files; Tailwind-only, per Phase 5 rule
-- Emits events:
-  - `gaia:citadel:progress` on unlock toggle
-  - `gaia:citadel:session` when a skeleton session completes
+**Week 3 files (unchanged)**
+- `app/Citadel/page.tsx`
+- `app/Citadel/components/CitadelClient.tsx`
+- `app/Citadel/components/TowerMiniMap.tsx`
+- `app/Citadel/components/Academy.tsx`
+- `app/Citadel/lib/progress.ts` — local-first progress store
+- `app/Citadel/data/tracks.ts` — 8 tracks × 5 tiers data
