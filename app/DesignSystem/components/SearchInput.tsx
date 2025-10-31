@@ -1,29 +1,38 @@
 'use client';
 
-import { useState } from "react";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useDesign } from '../context/DesignProvider';
 
-/**
- * Global Search primitive (single default style)
- * - Emits CustomEvent("gaia:search", { detail: { q }}) on Enter
- */
-export default function SearchInput({ placeholder = "Search GAIA…", className = "" }: { placeholder?: string; className?: string }) {
-  const [q, setQ] = useState("");
+export default function SearchInput() {
+  const { search } = useDesign();
+  const [q, setQ] = useState('');
+  const router = useRouter();
 
-  function emitSearch() {
-    const event = new CustomEvent("gaia:search", { detail: { q } });
-    window.dispatchEvent(event);
+  let style = 'w-full px-3 py-2 border text-sm focus:outline-none focus:ring focus:ring-gray-300';
+  if (search === 'rounded') {
+    style += ' rounded-md border-gray-300';
+  } else if (search === 'pill') {
+    style += ' rounded-full border-gray-300';
+  } else {
+    style += ' border-0 border-b border-gray-300 rounded-none';
+  }
+
+  function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      const v = q.trim();
+      if (v.length) router.push(`/Classic/SiteMap?q=${encodeURIComponent(v)}`);
+    }
   }
 
   return (
     <input
+      placeholder="Search…"
       value={q}
       onChange={(e) => setQ(e.target.value)}
-      onKeyDown={(e) => {
-        if (e.key === "Enter") emitSearch();
-      }}
-      placeholder={placeholder}
-      className={`w-full max-w-xl rounded-md border border-gray-300 bg-white px-4 py-2 text-sm outline-none focus:ring focus:ring-gray-300 ${className}`}
-      aria-label="Search GAIA"
+      onKeyDown={onKeyDown}
+      className={style}
+      aria-label="Global search"
     />
   );
 }

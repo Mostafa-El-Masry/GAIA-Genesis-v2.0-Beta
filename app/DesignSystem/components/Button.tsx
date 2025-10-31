@@ -1,21 +1,29 @@
 'use client';
 
-/**
- * Baseline primitive Button
- * - Single default style for Phase 5 baseline
- */
-type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  label?: string;
-};
+import React from 'react';
+import { useDesign } from '../context/DesignProvider';
 
-export default function Button({ className = "", children, label, ...props }: Props) {
-  const base =
-    "inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition " +
-    "bg-gray-900 text-white hover:bg-gray-800 active:translate-y-px focus:outline-none focus:ring focus:ring-gray-300";
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & { children: React.ReactNode };
+
+export default function Button({ className = '', children, ...rest }: Props) {
+  const { button, theme } = useDesign();
+
+  const base = 'inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition focus:outline-none focus:ring focus:ring-gray-300';
+  let style = '';
+
+  if (button === 'solid') {
+    style = theme === 'dark' || theme === 'charcoal'
+      ? 'bg-gray-900 text-white hover:bg-gray-800'
+      : 'bg-gray-900 text-white hover:bg-gray-800';
+  } else if (button === 'outline') {
+    style = 'border border-gray-300 hover:border-gray-400';
+  } else { // ghost
+    style = 'hover:bg-gray-100';
+  }
 
   return (
-    <button {...props} className={`${base}${className ? " " + className : ""}`}>
-      {children ?? label}
+    <button className={`${base} ${style} ${className}`} {...rest}>
+      {children}
     </button>
   );
 }

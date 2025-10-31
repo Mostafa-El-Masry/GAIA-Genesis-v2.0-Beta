@@ -1,11 +1,8 @@
-import "../styles/global.css";
-import type { Metadata } from "next";
-import { ThemeRoot } from "./DesignSystem";
+import "@/styles/globals.css";
+import { DesignProvider } from "./DesignSystem/context/DesignProvider";
 import AppBar from "./components/AppBar";
-export const metadata: Metadata = {
-  title: "GAIA",
-  description: "GAIA v2.0 · Phase 5",
-};
+
+export const metadata = { title: "GAIA", description: "GAIA v2.0 · Phase 5" };
 
 export default function RootLayout({
   children,
@@ -15,12 +12,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* Week 2: Design System ThemeRoot (applies data-theme from localStorage) */}
-        <ThemeRoot>
-          {/* Global app navigation bar */}
+        <DesignProvider>
           <AppBar />
           <div className="pt-14">{children}</div>
-        </ThemeRoot>
+        </DesignProvider>
       </body>
     </html>
   );

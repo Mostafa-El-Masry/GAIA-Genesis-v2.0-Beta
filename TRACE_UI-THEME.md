@@ -1,6 +1,18 @@
-# TRACE_UI-THEME.md — Phase 5 · Week 1
-- app/components/AppBar.tsx — New Slim App Bar (fixed top), global Search input (no separate /search page).
-- app/layout.tsx — Imported AppBar (line 6); renders `<AppBar />` above content with `pt-14` spacer (line 131).
-- app/IntroClient.tsx — Removed local “glass search”; centralized search in App Bar; replaced right link “Search” → “Intro”.
+# TRACE_UI-THEME (Phase 5 — Week 13)
 
-(Keep this file updated after any theme/primitive changes.)
+## Theme & Primitives
+- `app/DesignSystem/context/DesignProvider.tsx` — provides per-user **theme**, **button**, **search** settings via localStorage.
+- `app/DesignSystem/components/Button.tsx` — uses DesignProvider to choose Tailwind classes (no CSS).
+- `app/DesignSystem/components/SearchInput.tsx` — uses DesignProvider; Enter navigates to `/Classic/SiteMap?q=…`.
+
+## Settings
+- `app/Settings/page.tsx` — pick **Theme**, **Button style**, **Search style** (stored locally).
+
+## App chrome
+- `app/layout.tsx` — wraps the app in `DesignProvider` and inserts the fixed **App Bar**.
+- `app/components/AppBar.tsx` — (existing) imports `SearchInput` and shows global search at top.
+
+## References in code (by path)
+- `app/components/AppBar.tsx` — `import SearchInput from "@/app/DesignSystem/components/SearchInput";` (line ~5)
+- `**/*.{tsx,ts}` — multiple references to `Button` at `@/app/DesignSystem/components/Button` (various lines).
+- `app/Classic/SiteMap/components/SiteMapClient.tsx` — now reads `?q=` query to filter the site map.

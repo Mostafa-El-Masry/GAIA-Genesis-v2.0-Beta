@@ -1,24 +1,73 @@
 'use client';
 
-import ThemePicker from "./components/ThemePicker";
-import PrimitivesPicker from "./components/PrimitivesPicker";
+import { useEffect } from 'react';
+import { useDesign, type Theme, type ButtonStyle, type SearchStyle } from '@/app/DesignSystem/context/DesignProvider';
 
+const THEMES: Theme[] = ['light', 'dark', 'charcoal'];
+const BUTTONS: ButtonStyle[] = ['solid', 'outline', 'ghost'];
+const SEARCHES: SearchStyle[] = ['rounded', 'pill', 'underline'];
+
+/**
+ * Phase 5 baseline: Theme picker + 1 Button + 1 Search style
+ */
 export default function SettingsPage() {
-  return (
-    <main className="mx-auto max-w-3xl px-4 py-8">
-      <h1 className="text-2xl font-semibold">Settings</h1>
-      <p className="mt-1 text-sm text-gray-600">Per-user preferences are stored locally in your browser.</p>
+  const { theme, setTheme, button, setButton, search, setSearch } = useDesign();
 
-      <section className="mt-6 border-t border-gray-200 pt-6">
-        <h2 className="text-lg font-medium">Appearance</h2>
-        <div className="mt-4 space-y-8">
-          <ThemePicker />
-          <PrimitivesPicker />
+  useEffect(() => {
+    // no-op, render client
+  }, []);
+
+  return (
+    <main className="mx-auto max-w-3xl px-4 py-8 space-y-8">
+      <header>
+        <h1 className="text-2xl font-semibold">Settings</h1>
+        <p className="text-sm text-gray-600">Per-user theme and UI primitives. Stored locally.</p>
+      </header>
+
+      <section className="space-y-3 rounded-lg border border-gray-200 p-4">
+        <h2 className="font-medium">Theme</h2>
+        <div className="flex flex-wrap items-center gap-2">
+          {THEMES.map((t) => (
+            <button
+              key={t}
+              onClick={() => setTheme(t)}
+              className={`rounded border px-3 py-1 text-sm capitalize ${theme === t ? 'border-gray-900' : 'border-gray-200 hover:border-gray-300'}`}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+        <p className="text-xs text-gray-500">Applied immediately; saved to your browser.</p>
+      </section>
+
+      <section className="space-y-3 rounded-lg border border-gray-200 p-4">
+        <h2 className="font-medium">Button</h2>
+        <div className="flex flex-wrap items-center gap-2">
+          {BUTTONS.map((b) => (
+            <button
+              key={b}
+              onClick={() => setButton(b)}
+              className={`rounded border px-3 py-1 text-sm capitalize ${button === b ? 'border-gray-900' : 'border-gray-200 hover:border-gray-300'}`}
+            >
+              {b}
+            </button>
+          ))}
         </div>
       </section>
 
-      <section className="mt-10 text-xs text-gray-500">
-        <p>Phase 5 baseline: Theme picker + one default Button + one default Search bar.</p>
+      <section className="space-y-3 rounded-lg border border-gray-200 p-4">
+        <h2 className="font-medium">Search bar</h2>
+        <div className="flex flex-wrap items-center gap-2">
+          {SEARCHES.map((s) => (
+            <button
+              key={s}
+              onClick={() => setSearch(s)}
+              className={`rounded border px-3 py-1 text-sm capitalize ${search === s ? 'border-gray-900' : 'border-gray-200 hover:border-gray-300'}`}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
       </section>
     </main>
   );
