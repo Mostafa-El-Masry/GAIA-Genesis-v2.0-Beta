@@ -21,7 +21,7 @@ export default function TrendBars({ title = "Health trend", data }: { title?: st
     <section className="space-y-3">
       <header className="flex items-center justify-between">
         <h3 className="font-semibold">{title}</h3>
-        <div className="flex items-center gap-2 text-xs text-gray-600">
+        <div className="flex items-center gap-2 text-xs gaia-muted">
           <span>Height exp:</span>
           <input
             type="range"
@@ -40,19 +40,19 @@ export default function TrendBars({ title = "Health trend", data }: { title?: st
           const h = expScale(d.value, min, max, k);
           return (
             <div key={d.label} className="flex flex-col items-center gap-2">
-              <div className="flex h-40 w-8 items-end justify-center rounded border border-gray-200 bg-gray-50">
+              <div className="flex h-40 w-8 items-end justify-center rounded border gaia-border gaia-panel-soft">
                 <div
-                  className="w-6 rounded-t bg-gray-900 transition-[height]"
-                  style={{ height: `${h}%` }}
+                  className="w-6 rounded-t transition-[height]"
+                  style={{ height: `${h}%`, backgroundColor: "var(--gaia-contrast-bg)" }}
                   title={`${d.label}: ${d.value}`}
                 />
               </div>
-              <div className="w-10 truncate text-center text-xs text-gray-600">{d.label}</div>
+              <div className="w-10 truncate text-center text-xs gaia-muted">{d.label}</div>
             </div>
           );
         })}
       </div>
-      <p className="text-xs text-gray-500">Bars use exponential height scaling to avoid looking flat.</p>
+      <p className="text-xs gaia-muted">Bars use exponential height scaling to avoid looking flat.</p>
     </section>
   );
 }

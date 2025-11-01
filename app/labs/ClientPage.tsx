@@ -118,17 +118,17 @@ export default function LabsPage(){
   }
 
   return (
-    <main className="min-h-screen bg-white text-black">
+    <main className="min-h-screen gaia-surface">
       <div className="fixed left-4 top-4 z-40">
-        <a href="/" className="inline-flex items-center gap-2 rounded-lg border bg-white/90 px-3 py-1.5 text-sm font-semibold">⟵ GAIA</a>
+        <a href="/" className="gaia-glass-strong gaia-border inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-semibold">⟵ GAIA</a>
       </div>
 
       <div className="mx-auto max-w-6xl space-y-4 p-4">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-extrabold tracking-wide">Labs — Week 6</h1>
           <div className="flex items-center gap-2">
-            <button className="rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={startAdd}>Add project</button>
-            <button className="rounded-lg border px-3 py-1.5 text-sm" onClick={downloadHtmlStarter}>HTML starter</button>
+            <button className="gaia-border rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={startAdd}>Add project</button>
+            <button className="gaia-border rounded-lg border px-3 py-1.5 text-sm" onClick={downloadHtmlStarter}>HTML starter</button>
           </div>
         </div>
 
@@ -145,7 +145,7 @@ export default function LabsPage(){
             />
           ))}
           {filtered.length===0 && (
-            <div className="opacity-60">No projects yet. Click “Add project”.</div>
+            <div className="gaia-muted">No projects yet. Click “Add project”.</div>
           )}
         </div>
       </div>
@@ -153,35 +153,35 @@ export default function LabsPage(){
       <ViewerDrawer open={!!viewer} project={viewer} onClose={()=>{ setViewer(null); setList(loadProjects()); }} />
 
       {/* Add/Edit dialog */}
-      <dialog id="labs-form" className="rounded-xl border border-black/10 p-0 shadow-2xl backdrop:bg-black/30">
+      <dialog id="labs-form" className="gaia-panel gaia-dialog rounded-xl border p-0 shadow-2xl">
         <form method="dialog" className="w-[min(92vw,720px)]">
-          <div className="flex items-center justify-between border-b p-3">
+          <div className="gaia-border flex items-center justify-between border-b p-3">
             <div className="font-extrabold">{editing? 'Edit project' : 'Add project'}</div>
-            <button className="rounded-lg border px-3 py-1.5 text-sm" value="cancel" onClick={()=>resetForm()}>Close</button>
+            <button className="gaia-border rounded-lg border px-3 py-1.5 text-sm" value="cancel" onClick={()=>resetForm()}>Close</button>
           </div>
           <div className="p-3 space-y-3">
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               <div>
                 <div className="text-xs opacity-70 mb-1">Title</div>
-                <input className="w-full rounded-lg border border-black/10 px-3 py-1.5" value={title} onChange={e=>setTitle(e.target.value)} placeholder="Project title" />
+                <input className="gaia-input w-full rounded-lg border px-3 py-1.5" value={title} onChange={e=>setTitle(e.target.value)} placeholder="Project title" />
               </div>
               <div>
                 <div className="text-xs opacity-70 mb-1">Category</div>
-                <select className="w-full rounded-lg border border-black/10 px-3 py-1.5" value={category} onChange={e=>setCategory(e.target.value as LabCategory)}>
+                <select className="gaia-input w-full rounded-lg border px-3 py-1.5" value={category} onChange={e=>setCategory(e.target.value as LabCategory)}>
                   <option>HTML</option><option>CSS</option><option>JS</option><option>Other</option>
                 </select>
               </div>
               <div>
                 <div className="text-xs opacity-70 mb-1">Tags (comma separated)</div>
-                <input className="w-full rounded-lg border border-black/10 px-3 py-1.5" value={tags} onChange={e=>setTags(e.target.value)} placeholder="forms, layout, DOM" />
+                <input className="gaia-input w-full rounded-lg border px-3 py-1.5" value={tags} onChange={e=>setTags(e.target.value)} placeholder="forms, layout, DOM" />
               </div>
               <div>
                 <div className="text-xs opacity-70 mb-1">Path (public)</div>
-                <input className="w-full rounded-lg border border-black/10 px-3 py-1.5" value={path} onChange={e=>setPath(e.target.value)} placeholder="/labs/my-lab/index.html" />
+                <input className="gaia-input w-full rounded-lg border px-3 py-1.5" value={path} onChange={e=>setPath(e.target.value)} placeholder="/labs/my-lab/index.html" />
               </div>
               <div className="sm:col-span-2">
                 <div className="text-xs opacity-70 mb-1">Summary (optional)</div>
-                <textarea className="w-full rounded-lg border border-black/10 px-3 py-1.5" value={summary} onChange={e=>setSummary(e.target.value)} rows={3} placeholder="Short description..." />
+                <textarea className="gaia-input w-full rounded-lg border px-3 py-1.5" value={summary} onChange={e=>setSummary(e.target.value)} rows={3} placeholder="Short description..." />
               </div>
               <div className="sm:col-span-2">
                 <div className="text-xs opacity-70 mb-1">Cover image (optional)</div>
@@ -189,8 +189,8 @@ export default function LabsPage(){
               </div>
             </div>
             <div className="flex items-center justify-end gap-2">
-              {editing && <button className="rounded-lg border px-3 py-1.5 text-sm" onClick={(e)=>{ e.preventDefault(); handleDelete(editing); (document.getElementById('labs-form') as HTMLDialogElement)?.close(); }}>Delete</button>}
-              <button className="rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={(e)=>{ e.preventDefault(); handleSave(); }}>Save</button>
+              {editing && <button className="gaia-border rounded-lg border px-3 py-1.5 text-sm" onClick={(e)=>{ e.preventDefault(); handleDelete(editing); (document.getElementById('labs-form') as HTMLDialogElement)?.close(); }}>Delete</button>}
+              <button className="gaia-contrast rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={(e)=>{ e.preventDefault(); handleSave(); }}>Save</button>
             </div>
           </div>
         </form>

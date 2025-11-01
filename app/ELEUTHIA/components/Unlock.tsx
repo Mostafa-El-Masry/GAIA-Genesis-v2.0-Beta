@@ -58,9 +58,9 @@ export default function Unlock({ onUnlock }: { onUnlock: (key: CryptoKey, vault:
   }
 
   return (
-    <div className="mx-auto max-w-md rounded-lg border border-gray-200 p-6">
+    <div className="mx-auto max-w-md rounded-lg border gaia-border p-6">
       <h2 className="text-xl font-semibold">ELEUTHIA</h2>
-      <p className="mt-1 text-sm text-gray-600">
+      <p className="mt-1 text-sm gaia-muted">
         Zero-knowledge, local-first vault. Data is encrypted in your browser.
       </p>
 
@@ -71,7 +71,7 @@ export default function Unlock({ onUnlock }: { onUnlock: (key: CryptoKey, vault:
             type="password"
             value={pass}
             onChange={(e) => setPass(e.target.value)}
-            className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
+            className="mt-1 w-full rounded-md border gaia-border px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
           />
         </label>
 
@@ -82,7 +82,7 @@ export default function Unlock({ onUnlock }: { onUnlock: (key: CryptoKey, vault:
               type="password"
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
-              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
+              className="mt-1 w-full rounded-md border gaia-border px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
             />
           </label>
         )}
@@ -96,9 +96,9 @@ export default function Unlock({ onUnlock }: { onUnlock: (key: CryptoKey, vault:
             <Button onClick={handleCreate} disabled={busy || !pass || !confirm}>Create vault</Button>
           )}
           {exists ? (
-            <span className="text-xs text-gray-500">Enter your passphrase to unlock.</span>
+            <span className="text-xs gaia-muted">Enter your passphrase to unlock.</span>
           ) : (
-            <span className="text-xs text-gray-500">Keep this passphrase safe. There’s no recovery.</span>
+            <span className="text-xs gaia-muted">Keep this passphrase safe. There’s no recovery.</span>
           )}
         </div>
       </div>

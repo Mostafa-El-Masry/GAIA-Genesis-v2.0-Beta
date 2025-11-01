@@ -38,7 +38,7 @@ export default function LabsClient() {
 
   if (!builds.length) {
     return (
-      <div className="rounded-lg border border-gray-200 p-6 text-center text-sm text-gray-600">
+      <div className="gaia-panel gaia-muted rounded-lg border p-6 text-center text-sm">
         No builds yet. Finish a concept in the Academy (pass the quiz) and add a link in the Build step to see it here.
       </div>
     );
@@ -52,7 +52,7 @@ export default function LabsClient() {
           <select
             value={track}
             onChange={(e) => setTrack(e.target.value)}
-            className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
+            className="gaia-input rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
           >
             {tracks.map((t) => (
               <option key={t} value={t}>{t}</option>

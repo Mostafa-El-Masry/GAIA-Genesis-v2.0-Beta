@@ -48,19 +48,25 @@ export default function Budgets(){
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {byCat.map(b => {
           const pct = Math.min(100, Math.round((b.spent / (b.amount||1)) * 100));
+          const barColor =
+            pct < 80
+              ? "var(--gaia-contrast-bg)"
+              : pct < 100
+                ? "color-mix(in srgb, var(--gaia-contrast-bg) 60%, var(--gaia-surface) 40%)"
+                : "color-mix(in srgb, var(--gaia-contrast-bg) 45%, var(--gaia-text-strong) 55%)";
           return (
             <div key={b.category} className="rounded-lg border gaia-border p-3 gaia-surface">
               <div className="flex items-center justify-between gaia-strong">
                 <div className="font-semibold">{b.category}</div>
                 <div className="text-sm">{fmt(b.spent)} / {fmt(b.amount)}</div>
               </div>
-              <div className="mt-2 h-2 w-full overflow-hidden rounded bg-black/10">
-                <div className={"h-full " + (pct<80?'bg-emerald-500':pct<100?'bg-amber-500':'bg-red-500')} style={{ width: pct + '%' }} />
+              <div className="mt-2 h-2 w-full overflow-hidden rounded gaia-ink-faint">
+                <div className="h-full" style={{ width: pct + "%", backgroundColor: barColor }} />
               </div>
             </div>
           );
         })}
-        {byCat.length===0 && <div className="opacity-60">No budgets set for this month.</div>}
+        {byCat.length===0 && <div className="gaia-muted">No budgets set for this month.</div>}
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-2">

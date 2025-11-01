@@ -65,38 +65,38 @@ export default function OverviewCards(){
 
   return (
     <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <a href="/apollo" className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
-        <div className="text-sm opacity-60">Apollo</div>
+      <a href="/apollo" className="gaia-panel rounded-xl border p-4 shadow-sm">
+        <div className="text-sm gaia-muted">Apollo</div>
         <div className="mt-1 text-2xl font-extrabold">Last note</div>
         <div className="mt-1 text-sm opacity-80 truncate">{data?.latestApollo?.key || '—'}</div>
       </a>
 
-      <a href="/gallery" className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
-        <div className="text-sm opacity-60">Gallery</div>
+      <a href="/gallery" className="gaia-panel rounded-xl border p-4 shadow-sm">
+        <div className="text-sm gaia-muted">Gallery</div>
         <div className="mt-1 text-2xl font-extrabold">Items</div>
         <div className="mt-1 text-sm opacity-80">{data?.galleryCount ?? 0}</div>
       </a>
 
-      <a href="/health" className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
-        <div className="text-sm opacity-60">Health</div>
+      <a href="/health" className="gaia-panel rounded-xl border p-4 shadow-sm">
+        <div className="text-sm gaia-muted">Health</div>
         <div className="mt-1 text-2xl font-extrabold">Weight / Glucose</div>
         <div className="mt-1 text-sm opacity-80">{data?.weight ?? '—'} kg • {data?.glucose ?? '—'} mg/dL</div>
       </a>
 
-      <a href="/wealth" className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
-        <div className="text-sm opacity-60">Wealth</div>
+      <a href="/wealth" className="gaia-panel rounded-xl border p-4 shadow-sm">
+        <div className="text-sm gaia-muted">Wealth</div>
         <div className="mt-1 text-2xl font-extrabold">Snapshot</div>
         <div className="mt-1 text-sm opacity-80">{(data?.wealthSnapshot ?? 0).toLocaleString()}</div>
       </a>
 
-      <a href="/labs" className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
-        <div className="text-sm opacity-60">Labs</div>
+      <a href="/labs" className="gaia-panel rounded-xl border p-4 shadow-sm">
+        <div className="text-sm gaia-muted">Labs</div>
         <div className="mt-1 text-2xl font-extrabold">Last</div>
         <div className="mt-1 text-sm opacity-80 truncate">{data?.latestLabs?.key || '—'}</div>
       </a>
 
-      <a href="/timeline" className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
-        <div className="text-sm opacity-60">Timeline</div>
+      <a href="/timeline" className="gaia-panel rounded-xl border p-4 shadow-sm">
+        <div className="text-sm gaia-muted">Timeline</div>
         <div className="mt-1 text-2xl font-extrabold">Recent</div>
         <div className="mt-1 text-sm opacity-80 truncate">{data?.latestTimeline?.key || '—'}</div>
       </a>

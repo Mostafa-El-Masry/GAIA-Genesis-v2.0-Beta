@@ -44,36 +44,36 @@ export default function Exercises() {
   }, [logs, date]);
 
   return (
-    <section className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
+    <section className="gaia-panel rounded-xl border p-4 shadow-sm">
       <header className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-lg font-extrabold tracking-wide">Exercises - plan vs actual</h2>
         <div className="flex items-center gap-2">
-          <input type="date" className="rounded-lg border border-black/10 px-3 py-1.5" value={date} onChange={(e) => setDate(e.target.value)} />
-          <button className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={() => setShowManage(s => !s)}>
+          <input type="date" className="gaia-input rounded-lg border px-3 py-1.5" value={date} onChange={(e) => setDate(e.target.value)} />
+          <button className="gaia-border inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={() => setShowManage(s => !s)}>
             {showManage ? 'Hide plan' : 'Manage plan'}
           </button>
         </div>
       </header>
 
       {showManage && (
-        <div className="mt-3 rounded-lg border border-black/10 p-3">
-          <div className="mb-2 text-sm font-semibold opacity-70">Your plan (edit does not change past logs)</div>
+        <div className="gaia-panel-soft mt-3 rounded-lg border p-3">
+          <div className="gaia-muted mb-2 text-sm font-semibold">Your plan (edit does not change past logs)</div>
           <div className="flex flex-col gap-2">
             {plans.map((p) => (
               <div key={p.id} className="grid grid-cols-1 gap-2 sm:grid-cols-5">
-                <input className="col-span-2 rounded-lg border border-black/10 px-3 py-1.5" value={p.name} onChange={(e) => updatePlan(p.id, { name: e.target.value })} />
-                <select className="rounded-lg border border-black/10 px-3 py-1.5" value={p.unit} onChange={(e) => updatePlan(p.id, { unit: e.target.value as ExerciseUnit })}>
+                <input className="gaia-input col-span-2 rounded-lg border px-3 py-1.5" value={p.name} onChange={(e) => updatePlan(p.id, { name: e.target.value })} />
+                <select className="gaia-input rounded-lg border px-3 py-1.5" value={p.unit} onChange={(e) => updatePlan(p.id, { unit: e.target.value as ExerciseUnit })}>
                   <option value="min">min</option>
                   <option value="reps">reps</option>
                 </select>
-                <input type="number" className="rounded-lg border border-black/10 px-3 py-1.5" value={p.target} min={0} onChange={(e) => updatePlan(p.id, { target: Number(e.target.value) || 0 })} />
+                <input type="number" className="gaia-input rounded-lg border px-3 py-1.5" value={p.target} min={0} onChange={(e) => updatePlan(p.id, { target: Number(e.target.value) || 0 })} />
                 <div className="flex items-center justify-end gap-2">
-                  <button className="rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={() => removePlan(p.id)}>Delete</button>
+                  <button className="gaia-border rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={() => removePlan(p.id)}>Delete</button>
                 </div>
               </div>
             ))}
             <div className="pt-2">
-              <button className="rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={addPlan}>+ Add exercise</button>
+              <button className="gaia-contrast rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={addPlan}>+ Add exercise</button>
             </div>
           </div>
         </div>
@@ -85,13 +85,13 @@ export default function Exercises() {
         ))}
       </div>
 
-      <div className="mt-4 rounded-lg border border-black/10 p-3">
-        <div className="mb-2 text-sm font-semibold opacity-70">Summary for {date}</div>
+      <div className="gaia-panel-soft mt-4 rounded-lg border p-3">
+        <div className="gaia-muted mb-2 text-sm font-semibold">Summary for {date}</div>
         <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {plans.map((p) => (
-            <li key={p.id} className="rounded-lg border border-black/10 p-2">
+            <li key={p.id} className="gaia-panel-soft rounded-lg border p-2">
               <div className="font-semibold">{p.name}</div>
-              <div className="text-sm opacity-70">Planned: {p.target} {p.unit} - Logged: {todayTotals[p.id] || 0} {p.unit}</div>
+              <div className="gaia-muted text-sm">Planned: {p.target} {p.unit} - Logged: {todayTotals[p.id] || 0} {p.unit}</div>
             </li>
           ))}
         </ul>
@@ -104,19 +104,19 @@ function ExerciseRow({ plan, loggedToday, onLog }:{ plan:ExercisePlan; loggedTod
   const [actual, setActual] = useState<number | ''>('');
   const [note, setNote] = useState('');
   return (
-    <div className="rounded-lg border border-black/10 p-3">
+    <div className="gaia-panel-soft rounded-lg border p-3">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="text-base font-bold">{plan.name}</div>
-          <div className="text-sm opacity-70">Planned: {plan.target} {plan.unit} - Logged today: {loggedToday} {plan.unit}</div>
+          <div className="gaia-muted text-sm">Planned: {plan.target} {plan.unit} - Logged today: {loggedToday} {plan.unit}</div>
         </div>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
           <div className="flex items-center gap-2">
-            <input type="number" placeholder={`Actual (${plan.unit})`} className="w-32 rounded-lg border border-black/10 px-3 py-1.5" value={actual} onChange={(e)=>setActual(e.target.value===''? '' : Number(e.target.value))} min={0} />
-            <button className="rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={()=>setActual(plan.target)}>= {plan.target}</button>
+            <input type="number" placeholder={`Actual (${plan.unit})`} className="gaia-input w-32 rounded-lg border px-3 py-1.5" value={actual} onChange={(e)=>setActual(e.target.value===''? '' : Number(e.target.value))} min={0} />
+            <button className="gaia-border rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={()=>setActual(plan.target)}>= {plan.target}</button>
           </div>
-          <input placeholder="Note (optional)" className="min-w-[200px] rounded-lg border border-black/10 px-3 py-1.5" value={note} onChange={(e)=>setNote(e.target.value)} />
-          <button className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={()=>{ if(actual===''||!Number.isFinite(actual as number)) return; onLog(actual as number, note||undefined); setActual(''); setNote(''); }}>Log</button>
+          <input placeholder="Note (optional)" className="gaia-input min-w-[200px] rounded-lg border px-3 py-1.5" value={note} onChange={(e)=>setNote(e.target.value)} />
+          <button className="gaia-contrast inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={()=>{ if(actual===''||!Number.isFinite(actual as number)) return; onLog(actual as number, note||undefined); setActual(''); setNote(''); }}>Log</button>
         </div>
       </div>
     </div>

@@ -14,9 +14,9 @@ export default function DirectoryClient() {
   return (
     <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
       {devRoutes.map((r) => (
-        <a key={r.path} href={r.path} className="rounded border border-gray-200 p-3 transition hover:border-gray-300">
+        <a key={r.path} href={r.path} className="rounded border gaia-border p-3 transition gaia-hover-soft">
           <div className="font-medium">{r.path}</div>
-          {r.note && <div className="text-xs text-gray-500">{r.note}</div>}
+          {r.note && <div className="text-xs gaia-muted">{r.note}</div>}
         </a>
       ))}
     </div>

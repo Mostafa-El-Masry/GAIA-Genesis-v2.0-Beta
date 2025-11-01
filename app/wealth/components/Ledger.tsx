@@ -37,9 +37,9 @@ export default function Ledger({ filter }:{ filter: FilterState }){
   return (
     <section className={PANEL}>
       <h2 className="mb-2 text-lg font-extrabold tracking-wide gaia-strong">Ledger</h2>
-      <div className="overflow-auto rounded-lg border gaia-border bg-[rgba(var(--gaia-surface-rgb),0.6)]">
+      <div className="overflow-auto rounded-lg border gaia-border bg-[color-mix(in_srgb,var(--gaia-surface)_88%,transparent)]">
         <table className="w-full text-sm">
-          <thead className="bg-black/5"><tr className="gaia-strong">
+          <thead className="gaia-panel-soft"><tr className="gaia-strong">
             <th className="p-2 text-left">Date</th>
             <th className="p-2 text-left">Type</th>
             <th className="p-2 text-left">Category</th>
@@ -56,11 +56,11 @@ export default function Ledger({ filter }:{ filter: FilterState }){
                 <td className="p-2">{t.category}</td>
                 <td className="p-2">{t.tags.join(', ')}</td>
                 <td className="p-2">{t.note}</td>
-                <td className={"p-2 text-right " + (t.type==='expense'?'text-red-600':'text-emerald-700')}>{fmt(t.amount)}</td>
+                <td className={"p-2 text-right " + (t.type==='expense'?'gaia-negative':'gaia-positive')}>{fmt(t.amount)}</td>
                 <td className="p-2 text-right"><button className={BUTTON} onClick={()=>remove(t.id)}>Delete</button></td>
               </tr>
             ))}
-            {filtered.length===0 && <tr><td className="p-3 text-center opacity-60" colSpan={7}>No transactions yet.</td></tr>}
+            {filtered.length===0 && <tr><td className="gaia-muted p-3 text-center" colSpan={7}>No transactions yet.</td></tr>}
           </tbody>
         </table>
       </div>

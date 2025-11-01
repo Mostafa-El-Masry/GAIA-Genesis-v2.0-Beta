@@ -1,0 +1,99 @@
+:root {
+  --gaia-font-sans: "Inter", "Segoe UI", system-ui, -apple-system,
+    BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --gaia-font-mono: "JetBrains Mono", "SFMono-Regular", "Menlo", "Monaco",
+    "Consolas", "Liberation Mono", "Courier New", monospace;
+
+  --gaia-surface: #ffffff;
+  --gaia-surface-soft: #f8fafc;
+  --gaia-border: #e2e8f0;
+  --gaia-foreground: #0f172a;
+  --gaia-muted: #64748b;
+  --gaia-text-strong: color-mix(in srgb, var(--gaia-foreground) 88%, white 12%);
+  --gaia-text-default: color-mix(
+    in srgb,
+    var(--gaia-foreground) 72%,
+    var(--gaia-surface) 28%
+  );
+  --gaia-text-muted: color-mix(
+    in srgb,
+    var(--gaia-muted) 70%,
+    var(--gaia-surface) 30%
+  );
+  --gaia-contrast-bg: var(--gaia-foreground);
+  --gaia-contrast-text: var(--gaia-surface);
+  --gaia-overlay: color-mix(in srgb, #0b1220 38%, transparent 62%);
+  --gaia-glass-strong: color-mix(in srgb, var(--gaia-surface) 88%, transparent);
+  --gaia-glass: color-mix(in srgb, var(--gaia-surface) 70%, transparent);
+  --gaia-ink-soft: color-mix(
+    in srgb,
+    var(--gaia-foreground) 14%,
+    var(--gaia-surface) 86%
+  );
+  --gaia-ink-faint: color-mix(
+    in srgb,
+    var(--gaia-foreground) 9%,
+    var(--gaia-surface) 91%
+  );
+  --gaia-positive: #047857;
+  --gaia-negative: #b91c1c;
+}
+
+html.dark,
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --gaia-surface: #202938;
+  --gaia-surface-soft: #223149;
+  --gaia-border: #3a4c6a;
+  --gaia-foreground: #e2e8f0;
+  --gaia-muted: #a3b0c5;
+  --gaia-text-strong: color-mix(
+    in srgb,
+    var(--gaia-foreground) 65%,
+    white 35%
+  );
+  --gaia-text-default: color-mix(
+    in srgb,
+    var(--gaia-foreground) 60%,
+    white 40%
+  );
+  --gaia-text-muted: color-mix(
+    in srgb,
+    var(--gaia-muted) 60%,
+    white 40%
+  );
+  --gaia-contrast-bg: color-mix(in srgb, var(--gaia-foreground) 78%, white 22%);
+  --gaia-contrast-text: var(--gaia-surface);
+  --gaia-overlay: color-mix(in srgb, black 55%, transparent 45%);
+  --gaia-positive: #34d399;
+  --gaia-negative: #f87171;
+}
+
+html[data-theme="cupcake"] {
+  color-scheme: light;
+  --gaia-surface: #fef6fb;
+  --gaia-surface-soft: #f7e8f2;
+  --gaia-border: #eccfe2;
+  --gaia-foreground: #533e5c;
+  --gaia-muted: #8a698f;
+  --gaia-text-strong: color-mix(
+    in srgb,
+    var(--gaia-foreground) 82%,
+    white 18%
+  );
+  --gaia-text-default: color-mix(
+    in srgb,
+    var(--gaia-foreground) 68%,
+    var(--gaia-surface) 32%
+  );
+  --gaia-text-muted: color-mix(in srgb, var(--gaia-muted) 75%, white 25%);
+  --gaia-contrast-bg: color-mix(
+    in srgb,
+    var(--gaia-foreground) 82%,
+    white 18%
+  );
+  --gaia-contrast-text: var(--gaia-surface);
+  --gaia-overlay: color-mix(in srgb, #281933 35%, transparent 65%);
+  --gaia-positive: #d946ef;
+  --gaia-negative: #f97316;
+}

@@ -25,7 +25,7 @@ export default function ThemePicker() {
       <select
         value={theme}
         onChange={(e) => updateTheme(e.target.value)}
-        className="w-full max-w-xs rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
+        className="gaia-input w-full max-w-xs rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
       >
         {THEMES.map((t) => (
           <option key={t} value={t}>
@@ -33,7 +33,7 @@ export default function ThemePicker() {
           </option>
         ))}
       </select>
-      <p className="text-xs text-gray-500">Phase 5 baseline: themes apply globally via <code>data-theme</code>.</p>
+      <p className="gaia-muted text-xs">Phase 5 baseline: themes apply globally via <code>data-theme</code>.</p>
     </div>
   );
 }

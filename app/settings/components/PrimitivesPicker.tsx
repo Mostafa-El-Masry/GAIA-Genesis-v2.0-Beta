@@ -21,7 +21,7 @@ export default function PrimitivesPicker() {
         <div className="mt-2">
           <Button>Primary Action</Button>
         </div>
-        <p className="mt-1 text-xs text-gray-500">One default style for Phase 5 baseline.</p>
+        <p className="mt-1 text-xs gaia-muted">One default style for Phase 5 baseline.</p>
       </div>
 
       <div>
@@ -29,7 +29,7 @@ export default function PrimitivesPicker() {
         <div className="mt-2 max-w-xl">
           <SearchInput />
         </div>
-        <p className="mt-1 text-xs text-gray-500">Single global style, used in the App Bar.</p>
+        <p className="mt-1 text-xs gaia-muted">Single global style, used in the App Bar.</p>
       </div>
     </div>
   );

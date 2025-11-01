@@ -9,7 +9,7 @@ export default function LastUpdatedBadge({ date }: { date?: string }) {
     setD(source.toLocaleString());
   }, [date]);
   return (
-    <span className="inline-flex items-center rounded border border-gray-200 bg-white px-2 py-1 text-xs text-gray-600">
+    <span className="gaia-panel-soft gaia-muted inline-flex items-center rounded border px-2 py-1 text-xs">
       Last updated: {d || "—"}
     </span>
   );

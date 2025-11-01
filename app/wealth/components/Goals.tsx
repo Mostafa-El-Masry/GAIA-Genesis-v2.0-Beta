@@ -66,8 +66,8 @@ export default function Goals() {
                   {fmt(g.saved)} / {fmt(g.target)}
                 </div>
               </div>
-              <div className="mt-2 h-2 w-full overflow-hidden rounded bg-black/10">
-                <div className="h-full bg-black" style={{ width: pct + "%" }} />
+              <div className="mt-2 h-2 w-full overflow-hidden rounded gaia-ink-faint">
+                <div className="h-full" style={{ width: pct + "%", backgroundColor: "var(--gaia-contrast-bg)" }} />
               </div>
               <div className="mt-2 flex items-center gap-2">
                 <button
@@ -92,7 +92,7 @@ export default function Goals() {
             </div>
           );
         })}
-        {list.length === 0 && <div className="opacity-60">No goals yet.</div>}
+        {list.length === 0 && <div className="gaia-muted">No goals yet.</div>}
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-2">

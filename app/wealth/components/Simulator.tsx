@@ -12,8 +12,8 @@ const PANEL =
   "gaia-surface rounded-xl border gaia-border p-4 shadow-sm";
 const INPUT =
   "gaia-input rounded-lg px-3 py-1.5";
-const BUTTON =
-  "gaia-border gaia-surface rounded-lg px-3 py-1.5 text-sm font-semibold shadow-sm";
+const BUTTON_BASE_BASE =
+  "rounded-lg px-3 py-1.5 text-sm font-semibold shadow-sm transition-colors";
 
 export default function Simulator() {
   const [tab, setTab] = useState<"A" | "B">("A");
@@ -46,25 +46,29 @@ export default function Simulator() {
             <h2 className="gaia-strong text-lg font-extrabold tracking-wide">
               Savings Simulator
             </h2>
-            <span className="text-xs rounded bg-black/5 px-2 py-0.5">
+            <span className="gaia-ink-soft text-xs rounded px-2 py-0.5">
               3y certs; 15%+10% floor; reinvest interest & maturities until age
               60
             </span>
           </div>
-          <div className="text-xs opacity-70">
+          <div className="gaia-muted text-xs">
             Start: Dec 2025. Deposits for 7 years, then auto‑reinvest monthly if
             ≥ 1,000 EGP.
           </div>
         </div>
         <div className="flex items-center gap-2">
           <button
-            className={`${BUTTON}${tab === "A" ? " bg-black text-white" : ""}`}
+            className={`${BUTTON_BASE} ${
+              tab === "A" ? "gaia-contrast" : "gaia-border gaia-surface"
+            }`}
             onClick={() => setTab("A")}
           >
             Plan A — {fmt(baseA.baseMonthlyDeposit)}/mo
           </button>
           <button
-            className={`${BUTTON}${tab === "B" ? " bg-black text-white" : ""}`}
+            className={`${BUTTON_BASE} ${
+              tab === "B" ? "gaia-contrast" : "gaia-border gaia-surface"
+            }`}
             onClick={() => setTab("B")}
           >
             Plan B — {fmt(baseB.baseMonthlyDeposit)}/mo
@@ -103,9 +107,9 @@ export default function Simulator() {
         </div>
       </div>
 
-      <div className="overflow-auto rounded-lg border gaia-border bg-[rgba(var(--gaia-surface-rgb),0.6)]">
+      <div className="overflow-auto rounded-lg border gaia-border bg-[color-mix(in_srgb,var(--gaia-surface)_88%,transparent)]">
         <table className="w-full text-sm">
-          <thead className="bg-black/5">
+          <thead className="gaia-panel-soft">
             <tr>
               <th className="p-2 text-left">Year</th>
               <th className="p-2 text-left">Age</th>
@@ -132,7 +136,7 @@ export default function Simulator() {
             ))}
             {res.rows.length === 0 && (
               <tr>
-                <td className="p-3 text-center opacity-60" colSpan={7}>
+                <td className="p-3 text-center gaia-muted" colSpan={7}>
                   No rows
                 </td>
               </tr>
@@ -142,26 +146,26 @@ export default function Simulator() {
       </div>
 
       <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-4">
-        <div className="rounded-lg border gaia-border p-3 gaia-surface shadow-sm">
-          <div className="text-xs opacity-70">Deposited total</div>
+        <div className="gaia-panel-soft rounded-lg border p-3 shadow-sm">
+          <div className="gaia-muted text-xs">Deposited total</div>
           <div className="text-lg font-extrabold">
             {fmt(res.totals.deposited)} EGP
           </div>
         </div>
-        <div className="rounded-lg border gaia-border p-3 gaia-surface shadow-sm">
-          <div className="text-xs opacity-70">Active principal (end)</div>
+        <div className="gaia-panel-soft rounded-lg border p-3 shadow-sm">
+          <div className="gaia-muted text-xs">Active principal (end)</div>
           <div className="text-lg font-extrabold">
             {fmt(res.totals.activePrincipal)} EGP
           </div>
         </div>
-        <div className="rounded-lg border gaia-border p-3 gaia-surface shadow-sm">
-          <div className="text-xs opacity-70">Cash (end)</div>
+        <div className="gaia-panel-soft rounded-lg border p-3 shadow-sm">
+          <div className="gaia-muted text-xs">Cash (end)</div>
           <div className="text-lg font-extrabold">
             {fmt(res.totals.cash)} EGP
           </div>
         </div>
-        <div className="rounded-lg border gaia-border p-3 gaia-surface shadow-sm">
-          <div className="text-xs opacity-70">Net worth (end)</div>
+        <div className="gaia-panel-soft rounded-lg border p-3 shadow-sm">
+          <div className="gaia-muted text-xs">Net worth (end)</div>
           <div className="text-lg font-extrabold">
             {fmt(res.totals.netWorth)} EGP
           </div>

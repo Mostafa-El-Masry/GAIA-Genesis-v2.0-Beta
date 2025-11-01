@@ -21,19 +21,22 @@ export default function WealthBars({ title = "Wealth trend", data, k = 1.8 }: { 
           const h = expScale(d.value, min, max, k);
           return (
             <div key={d.label} className="flex flex-col items-center gap-2">
-              <div className="flex h-40 w-8 items-end justify-center rounded border border-gray-200 bg-gray-50">
+              <div className="flex h-40 w-8 items-end justify-center rounded border gaia-panel-soft">
                 <div
-                  className="w-6 rounded-t bg-gray-900 transition-[height]"
-                  style={{ height: `${h}%` }}
+                  className="w-6 rounded-t transition-[height]"
+                  style={{
+                    height: `${h}%`,
+                    backgroundColor: "var(--gaia-contrast-bg)",
+                  }}
                   title={`${d.label}: ${d.value}`}
                 />
               </div>
-              <div className="w-10 truncate text-center text-xs text-gray-600">{d.label}</div>
+              <div className="w-10 truncate text-center gaia-muted text-xs">{d.label}</div>
             </div>
           );
         })}
       </div>
-      <p className="text-xs text-gray-500">Exponential height mapping emphasizes growth without changing your data.</p>
+      <p className="gaia-muted text-xs">Exponential height mapping emphasizes growth without changing your data.</p>
     </section>
   );
 }

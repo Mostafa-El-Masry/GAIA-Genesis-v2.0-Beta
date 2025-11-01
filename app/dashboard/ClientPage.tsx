@@ -17,23 +17,23 @@ export default function DashboardPage(){
   useEffect(()=>{ setNow(new Date().toLocaleString()); }, []);
 
   return (
-    <main className="min-h-screen bg-white text-black">
+    <main className="min-h-screen gaia-surface">
       {/* GAIA/G back to intro */}
       <div className="fixed left-4 top-4 z-40">
-        <a href="/" className="inline-flex items-center gap-2 rounded-lg border bg-white/90 px-3 py-1.5 text-sm font-semibold">⟵ GAIA</a>
+        <a href="/" className="gaia-glass-strong gaia-border inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-semibold">⟵ GAIA</a>
       </div>
 
       <div className="mx-auto max-w-6xl space-y-4 p-4">
         <div className="flex items-end justify-between">
           <h1 className="text-2xl font-extrabold tracking-wide">Dashboard</h1>
-          <div className="text-xs opacity-60">Updated: {now || '—'}</div>
+          <div className="text-xs gaia-muted">Updated: {now || '—'}</div>
         </div>
 
         <OverviewCards />
 
         {/* Mini widgets row */}
         <div className="grid gap-4 md:grid-cols-2">
-          <div className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
+          <div className="gaia-panel rounded-xl border p-4 shadow-sm">
             <div className="mb-2 flex items-center justify-between">
               <div className="font-semibold">Weight trend</div>
               <a href="/health" className="text-xs underline">Open Health</a>
@@ -41,7 +41,7 @@ export default function DashboardPage(){
             <WeightSpark />
           </div>
 
-          <div className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
+          <div className="gaia-panel rounded-xl border p-4 shadow-sm">
             <div className="mb-2 flex items-center justify-between">
               <div className="font-semibold">Wealth trend</div>
               <a href="/wealth" className="text-xs underline">Open Wealth</a>
@@ -51,7 +51,7 @@ export default function DashboardPage(){
         </div>
 
         {/* Activity feed */}
-        <div className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
+        <div className="gaia-panel rounded-xl border p-4 shadow-sm">
           <div className="mb-2 flex items-center justify-between">
             <div className="font-semibold">Recent activity</div>
             <a href="/timeline" className="text-xs underline">Open Timeline</a>

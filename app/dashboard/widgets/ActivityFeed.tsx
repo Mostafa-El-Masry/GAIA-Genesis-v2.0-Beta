@@ -31,14 +31,14 @@ export default function ActivityFeed(){
     setRows(items.slice(0, 12));
   }, []);
 
-  if (!rows.length) return <div className="text-sm opacity-60">No recent activity.</div>;
+  if (!rows.length) return <div className="text-sm gaia-muted">No recent activity.</div>;
 
   return (
     <div className="grid gap-2">
       {rows.map(r=> (
         <a key={r.key} href={r.route || '#'} className="flex items-center justify-between rounded border border-black/10 px-3 py-2 text-sm hover:border-black/30">
           <span className="truncate">{r.key}</span>
-          <span className="opacity-60">{new Date(r.when).toLocaleString()}</span>
+          <span className="gaia-muted">{new Date(r.when).toLocaleString()}</span>
         </a>
       ))}
     </div>

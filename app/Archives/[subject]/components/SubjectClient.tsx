@@ -20,30 +20,30 @@ export default function SubjectClient({ subjectId }: { subjectId: string }) {
     return <div className="rounded border border-red-200 bg-red-50 p-4 text-sm text-red-700">Unknown subject.</div>;
   }
 
-  function onToggle(l: Lesson, on: boolean) {
+  const onToggle = (l: Lesson, on: boolean) => {
     toggleTeachable(l.id, on);
     setTeach(prev => ({ ...prev, [l.id]: on }));
-  }
+  };
 
-  function onAddToAcademy(l: Lesson) {
+  const onAddToAcademy = (l: Lesson) => {
     const c = addLessonToAcademy(subj, l);
     alert(`Added to Academy: ${c.title}`);
-  }
+  };
 
   return (
     <div className="space-y-4">
       <header>
-        <div className="text-xs text-gray-500">Track: {subj.trackTitle}</div>
+        <div className="text-xs gaia-muted">Track: {subj.trackTitle}</div>
         <h2 className="text-lg font-semibold">{subj.title}</h2>
       </header>
 
       <ol className="space-y-3">
         {subj.lessons.map(l => (
-          <li key={l.id} className="rounded border border-gray-200 p-4">
+          <li key={l.id} className="rounded border gaia-border p-4">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="font-medium">{l.title}</div>
-                <div className="text-sm text-gray-700">{l.summary}</div>
+                <div className="text-sm gaia-text-default">{l.summary}</div>
               </div>
               <div className="flex shrink-0 items-center gap-2">
                 <label className="inline-flex items-center gap-2 text-sm">
@@ -57,7 +57,7 @@ export default function SubjectClient({ subjectId }: { subjectId: string }) {
         ))}
       </ol>
 
-      <p className="text-xs text-gray-500">
+      <p className="text-xs gaia-muted">
         Marking “Teachable” helps you track what to study. “Add to Academy” creates a Tier‑1 concept that shows up in the Academy list.
       </p>
     </div>

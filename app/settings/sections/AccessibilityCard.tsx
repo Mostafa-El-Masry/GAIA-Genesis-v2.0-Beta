@@ -22,19 +22,19 @@ export default function AccessibilityCard(){
   }, [reduceMotion, highContrast, underlineLinks]);
 
   return (
-    <section className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
+    <section className="gaia-panel rounded-xl border p-4 shadow-sm">
       <div className="mb-2 font-semibold">Accessibility</div>
 
       <div className="grid gap-3 sm:grid-cols-2">
-        <label className="flex items-center justify-between gap-3 rounded-lg border border-black/10 p-3">
+        <label className="gaia-panel-soft flex items-center justify-between gap-3 rounded-lg border p-3">
           <span className="text-sm">Reduce motion</span>
           <input type="checkbox" checked={reduceMotion} onChange={e=>setReduceMotion(e.target.checked)} />
         </label>
-        <label className="flex items-center justify-between gap-3 rounded-lg border border-black/10 p-3">
+        <label className="gaia-panel-soft flex items-center justify-between gap-3 rounded-lg border p-3">
           <span className="text-sm">High-contrast text</span>
           <input type="checkbox" checked={highContrast} onChange={e=>setHighContrast(e.target.checked)} />
         </label>
-        <label className="flex items-center justify-between gap-3 rounded-lg border border-black/10 p-3 sm:col-span-2">
+        <label className="gaia-panel-soft flex items-center justify-between gap-3 rounded-lg border p-3 sm:col-span-2">
           <span className="text-sm">Underline links</span>
           <input type="checkbox" checked={underlineLinks} onChange={e=>setUnderlineLinks(e.target.checked)} />
         </label>

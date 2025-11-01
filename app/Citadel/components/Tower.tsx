@@ -27,7 +27,7 @@ export default function Tower() {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-lg font-medium">Tower</h2>
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="mt-1 text-xs gaia-muted">
             Unlock tiers in order per track. Tier 2 requires Tier 1, etc. The next unlockable node will gently pulse.
           </p>
         </div>
@@ -39,10 +39,10 @@ export default function Tower() {
           const nextId = track.nodes.find((n) => !isUnlocked(n.id) && canUnlock(track.id, n.tier))?.id;
 
           return (
-            <div key={track.id} id={`track-${track.id}`} className="rounded-lg border border-gray-200 p-4 scroll-mt-20">
+            <div key={track.id} id={`track-${track.id}`} className="rounded-lg border gaia-border p-4 scroll-mt-20">
               <div className="mb-3 flex items-center justify-between">
                 <h3 className="font-semibold">{track.title}</h3>
-                <span className="text-xs text-gray-500">
+                <span className="text-xs gaia-muted">
                   {track.nodes.filter((n) => isUnlocked(n.id)).length}/5
                 </span>
               </div>
@@ -54,15 +54,16 @@ export default function Tower() {
                   const unlockable = !unlocked && allowed;
                   const isNext = node.id === nextId;
 
-                  let classes =
-                    "w-full rounded-md border p-3 text-left transition focus:outline-none ";
+                  const classes = [
+                    "w-full rounded-md border p-3 text-left transition focus:outline-none",
+                  ];
                   if (unlocked) {
-                    classes += "border-green-600 bg-green-50/70";
+                    classes.push("gaia-node-unlocked");
                   } else if (unlockable) {
-                    classes += "border-gray-300 hover:border-gray-400 ring-1 ring-gray-200";
-                    if (isNext) classes += " animate-pulse";
+                    classes.push("gaia-border", "gaia-hover-soft", "gaia-ring-soft");
+                    if (isNext) classes.push("animate-pulse");
                   } else {
-                    classes += "border-gray-200 opacity-60 cursor-not-allowed";
+                    classes.push("gaia-border", "gaia-muted", "cursor-not-allowed");
                   }
 
                   return (
@@ -76,18 +77,18 @@ export default function Tower() {
                           }
                         }}
                         aria-disabled={!unlocked && !allowed}
-                        className={classes}
+                        className={classes.join(" ")}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-xs text-gray-500">Tier {node.tier}</span>
+                          <span className="text-xs gaia-muted">Tier {node.tier}</span>
                           <span className="text-xs">{unlocked ? "Unlocked" : allowed ? "Ready" : "Locked"}</span>
                         </div>
                         <div className="mt-1 font-medium">{node.title}</div>
                         {!unlocked && allowed && (
-                          <div className="mt-2 text-[11px] text-gray-500">Click to unlock</div>
+                          <div className="mt-2 text-[11px] gaia-muted">Click to unlock</div>
                         )}
                         {!allowed && !unlocked && (
-                          <div className="mt-2 text-[11px] text-gray-400">
+                          <div className="mt-2 text-[11px] gaia-muted">
                             Requires previous tier in {track.title}
                           </div>
                         )}
@@ -101,7 +102,7 @@ export default function Tower() {
         })}
       </div>
 
-      <p className="text-xs text-gray-500">Total unlocked: {countUnlocked()}</p>
+      <p className="text-xs gaia-muted">Total unlocked: {countUnlocked()}</p>
     </section>
   );
 }

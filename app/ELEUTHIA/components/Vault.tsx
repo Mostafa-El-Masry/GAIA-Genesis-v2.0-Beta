@@ -97,7 +97,7 @@ export default function Vault({ cryptoKey, initial, onLock }: Props) {
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-semibold">ELEUTHIA</h2>
-          <p className="text-xs text-gray-500">Zero-knowledge · local-first · AES-GCM 256</p>
+          <p className="gaia-muted text-xs">Zero-knowledge · local-first · AES-GCM 256</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <ImportChrome onImport={importEntries} />
@@ -114,7 +114,7 @@ export default function Vault({ cryptoKey, initial, onLock }: Props) {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="title, user, url…"
-            className="mt-1 block w-64 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
+            className="gaia-input mt-1 block w-64 rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
           />
         </label>
         <label className="text-sm">
@@ -122,7 +122,7 @@ export default function Vault({ cryptoKey, initial, onLock }: Props) {
           <select
             value={site}
             onChange={(e) => setSite(e.target.value)}
-            className="mt-1 block w-56 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
+            className="gaia-input mt-1 block w-56 rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
           >
             {sites.map((s) => (
               <option key={s} value={s}>{s}</option>
@@ -140,24 +140,24 @@ export default function Vault({ cryptoKey, initial, onLock }: Props) {
       </div>
 
       {entries.length === 0 ? (
-        <div className="rounded border border-gray-200 p-6 text-center text-sm text-gray-600">No entries match.</div>
+        <div className="gaia-panel gaia-muted rounded border p-6 text-center text-sm">No entries match.</div>
       ) : (
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {entries.map((e) => (
-            <article key={e.id} className="rounded-lg border border-gray-200 p-4">
+            <article key={e.id} className="gaia-panel rounded-lg border p-4">
               <div className="flex items-start justify-between">
                 <h3 className="font-semibold">{e.title}</h3>
-                <div className="text-xs text-gray-500">{new Date(e.updatedAt).toLocaleString()}</div>
+                <div className="gaia-muted text-xs">{new Date(e.updatedAt).toLocaleString()}</div>
               </div>
               <div className="mt-2 space-y-1 text-sm">
-                {e.username && <div><span className="text-gray-500">User:</span> {e.username}</div>}
+                {e.username && <div><span className="gaia-muted">User:</span> {e.username}</div>}
                 {e.url && (
                   <div className="truncate">
-                    <span className="text-gray-500">URL:</span>{" "}
+                    <span className="gaia-muted">URL:</span>{" "}
                     <a className="underline hover:no-underline" href={e.url} target="_blank" rel="noreferrer">{e.url}</a>
                   </div>
                 )}
-                {e.notes && <div className="whitespace-pre-wrap text-gray-700">{e.notes}</div>}
+                {e.notes && <div className="whitespace-pre-wrap gaia-text-default">{e.notes}</div>}
               </div>
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 {e.password && <Button onClick={() => copy(e.password!)} className="opacity-90">Copy password</Button>}
@@ -169,35 +169,35 @@ export default function Vault({ cryptoKey, initial, onLock }: Props) {
       )}
 
       {editing && (
-        <div className="rounded-lg border border-gray-200 p-4">
+        <div className="gaia-panel rounded-lg border p-4">
           <h4 className="font-medium">{editing.id.startsWith("e_") ? "New entry" : "Edit entry"}</h4>
           <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
             <label className="text-sm">
               Title
               <input value={editing.title} onChange={(e) => setEditing({ ...editing, title: e.target.value })}
-                className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300" />
+                className="gaia-input mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300" />
             </label>
             <label className="text-sm">
               Username
               <input value={editing.username ?? ""} onChange={(e) => setEditing({ ...editing, username: e.target.value })}
-                className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300" />
+                className="gaia-input mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300" />
             </label>
             <label className="text-sm">
               Password
               <input type="password" value={editing.password ?? ""} onChange={(e) => setEditing({ ...editing, password: e.target.value })}
-                className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300" />
+                className="gaia-input mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300" />
             </label>
             <label className="text-sm">
               URL
               <input value={editing.url ?? ""} onChange={(e) => setEditing({ ...editing, url: e.target.value })}
-                className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300" />
+                className="gaia-input mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300" />
             </label>
           </div>
           <label className="mt-3 block text-sm">
             Notes
             <textarea value={editing.notes ?? ""} onChange={(e) => setEditing({ ...editing, notes: e.target.value })}
               rows={4}
-              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300" />
+              className="gaia-input mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300" />
           </label>
 
           <div className="mt-4 flex items-center gap-2">

@@ -12,8 +12,8 @@ export default function MiniMap() {
 
   return (
     <div className="hidden items-center gap-2 md:flex">
-      <div className="text-xs text-gray-500">Mini-map</div>
-      <div className="grid grid-cols-5 gap-0.5 rounded border border-gray-200 p-1">
+      <div className="text-xs gaia-muted">Mini-map</div>
+      <div className="grid grid-cols-5 gap-0.5 rounded border gaia-border p-1">
         {tracks.map((t) =>
           t.nodes.map((n) => (
             <button
@@ -22,7 +22,13 @@ export default function MiniMap() {
                 const el = document.getElementById(`track-${t.id}`);
                 el?.scrollIntoView({ behavior: "smooth", block: "start" });
               }}
-              className={`h-2 w-2 rounded ${isUnlocked(n.id) ? "bg-green-600" : "bg-gray-300"} focus:outline-none focus:ring focus:ring-gray-300`}
+              className="h-2 w-2 rounded focus:outline-none focus:ring focus:ring-[color:var(--gaia-border)] transition-colors"
+              style={{
+                backgroundColor: isUnlocked(n.id)
+                  ? "color-mix(in srgb, var(--gaia-positive) 75%, var(--gaia-surface) 25%)"
+                  : "color-mix(in srgb, var(--gaia-border) 70%, transparent)",
+                opacity: isUnlocked(n.id) ? 1 : 0.6,
+              }}
               title={`${t.title} · Tier ${n.tier}`}
               aria-label={`${t.title} tier ${n.tier}`}
             />

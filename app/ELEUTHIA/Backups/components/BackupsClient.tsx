@@ -70,7 +70,7 @@ export default function BackupsClient() {
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-semibold">Backups (ELEUTHIA)</h2>
-          <p className="text-xs text-gray-500">Encrypted-only backups live here.</p>
+          <p className="text-xs gaia-muted">Encrypted-only backups live here.</p>
         </div>
         <div className="flex items-center gap-2">
           <Button onClick={exportEncrypted}>Export current (encrypted)</Button>
@@ -79,7 +79,7 @@ export default function BackupsClient() {
         </div>
       </header>
 
-      <div className="rounded-lg border border-gray-200 p-4">
+      <div className="rounded-lg border gaia-border p-4">
         <div className="flex items-end gap-2">
           <label className="text-sm">
             Snapshot name
@@ -87,7 +87,7 @@ export default function BackupsClient() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g., Before-reset"
-              className="mt-1 block w-64 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
+              className="mt-1 block w-64 rounded-md border gaia-border px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
             />
           </label>
           <Button onClick={createSnapshot}>Create snapshot</Button>
@@ -95,14 +95,14 @@ export default function BackupsClient() {
 
         <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
           {snaps.length === 0 ? (
-            <div className="rounded border border-gray-200 p-6 text-center text-sm text-gray-600">No snapshots yet.</div>
+            <div className="rounded border gaia-border p-6 text-center text-sm gaia-muted">No snapshots yet.</div>
           ) : (
             snaps.map((s) => (
-              <article key={s.id} className="rounded border border-gray-200 p-4">
+              <article key={s.id} className="rounded border gaia-border p-4">
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="font-medium">{s.name}</div>
-                    <div className="text-xs text-gray-500">{new Date(s.createdAt).toLocaleString()}</div>
+                    <div className="text-xs gaia-muted">{new Date(s.createdAt).toLocaleString()}</div>
                   </div>
                   <div className="flex items-center gap-2">
                     <Button onClick={() => restoreSnapshot(s)} className="opacity-90">Restore</Button>

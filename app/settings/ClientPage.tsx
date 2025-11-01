@@ -35,10 +35,10 @@ export default function SettingsPage(){
   }, []);
 
   return (
-    <main className="min-h-screen bg-white text-black">
+    <main className="min-h-screen gaia-surface">
       {/* GAIA back to intro */}
       <div className="fixed left-4 top-4 z-40">
-        <a href="/" className="inline-flex items-center gap-2 rounded-lg border bg-white/90 px-3 py-1.5 text-sm font-semibold">⟵ GAIA</a>
+        <a href="/" className="gaia-glass-strong gaia-border inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-semibold">⟵ GAIA</a>
       </div>
 
       <div className="mx-auto max-w-5xl space-y-4 p-4">
@@ -50,7 +50,7 @@ export default function SettingsPage(){
             <a key={t.id}
                href={`#${t.id}`}
                onClick={e=>{ e.preventDefault(); setTab(t.id); history.replaceState(null,'',`#${t.id}`);}}
-               className={'rounded-lg border px-3 py-1.5 text-sm ' + (tab===t.id ? 'bg-black text-white' : '')}>
+               className={'rounded-lg border px-3 py-1.5 text-sm ' + (tab===t.id ? 'gaia-contrast' : 'gaia-border')}>
               {t.label}
             </a>
           ))}
@@ -64,7 +64,7 @@ export default function SettingsPage(){
         {tab==='defaults' && <DefaultsCard />}
         {tab==='backup' && <BackupPanel />}
 
-        <p className="text-xs opacity-60">All settings are saved locally (LocalStorage).</p>
+        <p className="text-xs gaia-muted">All settings are saved locally (LocalStorage).</p>
       </div>
     </main>
   );

@@ -34,25 +34,25 @@ export default function WeekView(){
   ].join('\n'), [records]);
 
   return (
-    <section className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
+    <section className="gaia-panel rounded-xl border p-4 shadow-sm">
       <header className="mb-2 flex items-center justify-between">
         <h2 className="text-lg font-extrabold tracking-wide">This week</h2>
-        <button className="rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={()=>navigator.clipboard.writeText(textSummary)}>Copy weekly summary</button>
+        <button className="gaia-contrast rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={()=>navigator.clipboard.writeText(textSummary)}>Copy weekly summary</button>
       </header>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="rounded-lg border border-black/10 p-3">
-          <div className="text-sm font-semibold opacity-70">Water (ml)</div>
-          <svg className="mt-1 h-8 w-full text-black/40" viewBox="0 0 120 32" preserveAspectRatio="none">
+        <div className="gaia-panel-soft rounded-lg border p-3">
+          <div className="gaia-muted text-sm font-semibold">Water (ml)</div>
+          <svg className="gaia-ink-line mt-1 h-8 w-full" viewBox="0 0 120 32" preserveAspectRatio="none">
             <path d={spark(water)} fill="currentColor" />
           </svg>
-          <div className="text-sm opacity-70 mt-1">Avg: {Math.round(avg(water))} ml</div>
+          <div className="gaia-muted text-sm mt-1">Avg: {Math.round(avg(water))} ml</div>
         </div>
-        <div className="rounded-lg border border-black/10 p-3">
-          <div className="text-sm font-semibold opacity-70">Sleep (hrs)</div>
-          <svg className="mt-1 h-8 w-full text-black/40" viewBox="0 0 120 32" preserveAspectRatio="none">
+        <div className="gaia-panel-soft rounded-lg border p-3">
+          <div className="gaia-muted text-sm font-semibold">Sleep (hrs)</div>
+          <svg className="gaia-ink-line mt-1 h-8 w-full" viewBox="0 0 120 32" preserveAspectRatio="none">
             <path d={spark(sleep)} fill="currentColor" />
           </svg>
-          <div className="text-sm opacity-70 mt-1">Avg: {avg(sleep).toFixed(1)} h</div>
+          <div className="gaia-muted text-sm mt-1">Avg: {avg(sleep).toFixed(1)} h</div>
         </div>
       </div>
     </section>

@@ -43,9 +43,9 @@ export default function EleuGate({ children }: { children: React.ReactNode }) {
   if (ok) return <>{children}</>;
 
   return (
-    <div className="mx-auto max-w-sm space-y-3 rounded-lg border border-gray-200 p-4">
+    <div className="mx-auto max-w-sm space-y-3 rounded-lg border gaia-border p-4">
       <h3 className="font-semibold">Protected area</h3>
-      <p className="text-sm text-gray-600">
+      <p className="text-sm gaia-muted">
         Enter your ELEUTHIA passphrase to unlock this section (in this tab). No data leaves your browser.
       </p>
       <input
@@ -53,12 +53,12 @@ export default function EleuGate({ children }: { children: React.ReactNode }) {
         value={pass}
         onChange={(e) => setPass(e.target.value)}
         placeholder="ELEUTHIA passphrase"
-        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
+        className="w-full rounded-md border gaia-border px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-gray-300"
       />
       {err && <div className="rounded border border-red-200 bg-red-50 p-2 text-sm text-red-700">{err}</div>}
       <div className="flex items-center gap-2">
         <Button onClick={unlock} disabled={!pass || busy}>Unlock</Button>
-        <span className="text-xs text-gray-500">Vault must exist already.</span>
+        <span className="text-xs gaia-muted">Vault must exist already.</span>
       </div>
     </div>
   );

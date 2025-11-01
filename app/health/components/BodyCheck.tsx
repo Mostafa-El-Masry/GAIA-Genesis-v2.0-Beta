@@ -48,42 +48,42 @@ export default function BodyCheck(){
   }
 
   return (
-    <section className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
+    <section className="gaia-panel rounded-xl border p-4 shadow-sm">
       <header className="mb-2"><h2 className="text-lg font-extrabold tracking-wide">Body check (monthly)</h2></header>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="rounded-lg border border-black/10 p-3">
-          <div className="text-sm font-semibold opacity-70 mb-2">Metrics</div>
+        <div className="gaia-panel-soft rounded-lg border p-3">
+          <div className="gaia-muted text-sm font-semibold mb-2">Metrics</div>
           <div className="mb-2">
-            <label className="text-sm opacity-70">Date</label>
-            <input type="date" className="mt-1 w-full rounded-lg border border-black/10 px-3 py-1.5" value={date} onChange={e=>setDate(e.target.value)} />
+            <label className="gaia-muted text-sm">Date</label>
+            <input type="date" className="gaia-input mt-1 w-full rounded-lg border px-3 py-1.5" value={date} onChange={e=>setDate(e.target.value)} />
           </div>
           <div className="grid grid-cols-2 gap-2">
-            <input placeholder="Height (cm)" type="number" className="rounded-lg border border-black/10 px-3 py-1.5" value={heightCm} onChange={e=>setHeightCm(e.target.value)} />
-            <input placeholder="Weight (kg)" type="number" className="rounded-lg border border-black/10 px-3 py-1.5" value={weightKg} onChange={e=>setWeightKg(e.target.value)} />
-            <input placeholder="Body fat % (opt)" type="number" className="rounded-lg border border-black/10 px-3 py-1.5" value={bodyFatPct} onChange={e=>setBodyFatPct(e.target.value)} />
-            <input placeholder="Waist (cm) (opt)" type="number" className="rounded-lg border border-black/10 px-3 py-1.5" value={waistCm} onChange={e=>setWaistCm(e.target.value)} />
+            <input placeholder="Height (cm)" type="number" className="gaia-input rounded-lg border px-3 py-1.5" value={heightCm} onChange={e=>setHeightCm(e.target.value)} />
+            <input placeholder="Weight (kg)" type="number" className="gaia-input rounded-lg border px-3 py-1.5" value={weightKg} onChange={e=>setWeightKg(e.target.value)} />
+            <input placeholder="Body fat % (opt)" type="number" className="gaia-input rounded-lg border px-3 py-1.5" value={bodyFatPct} onChange={e=>setBodyFatPct(e.target.value)} />
+            <input placeholder="Waist (cm) (opt)" type="number" className="gaia-input rounded-lg border px-3 py-1.5" value={waistCm} onChange={e=>setWaistCm(e.target.value)} />
           </div>
-          <button className="mt-2 rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={addEntry}>Add entry</button>
+          <button className="gaia-contrast mt-2 rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={addEntry}>Add entry</button>
         </div>
 
-        <div className="rounded-lg border border-black/10 p-3 sm:col-span-2 lg:col-span-3">
-          <div className="text-sm font-semibold opacity-70 mb-2">Body photos</div>
+        <div className="gaia-panel-soft rounded-lg border p-3 sm:col-span-2 lg:col-span-3">
+          <div className="gaia-muted text-sm font-semibold mb-2">Body photos</div>
           <div className="flex flex-wrap items-center gap-2">
-            <label className="rounded-lg border px-3 py-1.5 text-sm font-semibold cursor-pointer">Upload front<input type="file" accept="image/*" className="hidden" onChange={e=>onPhotoChange(e,'front')} /></label>
-            <label className="rounded-lg border px-3 py-1.5 text-sm font-semibold cursor-pointer">Upload side<input type="file" accept="image/*" className="hidden" onChange={e=>onPhotoChange(e,'side')} /></label>
-            <label className="rounded-lg border px-3 py-1.5 text-sm font-semibold cursor-pointer">Upload other<input type="file" accept="image/*" className="hidden" onChange={e=>onPhotoChange(e,'other')} /></label>
+            <label className="gaia-border rounded-lg border px-3 py-1.5 text-sm font-semibold cursor-pointer">Upload front<input type="file" accept="image/*" className="hidden" onChange={e=>onPhotoChange(e,'front')} /></label>
+            <label className="gaia-border rounded-lg border px-3 py-1.5 text-sm font-semibold cursor-pointer">Upload side<input type="file" accept="image/*" className="hidden" onChange={e=>onPhotoChange(e,'side')} /></label>
+            <label className="gaia-border rounded-lg border px-3 py-1.5 text-sm font-semibold cursor-pointer">Upload other<input type="file" accept="image/*" className="hidden" onChange={e=>onPhotoChange(e,'other')} /></label>
           </div>
           <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {photos.slice().reverse().map(m => (
-              <div key={m.id} className="rounded-lg border border-black/10 p-2">
-                {urls[m.id] ? <img src={urls[m.id]} alt={m.name} className="aspect-[4/5] w-full rounded-md object-cover" /> : <div className="aspect-[4/5] w-full rounded-md bg-black/5" />}
+              <div key={m.id} className="gaia-panel-soft rounded-lg border p-2">
+                {urls[m.id] ? <img src={urls[m.id]} alt={m.name} className="aspect-[4/5] w-full rounded-md object-cover" /> : <div className="gaia-ink-faint aspect-[4/5] w-full rounded-md" />}
                 <div className="mt-1 text-sm font-semibold">{m.date} - {m.kind}</div>
-                <div className="text-xs opacity-70">{(m.size/1024).toFixed(0)} KB</div>
-                <button className="mt-2 rounded-lg border px-2 py-1 text-xs" onClick={async()=>{ await removePhoto(m.id); const metas = await listPhotos(); setPhotos(metas); }}>Delete</button>
+                <div className="gaia-muted text-xs">{(m.size/1024).toFixed(0)} KB</div>
+                <button className="gaia-border mt-2 rounded-lg border px-2 py-1 text-xs" onClick={async()=>{ await removePhoto(m.id); const metas = await listPhotos(); setPhotos(metas); }}>Delete</button>
               </div>
             ))}
-            {photos.length === 0 && <div className="opacity-60">No photos yet</div>}
+            {photos.length === 0 && <div className="gaia-muted">No photos yet</div>}
           </div>
         </div>
       </div>

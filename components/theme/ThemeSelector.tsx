@@ -1,14 +1,19 @@
 // components/theme/ThemeSelector.tsx
 "use client";
 
-import { useTheme, type ThemeName } from "@/components/theme/ThemeProvider";
+import { useTheme } from "@/components/theme/ThemeProvider";
 import { useDesignSafe } from "@/app/DesignSystem/context/DesignProvider";
+import { DAISY_THEMES, type DaisyThemeName } from "@/daisyThemes";
 
-const OPTIONS: { value: ThemeName; label: string }[] = [
-  { value: "light", label: "Light" },
-  { value: "dark", label: "Dark" },
-  { value: "cupcake", label: "Cupcake (DaisyUI)" },
-];
+const OPTIONS: { value: DaisyThemeName; label: string }[] = DAISY_THEMES.map(
+  (value: DaisyThemeName) => ({
+    value,
+    label: value
+      .split("-")
+      .map((part: string) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" "),
+  })
+);
 
 export default function ThemeSelector() {
   const { theme, setTheme } = useTheme();
@@ -23,7 +28,7 @@ export default function ThemeSelector() {
         className="select select-bordered w-full"
         value={theme}
         onChange={(e) => {
-          const t = e.target.value as ThemeName;
+          const t = e.target.value as DaisyThemeName;
           setTheme(t);
           // Keep DesignProvider in sync so previews update immediately.
           try {

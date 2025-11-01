@@ -71,7 +71,7 @@ export default function Academy() {
     <section className="space-y-6">
       <header>
         <h2 className="text-lg font-medium">Academy</h2>
-        <p className="mt-1 text-sm text-gray-600">
+        <p className="mt-1 text-sm gaia-muted">
           Learn → quiz → build. Passing unlocks the matching node in the Tower. Items you add from Archives appear here.
         </p>
       </header>
@@ -82,9 +82,9 @@ export default function Academy() {
             <button
               key={c.id}
               onClick={() => startSelected(c.id)}
-              className="rounded-md border border-gray-200 p-3 text-left transition hover:border-gray-300"
+              className="rounded-md border gaia-border p-3 text-left transition gaia-hover-soft"
             >
-              <div className="text-xs text-gray-500">{c.trackTitle} · Tier 1</div>
+              <div className="text-xs gaia-muted">{c.trackTitle} · Tier 1</div>
               <div className="mt-1 font-medium">{c.title}</div>
               {isUnlocked(c.nodeId) && <div className="mt-2 text-xs text-green-600">Unlocked</div>}
             </button>
@@ -93,19 +93,19 @@ export default function Academy() {
       )}
 
       {sel && step !== "choose" && (
-        <div className="rounded-lg border border-gray-200 p-4">
+        <div className="rounded-lg border gaia-border p-4">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-xs text-gray-500">{sel.trackTitle} · Tier 1</div>
+              <div className="text-xs gaia-muted">{sel.trackTitle} · Tier 1</div>
               <h3 className="text-lg font-semibold">{sel.title}</h3>
             </div>
-            <div className="text-xs text-gray-500">Step: {step}</div>
+            <div className="text-xs gaia-muted">Step: {step}</div>
           </div>
 
           {step === "learn" && (
             <div className="mt-4 space-y-4">
               <p className="text-sm leading-relaxed">{sel.lesson}</p>
-              <div className="text-xs text-gray-500">Tip: keep it short && focused; you’ll reinforce by building.</div>
+              <div className="text-xs gaia-muted">Tip: keep it short && focused; you’ll reinforce by building.</div>
               <div className="mt-4">
                 <Button onClick={() => setStep("quiz")}>Start quiz</Button>
               </div>
@@ -115,7 +115,7 @@ export default function Academy() {
           {step === "quiz" && (
             <div className="mt-4 space-y-4">
               {sel.quiz.map((q: any, i: number) => (
-                <div key={i} className="rounded-md border border-gray-200 p-3">
+                <div key={i} className="rounded-md border gaia-border p-3">
                   <div className="text-sm font-medium">{i + 1}. {q.q}</div>
                   <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
                     {q.choices.map((choice: string, idx: number) => {
@@ -125,7 +125,7 @@ export default function Academy() {
                           key={idx}
                           onClick={() => setAnswers(a => ({ ...a, [i]: idx }))}
                           className={`rounded border px-3 py-2 text-left text-sm transition ${
-                            selected ? "border-gray-900 shadow-sm" : "border-gray-200 hover:border-gray-300"
+                            selected ? "border-gray-900 shadow-sm" : "gaia-border gaia-hover-soft"
                           }`}
                         >
                           {choice}
@@ -151,11 +151,11 @@ export default function Academy() {
 
           {step === "build" && (
             <div className="mt-4 space-y-3">
-              <p className="text-sm text-gray-700">
+              <p className="text-sm gaia-text-default">
                 Paste a link to your private build (e.g., local dev server, Vercel preview, CodePen) anywhere in your notes below to embed it in Labs.
               </p>
               <textarea
-                className="w-full rounded-md border border-gray-300 p-3 text-sm focus:outline-none focus:ring focus:ring-gray-300"
+                className="w-full rounded-md border gaia-border p-3 text-sm focus:outline-none focus:ring focus:ring-gray-300"
                 rows={5}
                 value={/* @ts-ignore */ sel._note ?? ""}
                 onChange={(e) => {
@@ -163,7 +163,7 @@ export default function Academy() {
                 }}
                 placeholder="Your build notes + link (optional)…"
               />
-              <div className="text-xs text-gray-500">Saved locally in the next step; first URL gets embedded in Labs.</div>
+              <div className="text-xs gaia-muted">Saved locally in the next step; first URL gets embedded in Labs.</div>
             </div>
           )}
 
@@ -175,7 +175,7 @@ export default function Academy() {
           )}
 
           <div className="mt-6 flex items-center gap-3">
-            {step !== "choose" && step !== "done" && (
+            {step !== "done" && (
               <Button
                 onClick={() => {
                   if (step === "learn") setStep("choose");

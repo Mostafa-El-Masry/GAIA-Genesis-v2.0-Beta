@@ -1,8 +1,6 @@
-import dynamic from "next/dynamic";
 import LastUpdatedBadge from "../Shared/components/LastUpdatedBadge";
 import ViewCounter from "../Shared/components/ViewCounter";
-
-const SiteMapClient = dynamic(() => import("./components/SiteMapClient"), { ssr: false });
+import SiteMapClient from "./components/SiteMapClient";
 
 export default function SiteMapPage() {
   return (
@@ -10,7 +8,7 @@ export default function SiteMapPage() {
       <header className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Manual Site Map</h1>
-          <p className="text-sm text-gray-600">Curated links to the important places.</p>
+          <p className="text-sm gaia-muted">Curated links to the important places.</p>
         </div>
         <div className="flex items-center gap-2">
           <LastUpdatedBadge />

@@ -9,7 +9,7 @@ type GlobalErrorProps = {
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-white text-black">
+      <body className="min-h-screen gaia-surface">
         <main className="mx-auto flex min-h-screen max-w-xl flex-col items-center justify-center gap-4 p-6 text-center">
           <h1 className="text-3xl font-bold">Something went wrong</h1>
           <p className="text-sm opacity-70">
@@ -18,14 +18,14 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               type="button"
-              className="rounded-lg border px-4 py-2 text-sm font-semibold"
+              className="gaia-border rounded-lg border px-4 py-2 text-sm font-semibold"
               onClick={reset}
             >
               Try again
             </button>
             <a
               href="/"
-              className="rounded-lg border px-4 py-2 text-sm font-semibold"
+              className="gaia-border rounded-lg border px-4 py-2 text-sm font-semibold"
             >
               Go home
             </a>

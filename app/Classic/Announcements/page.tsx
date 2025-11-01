@@ -1,8 +1,6 @@
-import dynamic from "next/dynamic";
 import LastUpdatedBadge from "../Shared/components/LastUpdatedBadge";
 import ViewCounter from "../Shared/components/ViewCounter";
-
-const AnnouncementsClient = dynamic(() => import("./components/AnnouncementsClient"), { ssr: false });
+import AnnouncementsClient from "./components/AnnouncementsClient";
 
 export default function AnnouncementsPage() {
   return (
@@ -10,7 +8,7 @@ export default function AnnouncementsPage() {
       <header className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Announcements</h1>
-          <p className="text-sm text-gray-600">Longer notes and bulletins.</p>
+          <p className="text-sm gaia-muted">Longer notes and bulletins.</p>
         </div>
         <div className="flex items-center gap-2">
           <LastUpdatedBadge />

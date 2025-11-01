@@ -15,19 +15,19 @@ type BuildEntry = {
 
 export default function BuildCard({ b }: { b: BuildEntry }) {
   return (
-    <article className="rounded-lg border border-gray-200 p-4">
+    <article className="rounded-lg border gaia-border p-4">
       <header className="flex items-center justify-between">
         <div>
-          <div className="text-xs text-gray-500">{b.trackTitle}</div>
+          <div className="text-xs gaia-muted">{b.trackTitle}</div>
           <h3 className="text-lg font-semibold">{b.title}</h3>
         </div>
         {typeof b.score === "number" && typeof b.total === "number" && (
-          <div className="text-xs text-gray-600">Score {b.score}/{b.total}</div>
+          <div className="text-xs gaia-muted">Score {b.score}/{b.total}</div>
         )}
       </header>
 
       {b.embedUrl ? (
-        <div className="mt-3 overflow-hidden rounded border border-gray-200">
+        <div className="mt-3 overflow-hidden rounded border gaia-border">
           <div className="aspect-video w-full">
             <iframe
               src={b.embedUrl}
@@ -40,10 +40,10 @@ export default function BuildCard({ b }: { b: BuildEntry }) {
           </div>
         </div>
       ) : (
-        <p className="mt-3 whitespace-pre-wrap text-sm text-gray-700">{b.note || "No notes provided."}</p>
+        <p className="mt-3 whitespace-pre-wrap text-sm gaia-text-default">{b.note || "No notes provided."}</p>
       )}
 
-      <footer className="mt-3 text-xs text-gray-500">
+      <footer className="mt-3 text-xs gaia-muted">
         {b.completedAt ? new Date(b.completedAt).toLocaleString() : "Unsubmitted draft"}
         {b.embedUrl && (
           <a className="ml-3 underline hover:no-underline" href={b.embedUrl} target="_blank" rel="noreferrer">Open</a>

@@ -5,10 +5,10 @@ import Button from "@/app/DesignSystem/components/Button";
 
 function Card({ title, desc, href, action = "Open" }: { title: string; desc: string; href: string; action?: string }) {
   return (
-    <article className="flex items-center justify-between rounded-lg border border-gray-200 p-4">
+    <article className="flex items-center justify-between rounded-lg border gaia-border p-4">
       <div>
         <h3 className="font-medium">{title}</h3>
-        <p className="text-sm text-gray-600">{desc}</p>
+        <p className="text-sm gaia-muted">{desc}</p>
       </div>
       <Link href={href}><Button>{action}</Button></Link>
     </article>
@@ -29,7 +29,7 @@ export default function Entry() {
         <Card title="GAIA Intro" desc="Phase 5 overview & placement" href="/Archives/GAIA/Intro" action="Open Intro" />
       </div>
 
-      <p className="text-xs text-gray-500">Use the global Search in the top bar to jump anywhere quickly.</p>
+      <p className="text-xs gaia-muted">Use the global Search in the top bar to jump anywhere quickly.</p>
     </section>
   );
 }

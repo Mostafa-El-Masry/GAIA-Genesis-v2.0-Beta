@@ -24,7 +24,7 @@ export default function WeightSpark(){
     setPoints(arr.slice(-30)); // last 30
   }, []);
 
-  if (!points.length) return <div className="text-sm opacity-60">No data</div>;
+  if (!points.length) return <div className="text-sm gaia-muted">No data</div>;
 
   const min = Math.min(...points);
   const max = Math.max(...points);

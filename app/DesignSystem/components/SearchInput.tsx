@@ -11,11 +11,11 @@ export default function SearchInput() {
 
   let style = 'w-full px-3 py-2 border text-sm focus:outline-none focus:ring focus:ring-gray-300';
   if (search === 'rounded') {
-    style += ' rounded-md border-gray-300';
+    style += ' rounded-md gaia-border';
   } else if (search === 'pill') {
-    style += ' rounded-full border-gray-300';
+    style += ' rounded-full gaia-border';
   } else {
-    style += ' border-0 border-b border-gray-300 rounded-none';
+    style += ' border-0 border-b gaia-border rounded-none';
   }
 
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {

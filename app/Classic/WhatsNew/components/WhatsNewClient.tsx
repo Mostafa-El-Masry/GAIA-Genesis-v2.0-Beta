@@ -25,22 +25,22 @@ export default function WhatsNewClient() {
     <div className="space-y-4">
       <div className="flex items-center gap-2">
         <label className="text-sm">Filter</label>
-        <select value={tag} onChange={(e) => setTag(e.target.value)} className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm">
+        <select value={tag} onChange={(e) => setTag(e.target.value)} className="gaia-input rounded-md border px-3 py-2 text-sm">
           {tags.map(t => <option key={t} value={t}>{t}</option>)}
         </select>
       </div>
 
       <div className="space-y-3">
         {list.map((i) => (
-          <article key={i.id} className="rounded border border-gray-200 p-4">
+          <article key={i.id} className="gaia-panel rounded border p-4">
             <header className="flex items-center justify-between">
               <h3 className="font-semibold">{i.title}</h3>
-              <div className="text-xs text-gray-500">{new Date(i.date).toLocaleDateString()}</div>
+              <div className="gaia-muted text-xs">{new Date(i.date).toLocaleDateString()}</div>
             </header>
-            <p className="mt-2 text-sm text-gray-700">{i.body}</p>
+            <p className="gaia-muted mt-2 text-sm">{i.body}</p>
             <div className="mt-2 flex items-center gap-2">
-              {i.tags?.map(t => <span key={t} className="rounded border border-gray-200 px-2 py-0.5 text-xs text-gray-600">{t}</span>)}
-              {daysSince(i.date) <= 14 && <span className="rounded bg-green-100 px-2 py-0.5 text-xs text-green-700">New</span>}
+              {i.tags?.map(t => <span key={t} className="gaia-chip text-xs px-2 py-0.5">{t}</span>)}
+              {daysSince(i.date) <= 14 && <span className="gaia-contrast rounded px-2 py-0.5 text-xs">New</span>}
             </div>
           </article>
         ))}

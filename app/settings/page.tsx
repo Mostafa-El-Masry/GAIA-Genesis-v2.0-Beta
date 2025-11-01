@@ -3,13 +3,11 @@
 import { useEffect } from "react";
 import {
   useDesign,
-  type Theme,
   type ButtonStyle,
   type SearchStyle,
 } from "@/app/DesignSystem/context/DesignProvider";
 import ThemeSelector from "@/components/theme/ThemeSelector";
 
-const THEMES: Theme[] = ["light", "dark", "cupcake"];
 const BUTTONS: ButtonStyle[] = ["solid", "outline", "ghost"];
 const SEARCHES: SearchStyle[] = ["rounded", "pill", "underline"];
 
@@ -27,17 +25,17 @@ export default function SettingsPage() {
     <main className="mx-auto max-w-3xl px-4 py-8 space-y-8">
       <header>
         <h1 className="text-2xl font-semibold">Settings</h1>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm gaia-muted">
           Per-user theme and UI primitives. Stored locally.
         </p>
       </header>
 
       {/* Theme picker */}
-      <section className="space-y-3 rounded-lg border border-gray-200 p-4 mb-8">
+      <section className="space-y-3 rounded-lg border gaia-border p-4 mb-8">
         <ThemeSelector />
       </section>
 
-      <section className="space-y-3 rounded-lg border border-gray-200 p-4">
+      <section className="space-y-3 rounded-lg border gaia-border p-4">
         <h2 className="font-medium">Button</h2>
         <div className="flex flex-wrap items-center gap-2">
           {BUTTONS.map((b) => (
@@ -47,7 +45,7 @@ export default function SettingsPage() {
               className={`rounded border px-3 py-1 text-sm capitalize ${
                 button === b
                   ? "border-gray-900"
-                  : "border-gray-200 hover:border-gray-300"
+                  : "gaia-border gaia-hover-soft"
               }`}
             >
               {b}
@@ -56,7 +54,7 @@ export default function SettingsPage() {
         </div>
       </section>
 
-      <section className="space-y-3 rounded-lg border border-gray-200 p-4">
+      <section className="space-y-3 rounded-lg border gaia-border p-4">
         <h2 className="font-medium">Search bar</h2>
         <div className="flex flex-wrap items-center gap-2">
           {SEARCHES.map((s) => (
@@ -66,7 +64,7 @@ export default function SettingsPage() {
               className={`rounded border px-3 py-1 text-sm capitalize ${
                 search === s
                   ? "border-gray-900"
-                  : "border-gray-200 hover:border-gray-300"
+                  : "gaia-border gaia-hover-soft"
               }`}
             >
               {s}

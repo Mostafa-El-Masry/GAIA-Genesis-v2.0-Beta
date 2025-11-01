@@ -26,23 +26,23 @@ export default function HabitList(){
   const streak = (h:Habit)=>{ let s=0; const ds = days; for(let i=ds.length-1;i>=0;i--){ const d=ds[i]; if(h.history[d]) s++; else break; } return s; };
 
   return (
-    <section className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
+    <section className="gaia-panel rounded-xl border p-4 shadow-sm">
       <header className="mb-2 flex items-center justify-between">
         <h2 className="text-lg font-extrabold tracking-wide">Habits</h2>
-        <button className="rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={addHabit}>+ Add habit</button>
+        <button className="gaia-contrast rounded-lg border px-3 py-1.5 text-sm font-semibold" onClick={addHabit}>+ Add habit</button>
       </header>
       <div className="flex flex-col gap-3">
         {habits.map(h => (
-          <div key={h.id} className="rounded-lg border border-black/10 p-3">
+          <div key={h.id} className="gaia-panel-soft rounded-lg border p-3">
             <div className="mb-2 flex items-center justify-between gap-2">
-              <input className="w-full rounded-lg border border-black/10 px-3 py-1.5" value={h.name} onChange={e=>setName(h.id, e.target.value)} />
-              <div className="text-sm opacity-70">Streak: {streak(h)}</div>
-              <button className="rounded-lg border px-3 py-1.5 text-sm" onClick={()=>removeHabit(h.id)}>Delete</button>
+              <input className="gaia-input w-full rounded-lg border px-3 py-1.5" value={h.name} onChange={e=>setName(h.id, e.target.value)} />
+              <div className="gaia-muted text-sm">Streak: {streak(h)}</div>
+              <button className="gaia-border rounded-lg border px-3 py-1.5 text-sm" onClick={()=>removeHabit(h.id)}>Delete</button>
             </div>
             <div className="grid grid-cols-7 gap-2">
               {days.map(d => (
                 <label key={d} className="flex flex-col items-center gap-1 text-xs">
-                  <span className="opacity-60">{dayShort(d)}</span>
+                  <span className="gaia-muted">{dayShort(d)}</span>
                   <input type="checkbox" checked={!!h.history[d]} onChange={e=>{ toggleHabit(h.id, d, e.target.checked); setHabits(loadHabits()); }} />
                 </label>
               ))}

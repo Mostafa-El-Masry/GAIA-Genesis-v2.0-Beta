@@ -26,9 +26,7 @@ export default function Intro() {
     { href: "/Archives", label: "Archives" },
     { href: "/Citadel", label: "Citadel" },
     { href: "/media-tools", label: "Media Tools" },
-    { href: "/sync", label: "Sync" },
     { href: "/settings", label: "Settings" },
-    { href: "/goodbye", label: "Goodbye" },
   ];
 
   const [radius, setRadius] = useState<number>(180);
@@ -75,7 +73,7 @@ export default function Intro() {
                   <Link
                     key={l.href}
                     href={l.href}
-                    className="absolute left-1/2 top-1/2 block rounded-xl border border-black/10 bg-white/30 p-2 px-4 text-center backdrop-blur transition hover:shadow-md active:scale-[.99]"
+                    className="gaia-glass gaia-border absolute left-1/2 top-1/2 block rounded-xl border p-2 px-4 text-center backdrop-blur transition hover:shadow-md active:scale-[.99] text-[var(--gaia-text-default)] no-underline"
                     style={{ transform }}
                   >
                     {l.label}

@@ -8,17 +8,15 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & { children: React.R
 export default function Button({ className = '', children, ...rest }: Props) {
   const { button, theme } = useDesign();
 
-  const base = 'inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition focus:outline-none focus:ring focus:ring-gray-300';
+  const base = 'inline-flex items-center justify-center rounded-md px-3 py-2 text-sm transition focus:outline-none focus:ring focus:ring-[color:var(--gaia-border)]';
   let style = '';
 
   if (button === 'solid') {
-    style = theme === 'dark'
-      ? 'bg-gray-900 text-white hover:bg-gray-800'
-      : 'bg-gray-900 text-white hover:bg-gray-800';
+    style = 'gaia-contrast';
   } else if (button === 'outline') {
-    style = 'border border-gray-300 hover:border-gray-400';
+    style = 'border gaia-border gaia-hover-soft';
   } else { // ghost
-    style = 'hover:bg-gray-100';
+    style = 'gaia-hover-soft';
   }
 
   return (

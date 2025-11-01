@@ -19,13 +19,13 @@ export default function SceneCard(){
   }, [landing, introStyle]);
 
   return (
-    <section className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
+    <section className="gaia-panel rounded-xl border p-4 shadow-sm">
       <div className="mb-2 font-semibold">Scene preferences</div>
 
       <div className="grid gap-3 sm:grid-cols-2">
-        <label className="flex items-center justify-between gap-3 rounded-lg border border-black/10 p-3">
+        <label className="gaia-panel-soft flex items-center justify-between gap-3 rounded-lg border p-3">
           <span className="text-sm">Default landing page</span>
-          <select value={landing} onChange={e=>setLanding(e.target.value as any)} className="rounded border px-2 py-1 text-sm">
+          <select value={landing} onChange={e=>setLanding(e.target.value as any)} className="gaia-input rounded border px-2 py-1 text-sm">
             <option value="/">Intro</option>
             <option value="/gallery">Gallery</option>
             <option value="/dashboard">Dashboard</option>
@@ -33,9 +33,9 @@ export default function SceneCard(){
           </select>
         </label>
 
-        <label className="flex items-center justify-between gap-3 rounded-lg border border-black/10 p-3">
+        <label className="gaia-panel-soft flex items-center justify-between gap-3 rounded-lg border p-3">
           <span className="text-sm">Intro style</span>
-          <select value={introStyle} onChange={e=>setIntroStyle(e.target.value as any)} className="rounded border px-2 py-1 text-sm">
+          <select value={introStyle} onChange={e=>setIntroStyle(e.target.value as any)} className="gaia-input rounded border px-2 py-1 text-sm">
             <option value="gaia-only">GAIA only</option>
             <option value="gaia-glass">GAIA + glass search</option>
           </select>

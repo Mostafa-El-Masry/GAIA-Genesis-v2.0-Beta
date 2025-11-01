@@ -1,0 +1,5 @@
+/* Import daisyUI via CSS to ensure it's bundled */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "daisyui/dist/full.css";

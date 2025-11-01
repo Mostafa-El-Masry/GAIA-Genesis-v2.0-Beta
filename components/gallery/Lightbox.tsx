@@ -398,7 +398,7 @@ export default function Lightbox({
             e.stopPropagation();
             onPrev();
           }}
-          className="m-4 px-3 py-2 bg-white/10 text-white rounded"
+          className="gaia-contrast m-4 rounded px-3 py-2"
         >
           ◀
         </button>
@@ -408,7 +408,7 @@ export default function Lightbox({
             e.stopPropagation();
             onNext();
           }}
-          className="m-4 px-3 py-2 bg-white/10 text-white rounded"
+          className="gaia-contrast m-4 rounded px-3 py-2"
         >
           ▶
         </button>

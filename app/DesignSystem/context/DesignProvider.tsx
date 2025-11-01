@@ -7,8 +7,9 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { AVAILABLE_THEMES, type ThemeName } from "@/components/theme/ThemeProvider";
 
-export type Theme = "light" | "dark" | "cupcake";
+export type Theme = ThemeName;
 export type ButtonStyle = "solid" | "outline" | "ghost";
 export type SearchStyle = "rounded" | "pill" | "underline";
 
@@ -27,7 +28,7 @@ const THEME_KEY = "gaia.theme";
 const BTN_KEY = "gaia.ui.button";
 const SRCH_KEY = "gaia.ui.search";
 
-const VALID_THEMES: Theme[] = ["light", "dark", "cupcake"];
+const VALID_THEMES: Theme[] = [...AVAILABLE_THEMES];
 const VALID_BUTTONS: ButtonStyle[] = ["solid", "outline", "ghost"];
 const VALID_SEARCHES: SearchStyle[] = ["rounded", "pill", "underline"];
 

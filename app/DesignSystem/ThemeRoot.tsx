@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import { DEFAULT_THEME, THEMES, type Theme } from "./theme";
@@ -13,11 +13,21 @@ export default function ThemeRoot({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(DEFAULT_THEME);
 
   useEffect(() => {
-    const stored = (typeof window !== "undefined" && window.localStorage.getItem("gaia.theme")) as Theme | null;
-    const initial = stored && (THEMES as readonly string[]).includes(stored) ? stored : DEFAULT_THEME;
+    const stored = (typeof window !== "undefined" &&
+      window.localStorage.getItem("gaia.theme")) as Theme | null;
+    const initial =
+      stored && (THEMES as readonly string[]).includes(stored)
+        ? stored
+        : DEFAULT_THEME;
     setTheme(initial);
     if (typeof document !== "undefined") {
       document.documentElement.setAttribute("data-theme", initial);
+      // Add a class to indicate theme is loading
+      document.documentElement.classList.add("theme-loading");
+      // Remove loading class after styles have had time to apply
+      setTimeout(() => {
+        document.documentElement.classList.remove("theme-loading");
+      }, 100);
     }
   }, []);
 
@@ -32,7 +42,8 @@ export default function ThemeRoot({ children }: { children: React.ReactNode }) {
       }
     }
     window.addEventListener("gaia:theme", onTheme as EventListener);
-    return () => window.removeEventListener("gaia:theme", onTheme as EventListener);
+    return () =>
+      window.removeEventListener("gaia:theme", onTheme as EventListener);
   }, []);
 
   return <>{children}</>;

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import "./gallery.css";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -13,6 +13,7 @@ import {
 import type { GalleryItem } from "@/components/gallery/types";
 import type { Mode } from "@/components/gallery/prefs";
 import { SearchGlyph, ClockGlyph } from "@/components/gallery/icons";
+import Toggle from "./components/Toggle";
 
 type ScanResp = { items: GalleryItem[] };
 
@@ -311,20 +312,14 @@ export default function GalleryClient() {
               Reset views
             </button>
           </div>
-          <div className="toggle">
-            <button
-              className={mode === "images" ? "active" : ""}
-              onClick={() => setMode("images")}
-            >
-              Images
-            </button>
-            <button
-              className={mode === "videos" ? "active" : ""}
-              onClick={() => setMode("videos")}
-            >
-              Videos
-            </button>
-          </div>
+          <Toggle
+            value={mode}
+            options={[
+              { value: "images", label: "Images" },
+              { value: "videos", label: "Videos" },
+            ]}
+            onChange={setMode as (value: string) => void}
+          />
           <div className="gallery-controls__sort">
             <button
               type="button"
@@ -338,7 +333,7 @@ export default function GalleryClient() {
                 {sort === "trend" ? "Trending" : "Newest"}
               </span>
               <span className="sort-button__icon" aria-hidden>
-                â–¼
+                ▼
               </span>
             </button>
             {sortMenuOpen && (
@@ -361,7 +356,7 @@ export default function GalleryClient() {
                       }}
                     >
                       <span>{opt.label}</span>
-                      {active && <span className="sort-option__check">âœ“</span>}
+                      {active && <span className="sort-option__check">✓</span>}
                     </button>
                   );
                 })}
@@ -387,6 +382,3 @@ export default function GalleryClient() {
     </main>
   );
 }
-
-
-

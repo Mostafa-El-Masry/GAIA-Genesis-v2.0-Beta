@@ -12,10 +12,10 @@ export default function DefaultsCard(){
   }
 
   return (
-    <section className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
+    <section className="gaia-panel rounded-xl border p-4 shadow-sm">
       <div className="mb-2 font-semibold">Defaults</div>
       <div className="flex flex-wrap items-center gap-2">
-        <button onClick={resetSettings} className="rounded-lg border px-3 py-1.5 text-sm">Reset Settings</button>
+        <button onClick={resetSettings} className="gaia-contrast rounded-lg border px-3 py-1.5 text-sm">Reset Settings</button>
       </div>
     </section>
   );

@@ -21,7 +21,7 @@ const INPUT =
 const BUTTON =
   "gaia-border gaia-surface rounded-lg px-3 py-1.5 text-sm font-semibold shadow-sm";
 const TABLE_WRAPPER =
-  "mt-2 rounded-lg border gaia-border bg-[rgba(var(--gaia-surface-rgb),0.6)]";
+  "mt-2 rounded-lg border gaia-border bg-[color-mix(in_srgb,var(--gaia-surface)_88%,transparent)]";
 
 export default function NetWorth() {
   const [items, setItems] = useState<NetItem[]>([]);
@@ -104,7 +104,7 @@ export default function NetWorth() {
           </div>
           <div className={TABLE_WRAPPER}>
             <table className="w-full text-sm">
-              <thead className="bg-black/5">
+              <thead className="gaia-panel-soft">
                 <tr>
                   <th className="p-2 text-left">Name</th>
                   <th className="p-2 text-right">Amount</th>
@@ -128,7 +128,7 @@ export default function NetWorth() {
                 ))}
                 {items.length === 0 && (
                   <tr>
-                    <td className="p-3 text-center opacity-60" colSpan={3}>
+                    <td className="gaia-muted p-3 text-center" colSpan={3}>
                       No items.
                     </td>
                   </tr>
@@ -144,7 +144,7 @@ export default function NetWorth() {
           <div className="font-semibold gaia-strong">Snapshots</div>
           <div className={TABLE_WRAPPER}>
             <table className="w-full text-sm">
-              <thead className="bg-black/5">
+              <thead className="gaia-panel-soft">
                 <tr>
                   <th className="p-2 text-left">Month</th>
                   <th className="p-2 text-right">Total</th>
@@ -154,14 +154,14 @@ export default function NetWorth() {
                 {snaps
                   .sort((a, b) => a.month.localeCompare(b.month))
                   .map((s) => (
-                    <tr key={s.month} className="border-t">
+                    <tr key={s.month} className="gaia-border border-t">
                       <td className="p-2">{s.month}</td>
                       <td className="p-2 text-right">{fmt(s.total)}</td>
                     </tr>
                   ))}
                 {snaps.length === 0 && (
                   <tr>
-                    <td className="p-3 text-center opacity-60" colSpan={2}>
+                    <td className="gaia-muted p-3 text-center" colSpan={2}>
                       No snapshots yet.
                     </td>
                   </tr>

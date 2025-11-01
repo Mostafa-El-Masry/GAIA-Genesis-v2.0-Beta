@@ -13,14 +13,14 @@ export default function CitadelClient() {
       <div className="flex items-center gap-2">
         <Button
           onClick={() => setTab("tower")}
-          className={tab === "tower" ? "" : "opacity-60"}
+          className={tab === "tower" ? "" : "gaia-muted"}
           aria-pressed={tab === "tower"}
         >
           Tower
         </Button>
         <Button
           onClick={() => setTab("academy")}
-          className={tab === "academy" ? "" : "opacity-60"}
+          className={tab === "academy" ? "" : "gaia-muted"}
           aria-pressed={tab === "academy"}
         >
           Academy
