@@ -40,7 +40,7 @@ export default function SectionViewer({ section }: { section: Section }) {
 
   return (
     <article
-      className="prose prose-slate max-w-none text-slate-900"
+      className="prose max-w-none"
       dangerouslySetInnerHTML={renderMarkdown(joined)}
     />
   );

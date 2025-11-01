@@ -13,11 +13,11 @@ import {
 type ChatMessage = { role: 'user' | 'assistant'; content: string };
 
 const fieldStyles =
-  'w-full rounded-2xl border border-slate-200 bg-white/80 px-4 py-2 text-sm font-medium text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-100';
+  'gaia-input w-full rounded-2xl px-4 py-2 text-sm font-medium shadow-sm placeholder:gaia-muted focus:outline-none focus:ring-2 focus:ring-black/10';
 const primaryButton =
-  'inline-flex items-center justify-center rounded-2xl border border-slate-900 bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900 disabled:opacity-50 disabled:cursor-not-allowed';
+  'inline-flex items-center justify-center rounded-2xl border border-transparent bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-sky-600 disabled:cursor-not-allowed disabled:opacity-60';
 const subtleButton =
-  'inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:border-slate-300 hover:bg-white focus:outline-none focus:ring-2 focus:ring-sky-100 disabled:opacity-50';
+  'inline-flex items-center justify-center rounded-2xl border gaia-border gaia-surface px-4 py-2 text-sm font-semibold shadow-sm transition hover:shadow focus:outline-none focus:ring-2 focus:ring-black/10 disabled:opacity-60';
 
 export default function AskPanel({ onChange }: { onChange: (d: ApolloData) => void }) {
   const [data, setData] = useState<ApolloData>({ topics: [] });
@@ -155,10 +155,10 @@ export default function AskPanel({ onChange }: { onChange: (d: ApolloData) => vo
       </div>
 
       <div className='flex flex-wrap items-center gap-3 text-sm'>
-        {statusMessage && <span className='text-slate-500'>{statusMessage}</span>}
+        {statusMessage && <span className='gaia-muted'>{statusMessage}</span>}
         {error && <span className='font-semibold text-rose-600'>{error}</span>}
         {!error && hasHistory && (
-          <button className='text-slate-500 underline-offset-4 hover:text-slate-900' onClick={resetChat}>
+          <button className='gaia-muted underline-offset-4 hover:underline' onClick={resetChat}>
             Reset chat
           </button>
         )}
@@ -166,7 +166,7 @@ export default function AskPanel({ onChange }: { onChange: (d: ApolloData) => vo
 
       <textarea
         ref={taRef}
-        className='min-h-[220px] w-full rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 text-sm font-medium text-slate-900 shadow-sm focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-100'
+        className='gaia-input min-h-[220px] w-full rounded-2xl px-4 py-3 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-black/10'
         value={buffer}
         onChange={(e) => setBuffer(e.target.value)}
       />

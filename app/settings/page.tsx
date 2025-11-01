@@ -1,11 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useDesign, type Theme, type ButtonStyle, type SearchStyle } from '@/app/DesignSystem/context/DesignProvider';
+import { useEffect } from "react";
+import {
+  useDesign,
+  type Theme,
+  type ButtonStyle,
+  type SearchStyle,
+} from "@/app/DesignSystem/context/DesignProvider";
+import ThemeSelector from "@/components/theme/ThemeSelector";
 
-const THEMES: Theme[] = ['light', 'dark', 'charcoal'];
-const BUTTONS: ButtonStyle[] = ['solid', 'outline', 'ghost'];
-const SEARCHES: SearchStyle[] = ['rounded', 'pill', 'underline'];
+const THEMES: Theme[] = ["light", "dark", "charcoal"];
+const BUTTONS: ButtonStyle[] = ["solid", "outline", "ghost"];
+const SEARCHES: SearchStyle[] = ["rounded", "pill", "underline"];
 
 /**
  * Phase 5 baseline: Theme picker + 1 Button + 1 Search style
@@ -21,23 +27,14 @@ export default function SettingsPage() {
     <main className="mx-auto max-w-3xl px-4 py-8 space-y-8">
       <header>
         <h1 className="text-2xl font-semibold">Settings</h1>
-        <p className="text-sm text-gray-600">Per-user theme and UI primitives. Stored locally.</p>
+        <p className="text-sm text-gray-600">
+          Per-user theme and UI primitives. Stored locally.
+        </p>
       </header>
 
-      <section className="space-y-3 rounded-lg border border-gray-200 p-4">
-        <h2 className="font-medium">Theme</h2>
-        <div className="flex flex-wrap items-center gap-2">
-          {THEMES.map((t) => (
-            <button
-              key={t}
-              onClick={() => setTheme(t)}
-              className={`rounded border px-3 py-1 text-sm capitalize ${theme === t ? 'border-gray-900' : 'border-gray-200 hover:border-gray-300'}`}
-            >
-              {t}
-            </button>
-          ))}
-        </div>
-        <p className="text-xs text-gray-500">Applied immediately; saved to your browser.</p>
+      {/* Theme picker */}
+      <section className="space-y-3 rounded-lg border border-gray-200 p-4 mb-8">
+        <ThemeSelector />
       </section>
 
       <section className="space-y-3 rounded-lg border border-gray-200 p-4">
@@ -47,7 +44,11 @@ export default function SettingsPage() {
             <button
               key={b}
               onClick={() => setButton(b)}
-              className={`rounded border px-3 py-1 text-sm capitalize ${button === b ? 'border-gray-900' : 'border-gray-200 hover:border-gray-300'}`}
+              className={`rounded border px-3 py-1 text-sm capitalize ${
+                button === b
+                  ? "border-gray-900"
+                  : "border-gray-200 hover:border-gray-300"
+              }`}
             >
               {b}
             </button>
@@ -62,7 +63,11 @@ export default function SettingsPage() {
             <button
               key={s}
               onClick={() => setSearch(s)}
-              className={`rounded border px-3 py-1 text-sm capitalize ${search === s ? 'border-gray-900' : 'border-gray-200 hover:border-gray-300'}`}
+              className={`rounded border px-3 py-1 text-sm capitalize ${
+                search === s
+                  ? "border-gray-900"
+                  : "border-gray-200 hover:border-gray-300"
+              }`}
             >
               {s}
             </button>

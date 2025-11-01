@@ -21,15 +21,15 @@ export default function SectionFullView({ sectionId }: { sectionId: string }) {
 
   if (!foundSection) {
     return (
-      <div className="min-h-screen bg-slate-50 p-8">
+      <div className="min-h-screen gaia-surface-soft p-8">
         <div className="mx-auto max-w-4xl">
           <div className="mb-4 flex items-center justify-between">
-            <h1 className="text-xl font-semibold">Section not found</h1>
-            <Link href="/apollo" className="text-sm text-slate-600">
+            <h1 className="gaia-strong text-xl font-semibold">Section not found</h1>
+            <Link href="/apollo" className="text-sm gaia-muted underline-offset-4 hover:underline">
               Back
             </Link>
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-white/80 p-6 text-slate-600">
+          <div className="gaia-surface rounded-2xl border gaia-border p-6 gaia-muted">
             The requested section could not be found in your archives.
           </div>
         </div>
@@ -38,26 +38,26 @@ export default function SectionFullView({ sectionId }: { sectionId: string }) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen gaia-surface-soft">
       <div className="mx-auto max-w-5xl p-6">
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <div className="text-xs font-semibold uppercase text-slate-400">
+            <div className="text-xs font-semibold uppercase gaia-muted">
               {topicTitle}
             </div>
-            <h1 className="text-2xl font-bold">{foundSection.heading}</h1>
+            <h1 className="gaia-strong text-2xl font-bold">{foundSection.heading}</h1>
           </div>
           <div className="flex gap-3">
             <Link
               href="/apollo"
-              className="inline-flex items-center rounded-2xl border border-slate-200 bg-white/80 px-3 py-2 text-sm text-slate-700"
+              className="inline-flex items-center rounded-2xl border gaia-border gaia-surface px-3 py-2 text-sm shadow-sm transition hover:shadow"
             >
               Back to archives
             </Link>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white/90 p-6">
+        <div className="gaia-surface rounded-2xl border gaia-border p-6 shadow-sm">
           <SectionViewer section={foundSection} />
         </div>
       </div>

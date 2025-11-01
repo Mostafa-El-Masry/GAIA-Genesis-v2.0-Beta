@@ -3,9 +3,24 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
+  --foreground-rgb: 15, 23, 42;
+  --background-start-rgb: 248, 250, 252;
   --background-end-rgb: 255, 255, 255;
+  --gaia-surface-rgb: 255, 255, 255;
+  --gaia-surface-soft: 248, 250, 252;
+  --gaia-border-rgb: 226, 232, 240;
+  --gaia-muted-rgb: 100, 116, 139;
+}
+
+html.dark {
+  color-scheme: dark;
+  --foreground-rgb: 226, 232, 240;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 8, 11, 23;
+  --gaia-surface-rgb: 30, 41, 59;
+  --gaia-surface-soft: 38, 50, 77;
+  --gaia-border-rgb: 71, 85, 105;
+  --gaia-muted-rgb: 148, 163, 184;
 }
 
 body {
@@ -16,6 +31,116 @@ body {
     rgb(var(--background-end-rgb))
   );
   min-height: 100vh;
+  background-attachment: fixed;
+}
+
+.dark body {
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+}
+
+.gaia-surface {
+  background-color: rgb(var(--gaia-surface-rgb)) !important;
+  color: rgb(var(--foreground-rgb));
+}
+
+.gaia-surface-soft {
+  background-color: rgb(var(--gaia-surface-soft)) !important;
+  color: rgb(var(--foreground-rgb));
+}
+
+.gaia-border {
+  border-color: rgb(var(--gaia-border-rgb)) !important;
+}
+
+.gaia-muted {
+  color: rgb(var(--gaia-muted-rgb)) !important;
+}
+
+.gaia-strong {
+  color: rgb(var(--foreground-rgb)) !important;
+}
+
+.gaia-chip {
+  background-color: rgba(var(--gaia-surface-rgb), 0.92) !important;
+  color: rgb(var(--foreground-rgb));
+  border: 1px solid rgba(var(--gaia-border-rgb), 0.6);
+}
+
+.gaia-code {
+  background-color: rgb(var(--gaia-surface-soft)) !important;
+  color: rgb(var(--foreground-rgb));
+  border: 1px solid rgba(var(--gaia-border-rgb), 0.5);
+}
+
+.prose {
+  color: rgb(var(--foreground-rgb));
+}
+
+.prose p,
+.prose li {
+  color: rgb(var(--gaia-muted-rgb));
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: rgb(var(--foreground-rgb));
+}
+
+.prose code {
+  background-color: rgb(var(--gaia-surface-soft));
+  color: rgb(var(--foreground-rgb));
+  padding: 0.1em 0.3em;
+  border-radius: 0.25rem;
+}
+
+.gaia-input {
+  background-color: rgb(var(--gaia-surface-soft)) !important;
+  color: rgb(var(--foreground-rgb));
+  border-color: rgb(var(--gaia-border-rgb)) !important;
+}
+
+.gaia-input::placeholder {
+  color: rgba(var(--foreground-rgb), 0.55);
+}
+
+html.dark [class*="bg-white"] {
+  background-color: rgba(var(--gaia-surface-rgb), 0.92) !important;
+}
+
+html.dark [class*="border-black/"],
+html.dark [class*="border-gray-2"] {
+  border-color: rgb(var(--gaia-border-rgb)) !important;
+}
+
+html.dark [class*="text-black"] {
+  color: rgb(var(--foreground-rgb)) !important;
+}
+
+html.dark [class*="text-black/"] {
+  color: rgba(var(--foreground-rgb), 0.7) !important;
+}
+
+html.dark [class*="text-gray-6"] {
+  color: rgba(var(--gaia-muted-rgb), 0.85) !important;
+}
+
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background-color: rgb(var(--gaia-surface-soft));
+  color: rgb(var(--foreground-rgb));
+  border-color: rgb(var(--gaia-border-rgb));
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: rgba(var(--gaia-muted-rgb), 0.7);
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

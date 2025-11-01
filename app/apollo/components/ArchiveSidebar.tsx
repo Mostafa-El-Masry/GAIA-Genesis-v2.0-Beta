@@ -5,9 +5,9 @@ import Link from "next/link";
 import type { ApolloData } from "../lib/types";
 
 const inputStyles =
-  "w-full rounded-2xl border border-slate-200 bg-white/85 px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-100";
+  "gaia-input w-full rounded-2xl px-4 py-2 text-sm font-semibold shadow-sm placeholder:gaia-muted focus:outline-none focus:ring-2 focus:ring-black/10";
 const buttonStyles =
-  "inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:border-slate-300 hover:bg-white focus:outline-none focus:ring-2 focus:ring-sky-100";
+  "inline-flex items-center justify-center rounded-2xl border gaia-border gaia-surface px-4 py-2 text-sm font-semibold shadow-sm transition hover:shadow focus:outline-none focus:ring-2 focus:ring-black/10";
 
 const STORAGE_KEY = "gaia_apollo_v1_notes";
 
@@ -91,26 +91,26 @@ export default function ArchiveSidebar({
     ) ?? [];
 
   return (
-    <aside className="flex h-full flex-col gap-5 rounded-3xl border border-slate-200 bg-gradient-to-b from-white/90 to-white/60 p-6 shadow-lg ring-1 ring-black/5">
+    <aside className="gaia-surface flex h-full flex-col gap-5 rounded-3xl border gaia-border p-6 shadow-lg ring-1 ring-black/5">
       <header className="flex items-center justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-400">
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] gaia-muted">
             Archives
           </p>
-          <p className="text-lg font-semibold text-slate-900">
+          <p className="gaia-strong text-lg font-semibold">
             {current ? current.title : "No topics yet"}
           </p>
         </div>
         {sectionId ? (
           <Link
             href={`/apollo/section/${sectionId}`}
-            className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-lg shadow-slate-900/20"
+            className="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-600 text-white shadow-lg shadow-sky-900/25"
             title="Open active section (full view)"
           >
             <BookIcon />
           </Link>
         ) : (
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-lg shadow-slate-900/20">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-600 text-white shadow-lg shadow-sky-900/25">
             <BookIcon />
           </div>
         )}
@@ -149,7 +149,7 @@ export default function ArchiveSidebar({
       </div>
 
       <div className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-400">
+        <p className="text-xs font-semibold uppercase tracking-[0.35em] gaia-muted">
           Sections
         </p>
         <div className="max-h-[55vh] space-y-2 overflow-y-auto pr-1">
@@ -160,13 +160,13 @@ export default function ArchiveSidebar({
                 key={section.id}
                 className={`w-full rounded-2xl border px-4 py-3 text-left shadow-sm transition ${
                   isActive
-                    ? "border-slate-900 bg-slate-900 text-white shadow-slate-900/30"
-                    : "border-slate-200 bg-white/70 text-slate-900 hover:border-slate-300"
+                    ? "border-sky-700 bg-sky-700 text-white shadow-sky-900/30"
+                    : "gaia-border gaia-surface hover:shadow"
                 }`}
                 onClick={() => setSectionId(section.id)}
               >
-                <div className="font-semibold">{section.heading}</div>
-                <div className="text-xs text-slate-400">
+                <div className="font-semibold gaia-strong">{section.heading}</div>
+                <div className="text-xs gaia-muted">
                   {new Date(section.editedAt).toLocaleString()}
                 </div>
               </button>
@@ -174,7 +174,7 @@ export default function ArchiveSidebar({
           })}
 
           {visibleSections.length === 0 && (
-            <div className="rounded-2xl border border-dashed border-slate-200 px-4 py-6 text-center text-sm text-slate-400">
+            <div className="rounded-2xl border border-dashed gaia-border px-4 py-6 text-center text-sm gaia-muted">
               {current
                 ? "No sections match your filter."
                 : "Create a topic to start archiving."}

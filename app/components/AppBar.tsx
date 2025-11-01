@@ -29,7 +29,7 @@ export default function AppBar() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-black/10 bg-white/70 backdrop-blur">
+    <header className="gaia-border fixed inset-x-0 top-0 z-50 border-b border-black/10 bg-white/70 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-screen-xl items-center gap-3 px-3">
         {/* Left: GAIA/G symbol */}
         <Link href="/" className="flex items-center gap-2">
@@ -59,7 +59,7 @@ export default function AppBar() {
                   if (e.key === "Enter") submit();
                 }}
                 placeholder="Search GAIA…"
-                className="h-10 w-full rounded-full border border-black/10 bg-white/60 px-4 outline-none placeholder:text-black/50 focus:border-black/30"
+                className="gaia-input h-10 w-full rounded-full px-4 outline-none focus:ring-2 focus:ring-black/10"
               />
               {/* Optional: submit button visible to a11y only */}
               <button

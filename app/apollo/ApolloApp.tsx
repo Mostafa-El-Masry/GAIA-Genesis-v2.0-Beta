@@ -20,9 +20,9 @@ import {
 } from "./lib/store";
 
 const panelClasses =
-  "rounded-3xl border border-slate-200 bg-white/80 p-5 shadow-sm ring-1 ring-black/5";
+  "gaia-surface rounded-3xl border gaia-border p-5 shadow-sm ring-1 ring-black/5";
 const subtleButton =
-  "inline-flex items-center justify-center rounded-2xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:border-slate-300 hover:bg-white focus:outline-none focus:ring-2 focus:ring-sky-100";
+  "inline-flex items-center justify-center rounded-2xl border gaia-border gaia-surface px-4 py-2 text-sm font-semibold shadow-sm transition hover:shadow focus:outline-none focus:ring-2 focus:ring-black/10";
 
 export default function ApolloPage() {
   const [data, setData] = useState<ApolloData>({ topics: [] });
@@ -92,7 +92,7 @@ export default function ApolloPage() {
   }, [data, query]);
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
+    <main className="min-h-screen gaia-surface-soft">
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-8 lg:flex-row-reverse">
         <div className="w-full shrink-0 lg:w-80">
           <ArchiveSidebar
@@ -105,12 +105,12 @@ export default function ApolloPage() {
         </div>
 
         <div className="flex-1 space-y-6">
-          <div className="flex flex-col gap-4 border-b border-slate-200 pb-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-col gap-4 border-b gaia-border pb-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-400">
+              <p className="text-xs font-semibold uppercase tracking-[0.35em] gaia-muted">
                 Apollo archives
               </p>
-              <h1 className="text-3xl font-bold tracking-tight">
+              <h1 className="gaia-strong text-3xl font-bold tracking-tight">
                 {topic ? `${topic.title}` : "Choose a topic"}
               </h1>
             </div>
@@ -141,14 +141,14 @@ export default function ApolloPage() {
                 <>
                   <div className="flex flex-wrap items-center gap-3">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
+                      <p className="text-xs font-semibold uppercase tracking-[0.3em] gaia-muted">
                         Active section
                       </p>
-                      <h2 className="text-2xl font-semibold text-slate-900">
+                      <h2 className="gaia-strong text-2xl font-semibold">
                         {section.heading}
                       </h2>
                     </div>
-                    <div className="text-xs text-slate-400">
+                    <div className="text-xs gaia-muted">
                       {new Date(section.editedAt).toLocaleString()}
                     </div>
                     <div className="ml-auto">
@@ -171,7 +171,7 @@ export default function ApolloPage() {
                   )}
                 </>
               ) : (
-                <div className="flex min-h-[220px] items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-white/60 text-center text-sm text-slate-500">
+                <div className="flex min-h-[220px] items-center justify-center rounded-2xl border border-dashed gaia-border gaia-surface-soft text-center text-sm gaia-muted">
                   Select a section from the archives or paste a response from
                   the Ask panel.
                 </div>
@@ -181,9 +181,9 @@ export default function ApolloPage() {
 
           {results.length > 0 && (
             <div className={panelClasses}>
-              <div className="mb-3 flex items-center justify-between">
+              <div className="mb-3 flex items-center justify-between gaia-strong">
                 <h3 className="text-lg font-semibold">Search results</h3>
-                <span className="text-sm text-slate-400">
+                <span className="text-sm gaia-muted">
                   {results.length} hits
                 </span>
               </div>
@@ -191,7 +191,7 @@ export default function ApolloPage() {
                 {results.map((result) => (
                   <button
                     key={result.sectionId}
-                    className="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-left shadow-sm transition hover:border-slate-300 hover:bg-white"
+                    className="gaia-surface w-full rounded-2xl border gaia-border px-4 py-3 text-left shadow-sm transition hover:shadow"
                     onClick={() => {
                       const matchingTopic = data.topics.find((item) =>
                         item.sections.some(
@@ -206,10 +206,10 @@ export default function ApolloPage() {
                       setQuery("");
                     }}
                   >
-                    <div className="font-semibold">
+                    <div className="font-semibold gaia-strong">
                       {result.topic} - {result.heading}
                     </div>
-                    <div className="text-sm text-slate-500">
+                    <div className="text-sm gaia-muted">
                       {result.snippet}...
                     </div>
                   </button>
