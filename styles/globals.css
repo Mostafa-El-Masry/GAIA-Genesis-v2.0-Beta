@@ -10,9 +10,13 @@
   --gaia-surface-soft: 248, 250, 252;
   --gaia-border-rgb: 226, 232, 240;
   --gaia-muted-rgb: 100, 116, 139;
+  --gaia-text-strong: color-mix(in srgb, rgb(var(--foreground-rgb)) 90%, white 10%);
+  --gaia-text-default: color-mix(in srgb, rgb(var(--foreground-rgb)) 75%, rgb(var(--gaia-surface-rgb)) 25%);
+  --gaia-text-muted: color-mix(in srgb, rgb(var(--gaia-muted-rgb)) 85%, white 15%);
 }
 
-html.dark {
+html.dark,
+html[data-theme="dark"] {
   color-scheme: dark;
   --foreground-rgb: 226, 232, 240;
   --background-start-rgb: 15, 23, 42;
@@ -21,10 +25,27 @@ html.dark {
   --gaia-surface-soft: 38, 50, 77;
   --gaia-border-rgb: 71, 85, 105;
   --gaia-muted-rgb: 148, 163, 184;
+  --gaia-text-strong: color-mix(in srgb, rgb(var(--foreground-rgb)) 70%, white 30%);
+  --gaia-text-default: color-mix(in srgb, rgb(var(--foreground-rgb)) 65%, white 35%);
+  --gaia-text-muted: color-mix(in srgb, rgb(var(--gaia-muted-rgb)) 70%, white 30%);
+}
+
+html[data-theme="cupcake"] {
+  color-scheme: light;
+  --foreground-rgb: 83, 62, 92;
+  --background-start-rgb: 252, 242, 248;
+  --background-end-rgb: 247, 232, 239;
+  --gaia-surface-rgb: 255, 250, 253;
+  --gaia-surface-soft: 248, 233, 240;
+  --gaia-border-rgb: 232, 210, 222;
+  --gaia-muted-rgb: 139, 113, 132;
+  --gaia-text-strong: color-mix(in srgb, rgb(var(--foreground-rgb)) 85%, white 15%);
+  --gaia-text-default: color-mix(in srgb, rgb(var(--foreground-rgb)) 70%, rgb(var(--gaia-surface-rgb)) 30%);
+  --gaia-text-muted: color-mix(in srgb, rgb(var(--gaia-muted-rgb)) 80%, white 20%);
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: var(--gaia-text-strong);
   background: linear-gradient(
     to bottom,
     rgb(var(--background-start-rgb)),
@@ -34,7 +55,8 @@ body {
   background-attachment: fixed;
 }
 
-.dark body {
+.dark body,
+html[data-theme="dark"] body {
   background: linear-gradient(
     to bottom,
     rgb(var(--background-start-rgb)),
@@ -44,12 +66,12 @@ body {
 
 .gaia-surface {
   background-color: rgb(var(--gaia-surface-rgb)) !important;
-  color: rgb(var(--foreground-rgb));
+  color: var(--gaia-text-default);
 }
 
 .gaia-surface-soft {
   background-color: rgb(var(--gaia-surface-soft)) !important;
-  color: rgb(var(--foreground-rgb));
+  color: var(--gaia-text-default);
 }
 
 .gaia-border {
@@ -57,89 +79,111 @@ body {
 }
 
 .gaia-muted {
-  color: rgb(var(--gaia-muted-rgb)) !important;
+  color: var(--gaia-text-muted) !important;
 }
 
 .gaia-strong {
-  color: rgb(var(--foreground-rgb)) !important;
+  color: var(--gaia-text-strong) !important;
 }
 
 .gaia-chip {
   background-color: rgba(var(--gaia-surface-rgb), 0.92) !important;
-  color: rgb(var(--foreground-rgb));
+  color: var(--gaia-text-default);
   border: 1px solid rgba(var(--gaia-border-rgb), 0.6);
 }
 
 .gaia-code {
   background-color: rgb(var(--gaia-surface-soft)) !important;
-  color: rgb(var(--foreground-rgb));
+  color: var(--gaia-text-strong);
   border: 1px solid rgba(var(--gaia-border-rgb), 0.5);
 }
 
 .prose {
-  color: rgb(var(--foreground-rgb));
+  color: var(--gaia-text-default);
 }
 
 .prose p,
 .prose li {
-  color: rgb(var(--gaia-muted-rgb));
+  color: var(--gaia-text-muted);
 }
 
 .prose h1,
 .prose h2,
 .prose h3,
 .prose h4 {
-  color: rgb(var(--foreground-rgb));
+  color: var(--gaia-text-strong);
 }
 
 .prose code {
   background-color: rgb(var(--gaia-surface-soft));
-  color: rgb(var(--foreground-rgb));
+  color: var(--gaia-text-strong);
   padding: 0.1em 0.3em;
   border-radius: 0.25rem;
 }
 
 .gaia-input {
   background-color: rgb(var(--gaia-surface-soft)) !important;
-  color: rgb(var(--foreground-rgb));
+  color: var(--gaia-text-default);
   border-color: rgb(var(--gaia-border-rgb)) !important;
 }
 
 .gaia-input::placeholder {
-  color: rgba(var(--foreground-rgb), 0.55);
+  color: color-mix(in srgb, var(--gaia-text-default) 40%, white 60%);
 }
 
-html.dark [class*="bg-white"] {
+.dark [class*="bg-white"],
+html[data-theme="dark"] [class*="bg-white"],
+html[data-theme="cupcake"] [class*="bg-white"] {
   background-color: rgba(var(--gaia-surface-rgb), 0.92) !important;
 }
 
-html.dark [class*="border-black/"],
-html.dark [class*="border-gray-2"] {
+.dark [class*="border-black/"],
+.dark [class*="border-gray-2"],
+html[data-theme="dark"] [class*="border-black/"],
+html[data-theme="dark"] [class*="border-gray-2"],
+html[data-theme="cupcake"] [class*="border-black/"],
+html[data-theme="cupcake"] [class*="border-gray-2"] {
   border-color: rgb(var(--gaia-border-rgb)) !important;
 }
 
-html.dark [class*="text-black"] {
+.dark [class*="text-black"],
+html[data-theme="dark"] [class*="text-black"],
+html[data-theme="cupcake"] [class*="text-black"] {
   color: rgb(var(--foreground-rgb)) !important;
 }
 
-html.dark [class*="text-black/"] {
+.dark [class*="text-black/"],
+html[data-theme="dark"] [class*="text-black/"],
+html[data-theme="cupcake"] [class*="text-black/"] {
   color: rgba(var(--foreground-rgb), 0.7) !important;
 }
 
-html.dark [class*="text-gray-6"] {
+.dark [class*="text-gray-6"],
+html[data-theme="dark"] [class*="text-gray-6"],
+html[data-theme="cupcake"] [class*="text-gray-6"] {
   color: rgba(var(--gaia-muted-rgb), 0.85) !important;
 }
 
-html.dark input,
-html.dark select,
-html.dark textarea {
+.dark input,
+.dark select,
+.dark textarea,
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea,
+html[data-theme="cupcake"] input,
+html[data-theme="cupcake"] select,
+html[data-theme="cupcake"] textarea {
   background-color: rgb(var(--gaia-surface-soft));
   color: rgb(var(--foreground-rgb));
   border-color: rgb(var(--gaia-border-rgb));
 }
 
-html.dark input::placeholder,
-html.dark textarea::placeholder {
+.dark input::placeholder,
+.dark textarea::placeholder,
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder,
+html[data-theme="cupcake"] input::placeholder,
+html[data-theme="cupcake"] textarea::placeholder {
   color: rgba(var(--gaia-muted-rgb), 0.7);
 }
 

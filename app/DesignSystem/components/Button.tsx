@@ -12,7 +12,7 @@ export default function Button({ className = '', children, ...rest }: Props) {
   let style = '';
 
   if (button === 'solid') {
-    style = theme === 'dark' || theme === 'charcoal'
+    style = theme === 'dark'
       ? 'bg-gray-900 text-white hover:bg-gray-800'
       : 'bg-gray-900 text-white hover:bg-gray-800';
   } else if (button === 'outline') {

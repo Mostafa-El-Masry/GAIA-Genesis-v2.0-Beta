@@ -8,10 +8,16 @@ function fmt(n: number) {
   return n.toLocaleString("en-EG", { maximumFractionDigits: 0 });
 }
 
+const PANEL =
+  "gaia-surface rounded-xl border gaia-border p-4 shadow-sm";
+const INPUT =
+  "gaia-input rounded-lg px-3 py-1.5";
+const BUTTON =
+  "gaia-border gaia-surface rounded-lg px-3 py-1.5 text-sm font-semibold shadow-sm";
+
 export default function Simulator() {
   const [tab, setTab] = useState<"A" | "B">("A");
 
-  // Make the simulation inputs editable for each plan so deposits can be changed
   const [baseA, setBaseA] = useState<SimInput>({
     startYear: 2025,
     startMonthIndex: 11,
@@ -33,15 +39,15 @@ export default function Simulator() {
   const res = tab === "A" ? resA : resB;
 
   return (
-    <section className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
+    <section className={PANEL}>
       <header className="mb-3 flex items-center justify-between">
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
-            <h2 className="text-lg font-extrabold tracking-wide">
+            <h2 className="gaia-strong text-lg font-extrabold tracking-wide">
               Savings Simulator
             </h2>
             <span className="text-xs rounded bg-black/5 px-2 py-0.5">
-              3y certs; 15%→10% floor; reinvest interest & maturities until age
+              3y certs; 15%+10% floor; reinvest interest & maturities until age
               60
             </span>
           </div>
@@ -52,19 +58,13 @@ export default function Simulator() {
         </div>
         <div className="flex items-center gap-2">
           <button
-            className={
-              "rounded-lg border px-3 py-1.5 text-sm font-semibold " +
-              (tab === "A" ? "bg-black text-white" : "")
-            }
+            className={`${BUTTON}${tab === "A" ? " bg-black text-white" : ""}`}
             onClick={() => setTab("A")}
           >
             Plan A — {fmt(baseA.baseMonthlyDeposit)}/mo
           </button>
           <button
-            className={
-              "rounded-lg border px-3 py-1.5 text-sm font-semibold " +
-              (tab === "B" ? "bg-black text-white" : "")
-            }
+            className={`${BUTTON}${tab === "B" ? " bg-black text-white" : ""}`}
             onClick={() => setTab("B")}
           >
             Plan B — {fmt(baseB.baseMonthlyDeposit)}/mo
@@ -76,7 +76,7 @@ export default function Simulator() {
         <div className="flex items-center gap-2">
           <label className="text-xs">Plan A deposit</label>
           <input
-            className="rounded-lg border border-black/10 px-3 py-1.5 w-40"
+            className={`${INPUT} w-40`}
             type="number"
             value={baseA.baseMonthlyDeposit}
             onChange={(e) =>
@@ -90,7 +90,7 @@ export default function Simulator() {
         <div className="flex items-center gap-2">
           <label className="text-xs">Plan B deposit</label>
           <input
-            className="rounded-lg border border-black/10 px-3 py-1.5 w-32"
+            className={`${INPUT} w-32`}
             type="number"
             value={baseB.baseMonthlyDeposit}
             onChange={(e) =>
@@ -103,7 +103,7 @@ export default function Simulator() {
         </div>
       </div>
 
-      <div className="overflow-auto rounded-lg border border-black/10">
+      <div className="overflow-auto rounded-lg border gaia-border bg-[rgba(var(--gaia-surface-rgb),0.6)]">
         <table className="w-full text-sm">
           <thead className="bg-black/5">
             <tr>
@@ -118,7 +118,7 @@ export default function Simulator() {
           </thead>
           <tbody>
             {res.rows.map((r) => (
-              <tr key={r.year} className="border-t">
+              <tr key={r.year} className="border-t gaia-border">
                 <td className="p-2">{r.year}</td>
                 <td className="p-2">{r.age}</td>
                 <td className="p-2 text-right">{fmt(r.depositsYTD)}</td>
@@ -142,25 +142,25 @@ export default function Simulator() {
       </div>
 
       <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-4">
-        <div className="rounded-lg border border-black/10 p-3">
+        <div className="rounded-lg border gaia-border p-3 gaia-surface shadow-sm">
           <div className="text-xs opacity-70">Deposited total</div>
           <div className="text-lg font-extrabold">
             {fmt(res.totals.deposited)} EGP
           </div>
         </div>
-        <div className="rounded-lg border border-black/10 p-3">
+        <div className="rounded-lg border gaia-border p-3 gaia-surface shadow-sm">
           <div className="text-xs opacity-70">Active principal (end)</div>
           <div className="text-lg font-extrabold">
             {fmt(res.totals.activePrincipal)} EGP
           </div>
         </div>
-        <div className="rounded-lg border border-black/10 p-3">
+        <div className="rounded-lg border gaia-border p-3 gaia-surface shadow-sm">
           <div className="text-xs opacity-70">Cash (end)</div>
           <div className="text-lg font-extrabold">
             {fmt(res.totals.cash)} EGP
           </div>
         </div>
-        <div className="rounded-lg border border-black/10 p-3">
+        <div className="rounded-lg border gaia-border p-3 gaia-surface shadow-sm">
           <div className="text-xs opacity-70">Net worth (end)</div>
           <div className="text-lg font-extrabold">
             {fmt(res.totals.netWorth)} EGP

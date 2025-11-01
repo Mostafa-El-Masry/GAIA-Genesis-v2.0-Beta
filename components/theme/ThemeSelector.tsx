@@ -1,8 +1,14 @@
 // components/theme/ThemeSelector.tsx
 "use client";
 
-import { useTheme } from "@/components/theme/ThemeProvider";
+import { useTheme, type ThemeName } from "@/components/theme/ThemeProvider";
 import { useDesignSafe } from "@/app/DesignSystem/context/DesignProvider";
+
+const OPTIONS: { value: ThemeName; label: string }[] = [
+  { value: "light", label: "Light" },
+  { value: "dark", label: "Dark" },
+  { value: "cupcake", label: "Cupcake (DaisyUI)" },
+];
 
 export default function ThemeSelector() {
   const { theme, setTheme } = useTheme();
@@ -17,17 +23,19 @@ export default function ThemeSelector() {
         className="select select-bordered w-full"
         value={theme}
         onChange={(e) => {
-          const t = e.target.value as "light" | "dark";
+          const t = e.target.value as ThemeName;
           setTheme(t);
-          // If the DesignProvider is present, keep its copy in sync so UI
-          // elsewhere (settings buttons, previews) updates immediately.
+          // Keep DesignProvider in sync so previews update immediately.
           try {
             design?.setTheme(t);
           } catch {}
         }}
       >
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
+        {OPTIONS.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
       </select>
 
       <p className="mt-3 text-xs opacity-70">

@@ -19,14 +19,17 @@ export default async function RootLayout({
   // Try the cookies().get API if available; otherwise fall back to parsing
   // the raw Cookie header via headers(). This keeps the server component
   // resilient across Next versions/environments.
-  let cookieTheme = "light" as "light" | "dark";
+  const SUPPORTED_THEMES = new Set(["light", "dark", "cupcake"] as const);
+  type ThemeName = "light" | "dark" | "cupcake";
+  let cookieTheme: ThemeName = "light";
 
   try {
     const c = await cookies();
     if (c && typeof (c as any).get === "function") {
-      cookieTheme = ((c as any).get("gaia.theme")?.value ?? "light") as
-        | "light"
-        | "dark";
+      const raw = (c as any).get("gaia.theme")?.value ?? "light";
+      cookieTheme = SUPPORTED_THEMES.has(raw as ThemeName)
+        ? (raw as ThemeName)
+        : "light";
     } else {
       // Fallback: parse Cookie header
       const hdrs = await headers();
@@ -39,10 +42,14 @@ export default async function RootLayout({
         if (match) {
           const val = match.split("=").slice(1).join("=");
           try {
-            cookieTheme =
-              (decodeURIComponent(val) as any) === "dark" ? "dark" : "light";
+            const decoded = decodeURIComponent(val);
+            cookieTheme = SUPPORTED_THEMES.has(decoded as ThemeName)
+              ? (decoded as ThemeName)
+              : "light";
           } catch {
-            cookieTheme = val === "dark" ? "dark" : "light";
+            cookieTheme = SUPPORTED_THEMES.has(val as ThemeName)
+              ? (val as ThemeName)
+              : "light";
           }
         }
       }
@@ -52,7 +59,9 @@ export default async function RootLayout({
     cookieTheme = "light";
   }
 
-  const initialTheme = cookieTheme === "dark" ? "dark" : "light";
+  const initialTheme: ThemeName = SUPPORTED_THEMES.has(cookieTheme)
+    ? cookieTheme
+    : "light";
 
   return (
     <html

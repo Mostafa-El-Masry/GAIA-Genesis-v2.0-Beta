@@ -2,6 +2,13 @@
 
 import { loadTx, loadBudgets, loadGoals, loadNetItems, loadNetSnaps, saveTx, saveBudgets, saveGoals, saveNetItems, saveNetSnaps } from '../lib/store';
 
+const PANEL =
+  "gaia-surface rounded-xl border gaia-border p-4 shadow-sm";
+const BUTTON_PRIMARY =
+  "gaia-border gaia-surface rounded-lg px-3 py-1.5 text-sm font-semibold shadow-sm";
+const BUTTON =
+  "gaia-border gaia-surface rounded-lg px-3 py-1.5 text-sm shadow-sm";
+
 export default function ExportImport(){
   function doExport(){
     const payload = {
@@ -38,11 +45,11 @@ export default function ExportImport(){
     input.click();
   }
   return (
-    <section className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
-      <h2 className="mb-2 text-lg font-extrabold tracking-wide">Export / Import</h2>
+    <section className={PANEL}>
+      <h2 className="mb-2 text-lg font-extrabold tracking-wide gaia-strong">Export / Import</h2>
       <div className="flex items-center gap-2">
-        <button onClick={doExport} className="rounded-lg border px-3 py-1.5 text-sm font-semibold">Export JSON</button>
-        <button onClick={doImport} className="rounded-lg border px-3 py-1.5 text-sm">Import JSON</button>
+        <button onClick={doExport} className={BUTTON_PRIMARY}>Export JSON</button>
+        <button onClick={doImport} className={BUTTON}>Import JSON</button>
       </div>
     </section>
   );

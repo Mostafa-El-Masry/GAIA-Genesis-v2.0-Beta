@@ -9,7 +9,7 @@ import {
 } from "@/app/DesignSystem/context/DesignProvider";
 import ThemeSelector from "@/components/theme/ThemeSelector";
 
-const THEMES: Theme[] = ["light", "dark", "charcoal"];
+const THEMES: Theme[] = ["light", "dark", "cupcake"];
 const BUTTONS: ButtonStyle[] = ["solid", "outline", "ghost"];
 const SEARCHES: SearchStyle[] = ["rounded", "pill", "underline"];
 

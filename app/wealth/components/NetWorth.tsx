@@ -14,6 +14,15 @@ function fmt(n: number) {
   return n.toLocaleString("en-EG", { maximumFractionDigits: 0 });
 }
 
+const PANEL =
+  "gaia-surface rounded-xl border gaia-border p-4 shadow-sm";
+const INPUT =
+  "gaia-input rounded-lg px-3 py-1.5";
+const BUTTON =
+  "gaia-border gaia-surface rounded-lg px-3 py-1.5 text-sm font-semibold shadow-sm";
+const TABLE_WRAPPER =
+  "mt-2 rounded-lg border gaia-border bg-[rgba(var(--gaia-surface-rgb),0.6)]";
+
 export default function NetWorth() {
   const [items, setItems] = useState<NetItem[]>([]);
   const [month, setMonth] = useState<string>(
@@ -50,18 +59,18 @@ export default function NetWorth() {
   }
 
   return (
-    <section className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
+    <section className={PANEL}>
       <div className="mb-2 flex items-center justify-between">
-        <h2 className="text-lg font-extrabold tracking-wide">Net Worth</h2>
+        <h2 className="text-lg font-extrabold tracking-wide gaia-strong">Net Worth</h2>
         <div className="flex items-center gap-2">
           <input
-            className="rounded-lg border border-black/10 px-3 py-1.5"
+            className={INPUT}
             type="month"
             value={month}
             onChange={(e) => setMonth(e.target.value)}
           />
           <button
-            className="rounded-lg border px-3 py-1.5 text-sm"
+            className={BUTTON}
             onClick={snapshot}
           >
             Snapshot
@@ -70,30 +79,30 @@ export default function NetWorth() {
       </div>
 
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-        <div className="rounded-lg border border-black/10 p-3">
-          <div className="font-semibold">Items</div>
+        <div className="rounded-lg border gaia-border p-3 gaia-surface shadow-sm">
+          <div className="font-semibold gaia-strong">Items</div>
           <div className="mt-2 flex items-center gap-2">
             <input
-              className="rounded-lg border border-black/10 px-3 py-1.5"
+              className={INPUT}
               placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <input
-              className="rounded-lg border border-black/10 px-3 py-1.5"
+              className={INPUT}
               placeholder="Amount (+/-)"
               type="number"
               value={amount ?? ""}
               onChange={(e) => setAmount(Number(e.target.value))}
             />
             <button
-              className="rounded-lg border px-3 py-1.5 text-sm"
+              className={BUTTON}
               onClick={add}
             >
               Add
             </button>
           </div>
-          <div className="mt-2 rounded-lg border border-black/10">
+          <div className={TABLE_WRAPPER}>
             <table className="w-full text-sm">
               <thead className="bg-black/5">
                 <tr>
@@ -104,12 +113,12 @@ export default function NetWorth() {
               </thead>
               <tbody>
                 {items.map((i) => (
-                  <tr key={i.id} className="border-t">
+                  <tr key={i.id} className="border-t gaia-border">
                     <td className="p-2">{i.name}</td>
                     <td className="p-2 text-right">{fmt(i.amount)}</td>
                     <td className="p-2 text-right">
                       <button
-                        className="rounded-lg border px-2 py-1 text-xs"
+                        className="gaia-border gaia-surface rounded-lg px-2 py-1 text-xs font-semibold shadow-sm"
                         onClick={() => remove(i.id)}
                       >
                         Delete
@@ -131,9 +140,9 @@ export default function NetWorth() {
             Total: <span className="font-bold">{fmt(total)}</span>
           </div>
         </div>
-        <div className="rounded-lg border border-black/10 p-3">
-          <div className="font-semibold">Snapshots</div>
-          <div className="mt-2 rounded-lg border border-black/10">
+        <div className="rounded-lg border gaia-border p-3 gaia-surface shadow-sm">
+          <div className="font-semibold gaia-strong">Snapshots</div>
+          <div className={TABLE_WRAPPER}>
             <table className="w-full text-sm">
               <thead className="bg-black/5">
                 <tr>

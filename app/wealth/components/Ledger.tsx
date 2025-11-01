@@ -19,6 +19,11 @@ function match(t: Transaction, f: FilterState): boolean {
 
 function fmt(n: number){ return n.toLocaleString('en-EG', { maximumFractionDigits: 0 }); }
 
+const PANEL =
+  "gaia-surface rounded-xl border gaia-border p-4 shadow-sm";
+const BUTTON =
+  "gaia-border gaia-surface rounded-lg px-2 py-1 text-xs font-semibold shadow-sm";
+
 export default function Ledger({ filter }:{ filter: FilterState }){
   const [list, setList] = useState<Transaction[]>([]);
   useEffect(()=>{ setList(loadTx()); }, []);
@@ -30,11 +35,11 @@ export default function Ledger({ filter }:{ filter: FilterState }){
   }
 
   return (
-    <section className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
-      <h2 className="mb-2 text-lg font-extrabold tracking-wide">Ledger</h2>
-      <div className="overflow-auto rounded-lg border border-black/10">
+    <section className={PANEL}>
+      <h2 className="mb-2 text-lg font-extrabold tracking-wide gaia-strong">Ledger</h2>
+      <div className="overflow-auto rounded-lg border gaia-border bg-[rgba(var(--gaia-surface-rgb),0.6)]">
         <table className="w-full text-sm">
-          <thead className="bg-black/5"><tr>
+          <thead className="bg-black/5"><tr className="gaia-strong">
             <th className="p-2 text-left">Date</th>
             <th className="p-2 text-left">Type</th>
             <th className="p-2 text-left">Category</th>
@@ -45,14 +50,14 @@ export default function Ledger({ filter }:{ filter: FilterState }){
           </tr></thead>
           <tbody>
             {filtered.map(t => (
-              <tr key={t.id} className="border-t">
+              <tr key={t.id} className="border-t gaia-border">
                 <td className="p-2">{new Date(t.date).toLocaleDateString()}</td>
                 <td className="p-2">{t.type}</td>
                 <td className="p-2">{t.category}</td>
                 <td className="p-2">{t.tags.join(', ')}</td>
                 <td className="p-2">{t.note}</td>
                 <td className={"p-2 text-right " + (t.type==='expense'?'text-red-600':'text-emerald-700')}>{fmt(t.amount)}</td>
-                <td className="p-2 text-right"><button className="rounded-lg border px-2 py-1 text-xs" onClick={()=>remove(t.id)}>Delete</button></td>
+                <td className="p-2 text-right"><button className={BUTTON} onClick={()=>remove(t.id)}>Delete</button></td>
               </tr>
             ))}
             {filtered.length===0 && <tr><td className="p-3 text-center opacity-60" colSpan={7}>No transactions yet.</td></tr>}

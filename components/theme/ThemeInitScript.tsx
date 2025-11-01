@@ -9,7 +9,8 @@ export default function ThemeInitScript() {
       if (!t && typeof localStorage !== 'undefined') {
         t = localStorage.getItem('gaia.theme');
       }
-      t = (t === 'dark') ? 'dark' : 'light';
+      var allowed = { light: true, dark: true, cupcake: true };
+      t = allowed[t] ? t : 'light';
       var root = document.documentElement;
       root.setAttribute('data-theme', t);
       if (t === 'dark') root.classList.add('dark'); else root.classList.remove('dark');

@@ -19,11 +19,11 @@ export default function WealthPage() {
   });
 
   return (
-    <main className="min-h-screen bg-white text-black">
+    <main className="min-h-screen gaia-surface-soft">
       <div className="fixed left-4 top-4 z-40">
         <a
           href="/"
-          className="inline-flex items-center gap-2 rounded-lg border bg-white/90 px-3 py-1.5 text-sm font-semibold"
+          className="inline-flex items-center gap-2 rounded-lg border gaia-border gaia-surface px-3 py-1.5 text-sm font-semibold shadow-sm"
         >
           ⟵ GAIA
         </a>
@@ -31,7 +31,7 @@ export default function WealthPage() {
 
       <div className="mx-auto max-w-6xl space-y-4 p-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-extrabold tracking-wide">
+          <h1 className="gaia-strong text-2xl font-extrabold tracking-wide">
             Wealth — Week 6
           </h1>
         </div>

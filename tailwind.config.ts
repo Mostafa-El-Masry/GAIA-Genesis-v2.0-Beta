@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import typography from "@tailwindcss/typography";
+import daisyui from "daisyui";
 
 export default {
   darkMode: "class", // IMPORTANT: enables Tailwind's dark: variants via .dark on <html>
@@ -35,5 +36,10 @@ export default {
       className: "prose",
       target: "modern",
     }),
+    daisyui,
   ],
+  daisyui: {
+    themes: ["light", "dark", "cupcake"],
+    darkTheme: "dark",
+  },
 } satisfies Config;

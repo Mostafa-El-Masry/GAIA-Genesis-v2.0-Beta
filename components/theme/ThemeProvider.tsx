@@ -9,23 +9,28 @@ import React, {
   useState,
 } from "react";
 
-type Theme = "light" | "dark";
+export type ThemeName = "light" | "dark" | "cupcake";
+const SUPPORTED_THEMES: readonly ThemeName[] = ["light", "dark", "cupcake"];
+
+function isTheme(value: unknown): value is ThemeName {
+  return typeof value === "string" && SUPPORTED_THEMES.includes(value as ThemeName);
+}
 
 type ThemeContextValue = {
-  theme: Theme;
-  setTheme: (t: Theme) => void;
+  theme: ThemeName;
+  setTheme: (t: ThemeName) => void;
 };
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-function applyThemeToDOM(t: Theme) {
+function applyThemeToDOM(t: ThemeName) {
   const root = document.documentElement;
   root.setAttribute("data-theme", t);
   if (t === "dark") root.classList.add("dark");
   else root.classList.remove("dark");
 }
 
-function persistTheme(t: Theme) {
+function persistTheme(t: ThemeName) {
   try {
     // 1 year
     document.cookie = `gaia.theme=${encodeURIComponent(
@@ -41,12 +46,12 @@ export function ThemeProvider({
   initialTheme,
   children,
 }: {
-  initialTheme: Theme;
+  initialTheme: ThemeName;
   children: React.ReactNode;
 }) {
-  const [theme, setThemeState] = useState<Theme>(initialTheme);
+  const [theme, setThemeState] = useState<ThemeName>(initialTheme);
 
-  const setTheme = useCallback((t: Theme) => {
+  const setTheme = useCallback((t: ThemeName) => {
     setThemeState(t);
     applyThemeToDOM(t);
     persistTheme(t);
@@ -63,7 +68,7 @@ export function ThemeProvider({
           ls = null;
         }
       }
-      if (ls && (ls === "light" || ls === "dark") && ls !== theme) {
+      if (isTheme(ls) && ls !== theme) {
         setTheme(ls);
         return;
       }

@@ -8,6 +8,17 @@ function fmt(n: number) {
   return n.toLocaleString("en-EG", { maximumFractionDigits: 0 });
 }
 
+const PANEL =
+  "gaia-surface rounded-xl border gaia-border p-4 shadow-sm";
+const CARD =
+  "gaia-surface rounded-lg border gaia-border p-3 shadow-sm";
+const INPUT =
+  "gaia-input rounded-lg px-3 py-1.5";
+const BUTTON_SM =
+  "gaia-border gaia-surface rounded-lg px-2 py-1 text-xs font-semibold shadow-sm";
+const BUTTON =
+  "gaia-border gaia-surface rounded-lg px-3 py-1.5 text-sm font-semibold shadow-sm";
+
 export default function Goals() {
   const [list, setList] = useState<Goal[]>([]);
   const [title, setTitle] = useState("");
@@ -39,8 +50,8 @@ export default function Goals() {
   }
 
   return (
-    <section className="rounded-xl border border-black/10 bg-white p-4 shadow-sm">
-      <h2 className="mb-2 text-lg font-extrabold tracking-wide">Goals</h2>
+    <section className={PANEL}>
+      <h2 className="mb-2 text-lg font-extrabold tracking-wide gaia-strong">Goals</h2>
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((g) => {
           const pct = Math.min(
@@ -48,8 +59,8 @@ export default function Goals() {
             Math.round((g.saved / (g.target || 1)) * 100)
           );
           return (
-            <div key={g.id} className="rounded-lg border border-black/10 p-3">
-              <div className="flex items-center justify-between">
+            <div key={g.id} className={CARD}>
+              <div className="flex items-center justify-between gaia-strong">
                 <div className="font-semibold">{g.title}</div>
                 <div className="text-sm">
                   {fmt(g.saved)} / {fmt(g.target)}
@@ -60,19 +71,19 @@ export default function Goals() {
               </div>
               <div className="mt-2 flex items-center gap-2">
                 <button
-                  className="rounded-lg border px-2 py-1 text-xs"
+                  className={BUTTON_SM}
                   onClick={() => adjust(g.id, 1000)}
                 >
                   +1k
                 </button>
                 <button
-                  className="rounded-lg border px-2 py-1 text-xs"
+                  className={BUTTON_SM}
                   onClick={() => adjust(g.id, -1000)}
                 >
                   -1k
                 </button>
                 <button
-                  className="ml-auto rounded-lg border px-2 py-1 text-xs"
+                  className={`ml-auto ${BUTTON_SM}`}
                   onClick={() => remove(g.id)}
                 >
                   Delete
@@ -86,20 +97,20 @@ export default function Goals() {
 
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <input
-          className="rounded-lg border border-black/10 px-3 py-1.5"
+          className={INPUT}
           placeholder="Goal title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <input
-          className="rounded-lg border border-black/10 px-3 py-1.5"
+          className={INPUT}
           placeholder="Target amount"
           type="number"
           value={target ?? ""}
           onChange={(e) => setTarget(Number(e.target.value))}
         />
         <button
-          className="rounded-lg border px-3 py-1.5 text-sm font-semibold"
+          className={BUTTON}
           onClick={add}
         >
           Add Goal
